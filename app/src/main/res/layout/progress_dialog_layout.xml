@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar"
+            android:layout_width="@dimen/_80px"
+            android:layout_height="@dimen/_80px"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress_draw"
+            android:indeterminate="false" />
+
+        <!--<TextView-->
+            <!--android:layout_width="@dimen/_320px"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/img_gif"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginTop="-10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="努力加载中..."-->
+            <!--android:textColor="#999999"-->
+            <!--android:textSize="@dimen/_32px" />-->
+    </RelativeLayout>
+
+</RelativeLayout>

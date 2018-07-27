@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.RegisterActivity">
+    <include layout="@layout/common_tool_bar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:background="@color/white"
+            android:orientation="vertical" >
+            <View style="@style/ll_cut_style" />
+            <!-- 手机号 -->
+            <LinearLayout
+                style="@style/ll_tab_title_style">
+
+                <TextView
+                    style="@style/tv_tab_title_style"
+                    android:text="@string/phone_number_string" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/et_info_style"
+                    android:hint="@string/write_phone_number"
+                    android:inputType="phone"/>
+
+            </LinearLayout>
+
+            <View style="@style/ll_cut_style" />
+            <!-- 验证码 -->
+
+            <LinearLayout style="@style/ll_tab_title_style" >
+
+                <TextView
+
+                    style="@style/tv_tab_title_style"
+                    android:text="@string/check_code" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <EditText
+                        android:id="@+id/et_code"
+                        style="@style/et_info_style"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/btn_get_code"
+                        android:hint="@string/write_check_code"
+                        android:maxLength="10"
+                        android:numeric="integer"/>
+
+                    <TextView
+                        android:id="@+id/btn_get_code"
+                        style="@style/btn_recode_style"
+                        android:layout_width="@dimen/_150px"
+                        android:layout_height="@dimen/_55px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/get_check_code" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View style="@style/ll_cut_style" />
+            <!-- 密码 -->
+
+            <LinearLayout style="@style/ll_tab_title_style" >
+
+                <TextView
+                    style="@style/tv_tab_title_style"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/et_info_style"
+                    android:layout_marginLeft="@dimen/_20px"
+                    android:hint="@string/write_password"
+                    android:inputType="textPassword"
+                    android:maxLength="16"/>
+            </LinearLayout>
+
+            <View style="@style/ll_cut_style" />
+            <!--确认密码-->
+            <LinearLayout style="@style/ll_tab_title_style" >
+
+                <TextView
+                    style="@style/tv_tab_title_style"
+                    android:text="@string/confim_psw_tips" />
+
+                <EditText
+                    android:id="@+id/et_password_affirm"
+                    style="@style/et_info_style"
+                    android:hint="@string/confim_psw"
+                    android:inputType="textPassword"
+                    android:maxLength="16"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/btn_register"
+            style="@style/btn_register_style"
+            android:layout_marginTop="@dimen/_100px"
+            android:text="@string/user_register" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_42px"
+            android:orientation="horizontal"
+            android:gravity="center"
+           >
+            <CheckBox
+                android:id="@+id/box_user_agreement"
+                android:layout_width="@dimen/_58px"
+                android:layout_height="wrap_content"
+                style="@style/CustomCheckboxTheme"
+                android:checked="true" />
+
+            <TextView
+                android:id="@+id/text_user_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我已阅读并且同意车图《车图服务协议》"
+                android:textColor="#999999"
+                android:textSize="@dimen/_28px" />
+
+        </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

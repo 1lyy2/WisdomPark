@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".fragment.NearFragment">
+    <RelativeLayout
+        android:id="@+id/near_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_65px"
+        android:background="@drawable/goods_list_search_bar_bg"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_10px"
+        android:layout_marginBottom="@dimen/_10px"
+        android:paddingLeft="@dimen/_10px"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/near_edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="@dimen/_20px"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="请输入地点、路段名称"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/_5px"
+            android:singleLine="true"
+            android:focusable="false"
+            android:textColor="#666666"
+            android:textSize="@dimen/_28px"
+            android:paddingRight="@dimen/_63px"
+            android:textColorHint="#999999" />
+
+    </RelativeLayout>
+    <com.amap.api.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

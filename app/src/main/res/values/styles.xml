@@ -1,0 +1,42 @@
+<resources>
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/MyActionStyle</item>
+        <item name="android:windowBackground">@color/common_background</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/color_666666</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/BaseAppTheme">
+
+    </style>
+
+    <!-- 定义ActionBar -->
+    <style name="MyActionStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/common_title_background</item>
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
+    </style>
+    <!-- ActionBar的title字体 -->
+    <style name="ActionBarTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/common_title_text</item>
+        <item name="android:textSize">@dimen/_33px</item>
+    </style>
+    <!--闪屏页的-->
+    <style name="ThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--这一行是主要代码,其他看情况自己加-->
+        <item name="android:windowBackground">@mipmap/bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/register_checkbox_selector</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

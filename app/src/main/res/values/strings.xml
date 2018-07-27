@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">智慧泊车</string>
+    <!--界面标题-->
+    <string name="user_login">登录</string>
+    <string name="user_register">注册</string>
+    <string name="index">首页</string>
+    <string name="fragment_index">首页</string>
+    <string name="fragment_me">我的</string>
+    <string name="fragment_near">附近</string>
+    <string name="str_double_click_exit">再点一次退出应用</string>
+    <string name="confim_psw">请确认密码</string>
+    <string name="confim_psw_tips">确认密码</string>
+    <string name="phone_number_string">手机号</string>
+    <string name="write_phone_number">请输入手机号码</string>
+    <string name="check_code">验证码</string>
+    <string name="write_check_code">请输入验证码</string>
+    <string name="get_check_code">获取验证码</string>
+    <string name="password">密码</string>
+    <string name="write_password">请输入密码</string>
+    <string name="search_string">搜索</string>
+</resources>

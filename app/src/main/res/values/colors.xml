@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_dark">@color/color_transparent</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="white">@color/color_ffffff</color>
+    <color name="color_737675">#737675</color>
+    <color name="color_black">#000000</color>
+    <color name="color_fcfcfc">#fcfcfc</color>
+    <color name="color_ebebeb">#ebebeb</color>
+    <color name="color_686868">#686868</color>
+    <color name="color_686869">#686869</color>
+    <color name="color_fe3e3c">#fe3e3c</color>
+    <color name="color_3c3c5e">#3c3c5e</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_393939">#393939</color>
+    <color name="color_ff699e">#ff699e</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="primary">@color/color_ffffff</color>
+    <color name="common_title_text">@color/color_333333</color>
+    <color name="common_title_background">@color/primary</color>
+    <color name="common_background">@color/color_fcfcfc</color>
+
+    <!-- 全客户端使用的边框，分割线颜色 -->
+    <color name="common_line_color">#E2E2E2</color>
+    <color name="common_line_bottom">#f2f2f2</color>
+    <color name="common_spite_color">#e5e5e5</color>
+    <!--主界面Tab字体颜色-->
+    <color name="tab_sel_color">#0CCAC5</color>
+    <color name="tab_unsel_color">#7A7E83</color>
+    <!--确定弹出框的几种颜色颜色-->
+    <!--标题栏背景-->
+    <color name="title_bg_color">#0CCAC5</color>
+    <color name="tab_main_color">#ffffff</color>
+</resources>

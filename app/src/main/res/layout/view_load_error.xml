@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/load_error_view">
+    
+     <TextView 
+        android:id="@+id/load_error_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/_28px"   
+        android:textColor="@color/color_737675"
+        android:text="加载失败啦！点击重新加载..."
+         android:visibility="invisible"
+        />
+
+</LinearLayout>
