@@ -3,6 +3,9 @@ package com.zykj.carfigure.fragment;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.EditText;
@@ -24,13 +27,17 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.TranslateAnimation;
+import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.activity.SearchActivity;
+import com.zykj.carfigure.adapter.NearMapAdapter;
 import com.zykj.carfigure.base.BaseFragment;
+import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.location.marker.MarkerOverlay;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.utils.Utils;
+import com.zykj.carfigure.views.NearMapItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,19 +47,20 @@ import butterknife.OnClick;
 
 public class NearFragment extends BaseFragment implements LocationSource, AMapLocationListener, AMap.OnCameraChangeListener, AMap.OnMapLoadedListener, MarkerOverlay.OnMarkerOnClickListener {
     @BindView(R.id.mapview)
-    public  MapView                                  mapView;
+    public MapView mapView;
     @BindView(R.id.near_edit_search)
-    public  EditText                                 search_edt;
-    private AMap                                     aMap;
-    private MyLocationStyle                          myLocationStyle;
+    public EditText search_edt;
+    @BindView(R.id.recycleview_map)
+    public RecyclerView mapRecyclerView;
+    private AMap aMap;
+    private MyLocationStyle myLocationStyle;
     private LocationSource.OnLocationChangedListener mListener;
-    private AMapLocationClient                       locationClient;
-    private AMapLocationClientOption                 clientOption;
-    private Marker                                   locationMarker;
-    private MarkerOverlay                            markerOverlay;
-    private LatLng                                   center;
-    private boolean                                  isRemove;
-    private double test  = 22.808286;
+    private AMapLocationClient locationClient;
+    private AMapLocationClientOption clientOption;
+    private Marker locationMarker;
+    private MarkerOverlay markerOverlay;
+    private NearMapAdapter nearMapAdapter;
+    private double test = 22.808286;
     private double test1 = 108.401713;
 
     @Override
@@ -65,6 +73,7 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
     protected void initView(View rootView) {
         search_edt.setFocusable(false);//让EditText失去焦点，然后获取点击事件
         init();
+        initAdapter();
     }
 
     private void init() {
@@ -87,11 +96,32 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
         aMap.setMyLocationEnabled(true);
     }
 
+    private void initAdapter() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mapRecyclerView.setLayoutManager(linearLayoutManager);
+        int leftRight = Utils.dip2px(getContext(),6);
+        int topBottom = Utils.dip2px(getContext(),6);
+        mapRecyclerView.addItemDecoration(new NearMapItemDecoration(leftRight,topBottom));
+        nearMapAdapter =new NearMapAdapter(getContext());
+        nearMapAdapter.setList(getStreetList());
+        mapRecyclerView.setAdapter(nearMapAdapter);
+        //RecyclerView实现广告轮播图
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mapRecyclerView);
+    }
+
+    private List<Street> getStreetList() {
+        List<Street> list = new ArrayList<>();
+        list.add(new Street(new LatLng(22.808396, 108.401713), "中华路", 100, 52, 520));
+        list.add(new Street(new LatLng(22.808486, 108.401813), "桂雅路", 120, 12, 530));
+        list.add(new Street(new LatLng(22.808386, 108.401913), "长岗路", 550, 82, 800));
+        list.add(new Street(new LatLng(22.808296, 108.401783), "朝阳路", 80, 12, 200));
+        return list;
+    }
+
 
     private List<LatLng> getPointList() {
-        double location = 0.00001;
-        test += location;
-        test1 += location;
+
         List<LatLng> pointList = new ArrayList<LatLng>();
         pointList.add(new LatLng(22.808396, 108.401713));
         pointList.add(new LatLng(22.808486, 108.401813));
@@ -191,7 +221,6 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
                     && aMapLocation.getErrorCode() == 0) {
                 mListener.onLocationChanged(aMapLocation);
                 LatLng curLatlng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                center = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                 aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLatlng, 16f));
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
@@ -249,7 +278,6 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
      * 屏幕中心marker 跳动
      */
     public void startJumpAnimation() {
-        isRemove = true;
         if (locationMarker != null) {
             //根据屏幕距离计算需要移动的目标点
             final LatLng latLng = locationMarker.getPosition();
@@ -295,7 +323,7 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
             markerOverlay.removeFromMap();
         }
         startJumpAnimation();
-        markerOverlay = new MarkerOverlay(aMap, getPointList(), getContext());
+        markerOverlay = new MarkerOverlay(aMap, getStreetList(), getContext());
         markerOverlay.setOnMarkerOnClickListener(this);
 
     }
@@ -308,18 +336,20 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
 
     @Override
     public void onMarkerCnClick(Marker marker) {
-      /*  if(mMarker!=null){
-            markerOverlay.removeOneMarker(mMarker);
-            LatLng position = mMarker.getPosition();
-            markerOverlay.addDefault(position);
-        }
-        mMarker = marker;*/
-        int number = Integer.valueOf(marker.getObject().toString());
-        //获取 Marker 覆盖物的位置坐标。
-        LatLng position = marker.getPosition();
+        Street street = (Street) marker.getObject();
+        int number = street.getId();
         ToastManager.showShortToast(getActivity(), "marker序列号为：" + number);
+        smoothMoveToPosition(mapRecyclerView,number);
+
     }
-
-
+    /**
+     * 滑动到指定位置
+     *
+     * @param mRecyclerView
+     * @param position
+     */
+    private void smoothMoveToPosition(RecyclerView mRecyclerView, final int position) {
+        mRecyclerView.smoothScrollToPosition(position);
+    }
 
 }

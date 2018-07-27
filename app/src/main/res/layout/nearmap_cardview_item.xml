@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_20px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rel_go_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150px">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_20px"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_street_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_20px"
+                        android:text="中华路" />
+
+                    <TextView
+                        android:id="@+id/tv_street_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="580km" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_free_park"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_20px"
+                        android:text="空车位：36" />
+
+                    <TextView
+                        android:id="@+id/tv_total_park"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总车位：55" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_20px"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_80px"
+                    android:layout_height="@dimen/_80px"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_launcher_round"
+                    android:paddingRight="@dimen/_20px" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:background="@color/common_spite_color" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rel_route"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_route"
+                    android:layout_width="@dimen/_80px"
+                    android:layout_height="@dimen/_80px"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10px"
+                    android:layout_toRightOf="@+id/image_route"
+                    android:text="路线" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/_1px"
+                android:layout_height="match_parent"
+                android:background="@color/common_spite_color" />
+
+            <RelativeLayout
+                android:id="@+id/rel_navigation"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_navigation"
+                    android:layout_width="@dimen/_80px"
+                    android:layout_height="@dimen/_80px"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10px"
+                    android:layout_toRightOf="@+id/image_navigation"
+                    android:text="导航" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

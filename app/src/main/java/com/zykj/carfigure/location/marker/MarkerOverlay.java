@@ -19,6 +19,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.log.Log;
 
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     private OnMarkerOnClickListener mOnMarkerOnClickListener;
     private Marker                  lastClickMarker;
     private long lastClickTime = 0;
-    private int curUseRegcode;
+    private Street curUseRegcode;
     private Map<Integer, Integer> mBackDrawAbles = new HashMap<Integer, Integer>();
     private BitmapDescriptor bitmapDescriptor;
     private BitmapDescriptor bigBitmapDescriptor;
 
-    public MarkerOverlay(AMap amap, List<LatLng> points, Context context) {
+    public MarkerOverlay(AMap amap, List<Street> points, Context context) {
         this.aMap = amap;
         this.mContext = context;
         initThreadHandler();
@@ -62,7 +63,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     }
 
     //初始化list
-    private void initPointList(List<LatLng> points) {
+    private void initPointList(List<Street> points) {
         Message message = Message.obtain();
         message.what = MarkerHandler.ADD_MARKER;
         message.obj = points;
@@ -79,16 +80,18 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     /**
      * 添加Marker到地图中。
      */
-    public void addToMap(List<LatLng> pointList) {
+    public void addToMap(List<Street> pointList) {
         try {
             for (int i = 0; i < pointList.size(); i++) {
+                Street street = pointList.get(i);
                 Marker marker = aMap.addMarker(new MarkerOptions()
-                        .position(pointList.get(i))
+                        .position(street.getmLatLng())
                         .icon( bitmapDescriptor));
            /*     Marker marker = aMap.addMarker(new MarkerOptions()
                         .position(pointList.get(i))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.qq_red)));*/
-                marker.setObject(i + "");
+                street.setId(i);
+                marker.setObject(street);
                 mMarkers.add(marker);
             }
         } catch (Throwable e) {
@@ -146,11 +149,11 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     public boolean onMarkerClick(Marker marker) {
         try {
             Object obj = marker.getObject();
-            int useRegCode;
+            Street useRegCode;
             if (obj != null) {
-                useRegCode = Integer.valueOf(obj.toString());
+                useRegCode = (Street) obj;
                 //更换图标
-                Marker markerNew = changeMarkerImg(marker, useRegCode, true);
+                Marker markerNew = changeMarkerImg(marker, true);
                 curUseRegcode = useRegCode;
                 //重置上次图标
                 resetMarker();
@@ -220,7 +223,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
                 case UPDATE_SINGLE_CLUSTER:
                     break;
                 case ADD_MARKER:
-                    List<LatLng> points = (List<LatLng>) message.obj;
+                    List<Street> points = (List<Street>) message.obj;
                     addToMap(points);
                     break;
             }
@@ -243,7 +246,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
         void onMarkerCnClick(Marker marker);
     }
 
-    private Marker changeMarkerImg(Marker marker, final int useRegcode, boolean showLarge) {
+    private Marker changeMarkerImg(Marker marker, boolean showLarge) {
         marker.getIcons().remove(marker.getOptions().getIcon());
         //获取原设置参数
         MarkerOptions options = marker.getOptions();
@@ -265,12 +268,12 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
      */
     private void resetMarker() {
         try {
-            int lastUseRegcode = 0;
+            Street lastUseRegcode=null ;
             if (lastClickMarker != null) {
-                lastUseRegcode = Integer.valueOf(lastClickMarker.getObject().toString());
+                lastUseRegcode =(Street) lastClickMarker.getObject();
             }
-            if (lastClickMarker != null && curUseRegcode != lastUseRegcode)
-                changeMarkerImg(lastClickMarker, lastUseRegcode, false);
+            if (lastClickMarker != null && !curUseRegcode.equals(lastUseRegcode))
+                changeMarkerImg(lastClickMarker, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
