@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
             //定位之后的回调时间
             sb.append("回调时间: " + Utils.formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss") + "\n");
             //解析定位结果，
-            Log.i(TAG,sb.toString());
+           // Log.i(TAG,sb.toString());
         } else {
             Event<String> event=new Event<>(0,"定位失败，loc is null");
             EventBusUtils.sendEvent(event);

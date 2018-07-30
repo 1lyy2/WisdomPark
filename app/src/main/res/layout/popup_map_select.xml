@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+            android:id="@+id/loAlertHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_18px"
+            android:background="@drawable/bg_corner"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_map_gaode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90px"
+                android:background="@drawable/bg_corner"
+                android:textColor="@color/tab_sel_color"
+                android:text="高德地图"
+                android:textSize="@dimen/_32px" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#f2f2f2" />
+
+            <Button
+                android:id="@+id/btn_map_baidu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90px"
+                android:background="@drawable/bg_corner"
+                android:textColor="@color/tab_sel_color"
+                android:text="百度地图"
+                android:textSize="@dimen/_32px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pop_lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_18px">
+
+            <Button
+                android:id="@+id/btn_map_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80px"
+                android:background="@drawable/bg_corner"
+                android:text="取消"
+                android:textSize="@dimen/_32px" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

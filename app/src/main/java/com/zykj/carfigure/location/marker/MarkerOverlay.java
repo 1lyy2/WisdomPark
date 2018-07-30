@@ -301,4 +301,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
         bigBitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         return bigBitmapDescriptor;
     }
+    private void scollRecyclerViewChange(int index){
+
+    }
 }

@@ -85,4 +85,16 @@ public class Street implements Serializable {
         this.freePark = freePark;
         this.streetLength = streetLength;
     }
+
+    @Override
+    public String toString() {
+        return "Street{" +
+                "id=" + id +
+                ", mLatLng=" + mLatLng +
+                ", streetName='" + streetName + '\'' +
+                ", totalPark=" + totalPark +
+                ", freePark=" + freePark +
+                ", streetLength=" + streetLength +
+                '}';
+    }
 }

@@ -116,7 +116,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			public void run() {
 				Looper.prepare();
 				if (mContext!=null) {
-		            ToastManager.showLongToast(mContext.getApplicationContext(),  "捕捉到系统崩溃错误,请查看'KlqCrashFile/" + fileName + "'日志文件");
+		            ToastManager.showLongToast(mContext.getApplicationContext(),  "捕捉到系统崩溃错误,请查看'CarfigureCrashFile/" + fileName + "'日志文件");
 		        }
 				//Toast.makeText(mContext,, Toast.LENGTH_LONG).show();
 				Looper.loop();
