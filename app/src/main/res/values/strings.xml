@@ -18,4 +18,6 @@
     <string name="password">密码</string>
     <string name="write_password">请输入密码</string>
     <string name="search_string">搜索</string>
+    <string name="string_street_list">街道列表</string>
+    <string name="free_park_string">空车位</string>
 </resources>

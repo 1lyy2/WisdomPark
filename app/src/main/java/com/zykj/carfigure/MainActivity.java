@@ -2,9 +2,10 @@ package com.zykj.carfigure;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -12,7 +13,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.zykj.carfigure.adapter.BottomTabFragmentPagerAdapter;
 import com.zykj.carfigure.base.BaseActivity;
 import com.zykj.carfigure.eventbus.Event;
-import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.fragment.IndexFragment;
 import com.zykj.carfigure.fragment.MeFragment;
 import com.zykj.carfigure.fragment.NearFragment;
@@ -20,12 +20,12 @@ import com.zykj.carfigure.helper.requestpermissions.PermissionsManager;
 import com.zykj.carfigure.helper.requestpermissions.PermissionsResultAction;
 import com.zykj.carfigure.location.Location;
 import com.zykj.carfigure.location.Utils;
-import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.views.BottomTabView;
 import com.zykj.carfigure.views.MyViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements AMapLocationListener {
@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 //定位完成的时间
                 sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
                 Event<AMapLocation> event=new Event<>(0,location);
-                EventBusUtils.sendEvent(event);
+               // EventBusUtils.sendEvent(event);
             } else {
                 //定位失败
                 sb.append("定位失败" + "\n");
@@ -224,7 +224,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
            // Log.i(TAG,sb.toString());
         } else {
             Event<String> event=new Event<>(0,"定位失败，loc is null");
-            EventBusUtils.sendEvent(event);
+           // EventBusUtils.sendEvent(event);
         }
     }
 

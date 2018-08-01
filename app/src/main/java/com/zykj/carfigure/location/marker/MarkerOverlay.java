@@ -1,13 +1,10 @@
 package com.zykj.carfigure.location.marker;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,13 +29,13 @@ import java.util.Map;
  */
 
 public class MarkerOverlay implements AMap.OnMarkerClickListener {
-    private AMap    aMap;
+    private AMap aMap;
     private Context mContext;
-    private ArrayList<Marker> mMarkers             = new ArrayList<Marker>();
-    private HandlerThread     mMarkerHandlerThread = new HandlerThread("addMarker");
-    private Handler                 mMarkerhandler;
+    private ArrayList<Marker> mMarkers = new ArrayList<Marker>();
+    private HandlerThread mMarkerHandlerThread = new HandlerThread("addMarker");
+    private Handler mMarkerhandler;
     private OnMarkerOnClickListener mOnMarkerOnClickListener;
-    private Marker                  lastClickMarker;
+    private Marker lastClickMarker;
     private long lastClickTime = 0;
     private Street curUseRegcode;
     private Map<Integer, Integer> mBackDrawAbles = new HashMap<Integer, Integer>();
@@ -86,7 +83,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
                 Street street = pointList.get(i);
                 Marker marker = aMap.addMarker(new MarkerOptions()
                         .position(street.getmLatLng())
-                        .icon( bitmapDescriptor));
+                        .icon(bitmapDescriptor));
            /*     Marker marker = aMap.addMarker(new MarkerOptions()
                         .position(pointList.get(i))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.qq_red)));*/
@@ -253,7 +250,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
         //回收原图片
         //options.getIcon().recycle();
         if (showLarge) {
-           // options.icon(bigBitmapDescriptor);
+            // options.icon(bigBitmapDescriptor);
             marker.setIcon(bigBitmapDescriptor);
         } else {
             //options.icon(bitmapDescriptor);
@@ -268,9 +265,9 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
      */
     private void resetMarker() {
         try {
-            Street lastUseRegcode=null ;
+            Street lastUseRegcode = null;
             if (lastClickMarker != null) {
-                lastUseRegcode =(Street) lastClickMarker.getObject();
+                lastUseRegcode = (Street) lastClickMarker.getObject();
             }
             if (lastClickMarker != null && !curUseRegcode.equals(lastUseRegcode))
                 changeMarkerImg(lastClickMarker, false);
@@ -281,17 +278,20 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
 
     /**
      * 得到默认的
+     *
      * @return
      */
 
     private BitmapDescriptor getDefaultBitmapDescriptor() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_marker, null);
         ((ImageView) view.findViewById(R.id.marker_icon)).setImageResource(R.drawable.qq_red);
-          bitmapDescriptor = BitmapDescriptorFactory.fromView(view);
+        bitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         return bitmapDescriptor;
     }
+
     /**
      * 得到点击放大的
+     *
      * @return
      */
 
@@ -301,7 +301,8 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
         bigBitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         return bigBitmapDescriptor;
     }
-    private void scollRecyclerViewChange(int index){
+
+    private void scollRecyclerViewChange(int index) {
 
     }
 }

@@ -14,5 +14,7 @@ public class EventCode {
     public static final int GAODEMAP = 0x1111111;
     //百度地图
     public static final int BAIDUMAP = 0x22222222;
+    //地图和街道列表之间的数据交互
+    public  static final int STREETDATACHANGE = 0x55555588;
 
 }

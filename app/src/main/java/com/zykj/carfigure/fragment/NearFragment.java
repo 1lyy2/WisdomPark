@@ -10,9 +10,14 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -33,11 +38,13 @@ import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.TranslateAnimation;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.activity.SearchActivity;
+import com.zykj.carfigure.activity.StreetListActivity;
 import com.zykj.carfigure.adapter.NearMapAdapter;
 import com.zykj.carfigure.base.BaseFragment;
 import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.eventbus.BindEventBus;
 import com.zykj.carfigure.eventbus.Event;
+import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
 import com.zykj.carfigure.location.marker.MarkerOverlay;
 import com.zykj.carfigure.log.Log;
@@ -54,7 +61,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 @BindEventBus
 public class NearFragment extends BaseFragment implements LocationSource, AMapLocationListener, AMap.OnCameraChangeListener, AMap.OnMapLoadedListener, MarkerOverlay.OnMarkerOnClickListener {
@@ -64,9 +73,14 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
     public EditText search_edt;
     @BindView(R.id.recycleview_map)
     public RecyclerView mapRecyclerView;
+    @BindView(R.id.show_parking_list)
+    ImageView showParkingList;
+    @BindView(R.id.near_search)
+    LinearLayout nearSearch;
+    Unbinder unbinder;
     private AMap aMap;
     private MyLocationStyle myLocationStyle;
-    private LocationSource.OnLocationChangedListener mListener;
+    private OnLocationChangedListener mListener;
     private AMapLocationClient locationClient;
     private AMapLocationClientOption clientOption;
     private Marker locationMarker;
@@ -75,11 +89,52 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
     private double test = 22.808286;
     private double test1 = 108.401713;
     private MapSelectPopup mapSelectPopup;
+    //当前屏幕最新的list集合
+    private List<Street> streetList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mapView.onCreate(savedInstanceState);
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+        deactivate();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mListener = null;
+        if (locationClient != null) {
+            locationClient.stopLocation();
+            locationClient.onDestroy();
+        }
+        locationClient = null;
+        //销毁资源
+        markerOverlay.onDestroy();
+        if (mapView != null) {
+            mapView.onDestroy();
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -151,7 +206,7 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
                         int firstItemPosition = linearManager.findFirstVisibleItemPosition();
                         Log.i("RecyclerView", "firstItemPosition----------->" + firstItemPosition);
                         Log.i("RecyclerView", "lastItemPosition----------->" + lastItemPosition);
-                        
+
                     }
                 }
             }
@@ -163,7 +218,8 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
         list.add(new Street(new LatLng(22.833286, 108.200025), "相思湖学院", 100, 52, 520));
         list.add(new Street(new LatLng(22.808486, 108.401813), "桂雅路", 120, 12, 530));
         list.add(new Street(new LatLng(22.808386, 108.401913), "长岗路", 550, 82, 800));
-        list.add(new Street(new LatLng(22.808296, 108.401783), "朝阳路", 80, 12, 200));
+        list.add(new Street(new LatLng(22.808296, 108.401783), "朝阳路", 80, 0, 200));
+        streetList =list;
         return list;
     }
 
@@ -202,53 +258,19 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
      * 方法必须重写
      */
     @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-        deactivate();
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mListener = null;
-        if (locationClient != null) {
-            locationClient.stopLocation();
-            locationClient.onDestroy();
-        }
-        locationClient = null;
-        //销毁资源
-        markerOverlay.onDestroy();
-        if (mapView != null) {
-            mapView.onDestroy();
-        }
-
-    }
-
-    @OnClick({R.id.near_search, R.id.near_edit_search})
+    @OnClick({ R.id.near_edit_search,R.id.show_parking_list, R.id.near_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.show_parking_list:
+                //展示当前地图所有街道的列表
+                EventBusUtils.sendStickyEvent(new Event(EventCode.STREETDATACHANGE,streetList));
+                launchActivity(StreetListActivity.class);
+                break;
             case R.id.near_search:
                 break;
             case R.id.near_edit_search:
@@ -258,7 +280,6 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
                 break;
         }
     }
-
     //定位
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -416,69 +437,71 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
             case EventCode.ROUTE:
                 //路线
                 Street data = (Street) event.getData();
-                goToBaidu(data.getmLatLng(), null);
+
                 break;
             case EventCode.NAVIGATION:
-                Street data1 = (Street) event.getData();
-                Log.i("位置", "---------------------" + data1.toString());
-               /* //导航
-                if (mapSelectPopup == null) {
-                    mapSelectPopup = new MapSelectPopup(getContext());
-                }
-                mapSelectPopup.setLatLng(latLng);
-                mapSelectPopup.showAtLocation(mapRecyclerView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);*/
-                goNavigationByGaode(data1);
+                Street street = (Street) event.getData();
+                Log.i("位置", "---------------------" + street.toString());
+                showNavigation(street);
                 break;
             case EventCode.GAODEMAP:
                 //高德地图导航
-                //goNavigationByGaode();
+                Street mstreet = (Street) event.getData();
+                if (mstreet == null) return;
+                MapUtil.goNavigationByGaode(mstreet, getContext());
                 break;
             case EventCode.BAIDUMAP:
                 //百度地图导航
+                Street baduStreet = (Street) event.getData();
+                if (baduStreet == null) return;
+                MapUtil.goToBaidu(baduStreet.getmLatLng(), getContext());
                 break;
             default:
                 break;
         }
     }
 
-    private void goNavigationByGaode(Street street) {
+    /**
+     * 显示出可选的地图导航
+     *
+     * @param street
+     */
+    private void showNavigation(Street street) {
         if (street == null) return;
-        LatLng latLng = street.getmLatLng();
-        if (MapUtil.isGdMapInstalled()) {
-            MapUtil.openGaoDeNavi(getContext(), latLng.latitude, latLng.longitude, 0, 2, 0);
+        if (MapUtil.isGdMapInstalled() && MapUtil.isBaiduMapInstalled()) {
+            //证明两个地图都存在
+            if (mapSelectPopup == null) {
+                mapSelectPopup = new MapSelectPopup(getContext());
+            }
+            mapSelectPopup.setStreet(street);
+            mapSelectPopup.showAtLocation(mapRecyclerView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        } else if (MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled()) {
+            //百度地图
+            MapUtil.goToBaidu(street.getmLatLng(), getContext());
+        } else if (MapUtil.isGdMapInstalled() && !MapUtil.isBaiduMapInstalled()) {
+            //高德地图
+            MapUtil.goNavigationByGaode(street, getContext());
         } else {
             ToastManager.showShortToast(getContext(), "您还未安装高德地图！");
             Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            getContext().startActivity(intent);
         }
+
     }
 
-    /**
-     * 打开百度地图导航客户端
-     * intent = Intent.getIntent("baidumap://map/navi?location=34.264642646862,108.95108518068&type=BLK&src=thirdapp.navi.you
-     * location 坐标点 location与query二者必须有一个，当有location时，忽略query
-     * query    搜索key   同上
-     * type 路线规划类型  BLK:躲避拥堵(自驾);TIME:最短时间(自驾);DIS:最短路程(自驾);FEE:少走高速(自驾);默认DIS
-     */
-    //百度
-    private void goToBaidu(LatLng mlatLng, String address) {
-        if (mlatLng == null) return;
-        if (MapUtil.isBaiduMapInstalled()) {
-            //高德坐标转为百度地图坐标
-            LatLng latLng = MapUtil.GCJ02ToBD09(mlatLng);
-            StringBuffer stringBuffer = new StringBuffer("baidumap://map/navi?location=")
-                    .append(latLng.latitude).append(",").append(latLng.longitude).append("&type=TIME");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringBuffer.toString()));
-            intent.setPackage("com.baidu.BaiduMap");
-            startActivity(intent);
-        } else {
-            ToastManager.showShortToast(getContext(), "您尚未安装百度地图！");
-            Uri uri = Uri.parse("market://details?id=com.baidu.BaiduMap");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
 }

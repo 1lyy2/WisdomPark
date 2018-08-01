@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#88000000"
     android:gravity="center_horizontal">
-
     <LinearLayout
         android:id="@+id/ll_popup"
         android:layout_width="match_parent"

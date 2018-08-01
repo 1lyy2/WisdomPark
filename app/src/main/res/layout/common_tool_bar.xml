@@ -4,30 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    
-   <android.support.v7.widget.Toolbar
-       android:id="@+id/id_toolbar"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:background="?attr/colorPrimary"
-       android:fitsSystemWindows="true"
-       android:minHeight="?attr/actionBarSize"
-       app:navigationIcon="@mipmap/app_ico_back"
-       app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
+        app:navigationIcon="@mipmap/app_ico_back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
+            android:id="@+id/comm_title_tool_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:textSize="@dimen/_36px"
-            android:id="@+id/comm_title_tool_bar"
             android:textColor="@color/common_title_text"
-            />
+            android:textSize="@dimen/_36px" />
+
+        <ImageView
+            android:id="@+id/common_right_img"
+            android:layout_width="@dimen/_72px"
+            android:layout_height="@dimen/_72px"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/_20px"
+            android:visibility="gone"
+            android:background="@mipmap/ic_launcher" />
     </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1px"
-        android:background="@color/common_line_bottom"/>
+        android:background="@color/common_line_bottom" />
 </LinearLayout>

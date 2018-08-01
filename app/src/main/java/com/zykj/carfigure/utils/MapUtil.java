@@ -6,10 +6,13 @@ import android.net.Uri;
 
 import com.amap.api.maps.model.LatLng;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.entity.Street;
 
 import java.io.File;
 
 public class MapUtil {
+    public static String[] paks = new String[]{"com.baidu.BaiduMap",        //百度
+            "com.autonavi.minimap"};     //高德
     public static final String PN_GAODE_MAP = "com.autonavi.minimap"; // 高德地图包名
     public static final String PN_BAIDU_MAP = "com.baidu.BaiduMap"; // 百度地图包名
     public static final String DOWNLOAD_GAODE_MAP = "http://www.autonavi.com/"; // 高德地图下载地址
@@ -50,6 +53,47 @@ public class MapUtil {
         return new LatLng(gg_lat, gg_lng);
     }
 
+
+    public static void goNavigationByGaode(Street street, Context context) {
+        if (street == null) return;
+        LatLng latLng = street.getmLatLng();
+        if (MapUtil.isGdMapInstalled()) {
+            MapUtil.openGaoDeNavi(context, latLng.latitude, latLng.longitude, 0, 2, 0);
+        } else {
+            ToastManager.showShortToast(context, "您还未安装高德地图！");
+            Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * 打开百度地图导航客户端
+     * intent = Intent.getIntent("baidumap://map/navi?location=34.264642646862,108.95108518068&type=BLK&src=thirdapp.navi.you
+     * location 坐标点 location与query二者必须有一个，当有location时，忽略query
+     * query    搜索key   同上
+     * type 路线规划类型  BLK:躲避拥堵(自驾);TIME:最短时间(自驾);DIS:最短路程(自驾);FEE:少走高速(自驾);默认DIS
+     */
+    //百度
+    public static void goToBaidu(LatLng mlatLng, Context context) {
+        if (mlatLng == null) return;
+        if (MapUtil.isBaiduMapInstalled()) {
+            //高德坐标转为百度地图坐标
+            LatLng latLng = MapUtil.GCJ02ToBD09(mlatLng);
+            StringBuffer stringBuffer = new StringBuffer("baidumap://map/navi?location=")
+                    .append(latLng.latitude).append(",").append(latLng.longitude).append("&type=TIME");
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringBuffer.toString()));
+            intent.setPackage("com.baidu.BaiduMap");
+            context.startActivity(intent);
+        } else {
+            ToastManager.showShortToast(context, "您尚未安装百度地图！");
+            Uri uri = Uri.parse("market://details?id=com.baidu.BaiduMap");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(intent);
+        }
+
+    }
+
     /**
      * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换
      * 即谷歌、高德 转 百度
@@ -68,14 +112,15 @@ public class MapUtil {
 
     /**
      * 打开高德地图导航功能(当前定位位置导航)
+     *
      * @param context
-     * @param lat    终点纬度
-     * @param lon    终点经度
-     * @param dev   是否偏移(0:lat 和 lon 是已经加密后的,不需要国测加密; 1:需要国测加密)
-     * @param style    导航方式(0 速度快; 1 费用少; 2 路程短; 3 不走高速；4 躲避拥堵；5 不走高速且避免收费；6 不走高速且躲避拥堵；7 躲避收费和拥堵；8 不走高速躲避收费和拥堵)
-     * @param  t：t = 0（驾车）= 1（公交）= 2（步行）= 3（骑行）= 4（火车）= 5（长途客车）
+     * @param lat     终点纬度
+     * @param lon     终点经度
+     * @param dev     是否偏移(0:lat 和 lon 是已经加密后的,不需要国测加密; 1:需要国测加密)
+     * @param style   导航方式(0 速度快; 1 费用少; 2 路程短; 3 不走高速；4 躲避拥堵；5 不走高速且避免收费；6 不走高速且躲避拥堵；7 躲避收费和拥堵；8 不走高速躲避收费和拥堵)
+     * @param t：t     = 0（驾车）= 1（公交）= 2（步行）= 3（骑行）= 4（火车）= 5（长途客车）
      */
-    public static void openGaoDeNavi(Context context,double lat, double lon,int dev,int style,int t) {
+    public static void openGaoDeNavi(Context context, double lat, double lon, int dev, int style, int t) {
         String uriString = null;
         StringBuilder builder = new StringBuilder("androidamap://navi?sourceApplication=" + context.getResources().getString(R.string.app_name));
         builder.append("&lat=").append(lat)
@@ -136,4 +181,6 @@ public class MapUtil {
         intent.setData(Uri.parse(uriString));
         context.startActivity(intent);
     }
+
+
 }

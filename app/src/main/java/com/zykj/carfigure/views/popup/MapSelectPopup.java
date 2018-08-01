@@ -6,12 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-import android.view.ViewGroup.LayoutParams;
 
-import com.amap.api.maps.model.LatLng;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.eventbus.Event;
 import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
@@ -19,7 +19,7 @@ import com.zykj.carfigure.eventbus.EventCode;
 public class MapSelectPopup extends PopupWindow implements View.OnClickListener {
     private Context mContext;
     private View mPopView;
-    private LatLng latLng;
+    private Street street;
     public MapSelectPopup(Context context) {
         super(context);
         this.mContext = context;
@@ -27,12 +27,12 @@ public class MapSelectPopup extends PopupWindow implements View.OnClickListener 
         setPopupWindow();
     }
 
-    public LatLng getLatLng() {
-        return latLng;
+    public Street getStreet() {
+        return street;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setStreet(Street street) {
+        this.street = street;
     }
 
     private void initView(Context context) {
@@ -66,13 +66,13 @@ public class MapSelectPopup extends PopupWindow implements View.OnClickListener 
     }
     @Override
     public void showAtLocation(View parent, int gravity, int x, int y) {
-       // setBackgroundAlpha(0.5f);//设置屏幕透明度
+       //setBackgroundAlpha(0.5f);//设置屏幕透明度
         super.showAtLocation(parent, gravity, x, y);
     }
 
     @Override
     public void dismiss() {
-       // setBackgroundAlpha(1.0f);
+       //setBackgroundAlpha(1.0f);
         super.dismiss();
     }
 
@@ -94,10 +94,10 @@ public class MapSelectPopup extends PopupWindow implements View.OnClickListener 
         int id = v.getId();
         switch (id) {
             case R.id.btn_map_gaode:
-                EventBusUtils.sendEvent(new Event(EventCode.GAODEMAP,latLng));
+                EventBusUtils.sendEvent(new Event(EventCode.GAODEMAP,street));
                 break;
             case R.id.btn_map_baidu:
-                EventBusUtils.sendEvent(new Event(EventCode.BAIDUMAP,latLng));
+                EventBusUtils.sendEvent(new Event(EventCode.BAIDUMAP,street));
                 break;
             case R.id.btn_map_cancel:
                 dismiss();

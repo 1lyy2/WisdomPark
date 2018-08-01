@@ -1,22 +1,20 @@
 package com.zykj.carfigure.base;
 
-import org.json.JSONObject;
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.app.MyApplication;
 import com.zykj.carfigure.eventbus.BindEventBus;
@@ -26,6 +24,9 @@ import com.zykj.carfigure.mvp.BaseIPresenter;
 import com.zykj.carfigure.utils.StatusBarUtil;
 import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.views.ProgressDialog;
+
+import org.json.JSONObject;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -67,10 +68,10 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
     }
 
     public int initAlph() {
-        return 0;
+        return 100;
     }
     public int initColor() {
-        return R.color.title_bg_color;
+        return R.color.white;
     }
     @Override
     protected void onResume() {
@@ -297,6 +298,7 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
     protected void enableSupportActionBar() {
         setSupportActionBar((Toolbar) findViewById(R.id.id_toolbar));
     }
+
     
     /**
      * 启动Activity

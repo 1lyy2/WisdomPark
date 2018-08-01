@@ -37,4 +37,5 @@
     <!--标题栏背景-->
     <color name="title_bg_color">#0CCAC5</color>
     <color name="tab_main_color">#ffffff</color>
+    <color name="main_bg_color">#e5e5e5</color>
 </resources>

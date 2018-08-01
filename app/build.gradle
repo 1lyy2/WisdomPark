@@ -74,5 +74,6 @@ dependencies {
     implementation 'com.amap.api:3dmap:latest.integration' //3D地图so及jar
     implementation 'com.amap.api:location:latest.integration' //定位功能
     implementation 'com.amap.api:search:latest.integration'//搜索功能
+    implementation 'com.bigkoo:ConvenientBanner:2.1.4' //ConvenientBanner 通用轮播图
 
 }

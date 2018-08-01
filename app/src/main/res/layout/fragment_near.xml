@@ -6,11 +6,10 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".fragment.NearFragment">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/near_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_65px"
-        android:background="@drawable/goods_list_search_bar_bg"
         android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/_20px"
         android:layout_marginRight="@dimen/_20px"
@@ -23,12 +22,13 @@
 
         <EditText
             android:id="@+id/near_edit_search"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:drawableLeft="@drawable/search"
             android:drawablePadding="@dimen/_20px"
             android:layout_centerVertical="true"
-            android:background="@null"
+            android:background="@drawable/goods_list_search_bar_bg"
             android:ems="10"
             android:gravity="center_vertical"
             android:hint="请输入地点、路段名称"
@@ -40,8 +40,15 @@
             android:textSize="@dimen/_28px"
             android:paddingRight="@dimen/_63px"
             android:textColorHint="#999999" />
+        <ImageView
+            android:id="@+id/show_parking_list"
+            android:layout_width="@dimen/_65px"
+            android:layout_height="@dimen/_65px"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/_20px"
+            android:background="@mipmap/ic_launcher"/>
 
-    </RelativeLayout>
+    </LinearLayout>
     <com.amap.api.maps.MapView
         android:id="@+id/mapview"
         android:layout_below="@id/near_search"
