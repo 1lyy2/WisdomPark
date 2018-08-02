@@ -214,6 +214,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/lin_weixin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -237,6 +238,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lin_QQ"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -260,6 +262,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -44,6 +44,10 @@
         <!-- 指定消失的动画xml -->
         <item name="android:windowExitAnimation">@anim/hide_to_bottom</item>
     </style>
-
+    <style name="ToolBarTitleText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">@dimen/_36px</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

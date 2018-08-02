@@ -14,8 +14,10 @@ public class AppConfig {
     public static final String WX_APPID = "wx9bd2a2ebf2ee4b30";//微信相关
     public static final String WX_APPSecret = "39fd0d45dcf1b32da2606d0b4b26e587";
 
-    public static final String QQ_APPID = "1106452627";//QQ相关
-    public static final String QQ_APPKey = "TAiQhwUkjwuXUfTt";
+    public static final String QQ_APPID = "1107392893";//QQ相关
+    public static final String QQ_APPKey = "G5lYz0MBeC4RPDXr";
+
+    public static final String ALIPAY_APPID = "2018080160821976";//支付宝
 
 
     public static final int pageCount = DEFULT_PAGE_MUNBER;//一页有多少条记录

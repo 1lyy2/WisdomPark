@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="common_me_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_90px</item>
+        <item name="android:paddingLeft">@dimen/_30px</item>
+        <item name="android:paddingRight">@dimen/_30px</item>
+        <item name="android:background">@drawable/me_item_bg_slector</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="common_me_item_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_26px</item>
+        <item name="android:layout_marginLeft">@dimen/_10px</item>
+        <item name="android:textColor">@color/color_686869</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="common_me_item_imageview">
+        <item name="android:layout_width">@dimen/_50px</item>
+        <item name="android:layout_height">@dimen/_50px</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="common_me_item_next">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/news_see</item>
+        <item name="android:layout_marginLeft">@dimen/_20px</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="common_me_item_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_1px</item>
+        <item name="android:background">@color/common_spite_color</item>
+        <item name="android:layout_marginLeft">@dimen/_90px</item>
+    </style>
+
+</resources>

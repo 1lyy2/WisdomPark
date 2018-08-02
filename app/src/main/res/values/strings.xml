@@ -20,4 +20,12 @@
     <string name="search_string">搜索</string>
     <string name="string_street_list">街道列表</string>
     <string name="free_park_string">空车位</string>
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <string name="me_mycar_string">我的车辆</string>
+    <string name="part_record_string">停车记录</string>
+    <string name="mycoupon_string">优惠劵</string>
+    <string name="about_me_string">关于我们</string>
+    <string name="connect_me_string">联系我们</string>
+    <string name="complaints_proposals_string">投诉建议</string>
+    <string name="common_problem_string">常见问题</string>
 </resources>

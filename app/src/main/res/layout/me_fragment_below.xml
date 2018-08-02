@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20px"
+        android:background="@color/main_bg_color"/>
+    <!--我的车辆-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_mycar">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/me_mycar_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20px"
+        android:background="@color/main_bg_color" />
+    <!--停车记录-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_park_record">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/part_record_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_part_record"
+            style="@style/common_me_item_textview"
+            android:text="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+    <!--优惠劵-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_coupon">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/mycoupon_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20px"
+        android:background="@color/main_bg_color" />
+    <!--关于我们-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_about">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/about_me_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+    <!-- 联系我们-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_connect">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/connect_me_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+    <!--投诉建议-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_complaints">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/complaints_proposals_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+    <!--常见问题-->
+    <LinearLayout style="@style/common_me_item"
+        android:id="@+id/lin_problem">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="@string/common_problem_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+
+</LinearLayout>

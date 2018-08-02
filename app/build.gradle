@@ -12,6 +12,7 @@ android {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
         }
+        multiDexEnabled true
     }
     sourceSets {
         main {
@@ -27,14 +28,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["constraint-layout"]
     //test
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-//support
+    //support
     implementation(rootProject.ext.dependencies["support-v4"]) {
         exclude module: 'support-annotations'
     }
@@ -54,7 +56,6 @@ dependencies {
         exclude module: 'butterknife'
     }
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
     //glide
     implementation(rootProject.ext.dependencies["glide"]) {
         exclude module: 'support-fragment'
@@ -63,6 +64,8 @@ dependencies {
         exclude module: 'jsr305'
     }
     implementation rootProject.ext.dependencies["cardview"]
+    implementation rootProject.ext.dependencies["design"]
+
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
@@ -71,9 +74,17 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.amap.api:3dmap:latest.integration' //3D地图so及jar
-    implementation 'com.amap.api:location:latest.integration' //定位功能
-    implementation 'com.amap.api:search:latest.integration'//搜索功能
-    implementation 'com.bigkoo:ConvenientBanner:2.1.4' //ConvenientBanner 通用轮播图
-
+    implementation 'com.amap.api:3dmap:latest.integration'
+    //3D地图so及jar
+    implementation 'com.amap.api:location:latest.integration'
+    //定位功能
+    implementation 'com.amap.api:search:latest.integration'
+    //搜索功能
+    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+    //ConvenientBanner 通用轮播图
+    implementation files('libs/open_sdk_r6008_lite.jar')
+    //微信登录接入
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation files('libs/alipaySdk-20180601.jar')
+    //implementation 'com.android.support:multidex:1.0.1'
 }
