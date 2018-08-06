@@ -1,68 +1,28 @@
 <resources>
-    <!--手机号和密码-->
-    <style name="ll_login_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
 
-    <style name="register_item_background">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/white</item>
-    </style>
-
-    <!-- 注册左侧选项 -->
-    <style name="ll_tab_title_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/_86px</item>
-        <item name="android:layout_marginLeft">@dimen/_25px</item>
-        <item name="android:layout_marginRight">@dimen/_25px</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <!--登录，注册，找回密码，忘记密码title-->
-    <style name="tv_tab_title_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/_5px</item>
-        <item name="android:textColor">@color/color_black</item>
-        <item name="android:textSize">@dimen/_28px</item>
-    </style>
-    <!-- 验证码样式 -->
-    <style name="btn_recode_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/_65px</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:padding">@dimen/_10px</item>
-        <item name="android:layout_marginLeft">@dimen/_5px</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/btn_border_radius</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/_22px</item>
-    </style>
-    <style name="ll_cut_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/_1px</item>
-        <item name="android:background">@color/common_spite_color</item>
-    </style>
-
-    <style name="btn_register_style">
-        <item name="android:background">@drawable/login_button_bg_radius</item>
+    <style name="tv_register_style">
+        <item name="android:background">@drawable/register_shape</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/_25px</item>
         <item name="android:layout_marginRight">@dimen/_25px</item>
     </style>
-    <style name="et_info_style">
-        <item name="android:layout_marginLeft">@dimen/_20px</item>
+
+    <style name="common_register_style">
+        <item name="android:background">@drawable/register_shape</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_28px</item>
-        <item name="android:background">@null</item>
+        <item name="android:layout_height">@dimen/_100px</item>
+        <item name="android:layout_marginLeft">@dimen/_25px</item>
+        <item name="android:layout_marginRight">@dimen/_25px</item>
+        <item name="android:paddingLeft">@dimen/_30px</item>
     </style>
+
+    <style name="btn_common_style">
+        <item name="android:background">@drawable/btn_register_shape</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_100px</item>
+        <item name="android:layout_marginLeft">@dimen/_25px</item>
+        <item name="android:layout_marginRight">@dimen/_25px</item>
+    </style>
+
 </resources>

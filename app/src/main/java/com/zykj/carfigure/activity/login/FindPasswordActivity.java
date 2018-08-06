@@ -1,18 +1,16 @@
-package com.zykj.carfigure.activity;
+package com.zykj.carfigure.activity.login;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.base.BaseActivity;
 
-public class RegisterActivity extends BaseActivity {
+public class FindPasswordActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
         enableSupportActionBar();
     }
 
@@ -23,7 +21,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public int getContentViewResId() {
-        return R.layout.activity_register;
+        return R.layout.activity_find_password;
     }
 
     @Override
@@ -33,11 +31,12 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected String getActivityName() {
-        return getString(R.string.user_register);
+        return getString(R.string.findpsw_string);
     }
 
     @Override
     protected Context getContext() {
         return this;
     }
+
 }

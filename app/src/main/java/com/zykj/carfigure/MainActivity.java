@@ -1,4 +1,5 @@
 package com.zykj.carfigure;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,6 +14,8 @@ import com.amap.api.location.AMapLocationListener;
 import com.zykj.carfigure.adapter.BottomTabFragmentPagerAdapter;
 import com.zykj.carfigure.base.BaseActivity;
 import com.zykj.carfigure.eventbus.Event;
+import com.zykj.carfigure.eventbus.EventBusUtils;
+import com.zykj.carfigure.eventbus.EventCode;
 import com.zykj.carfigure.fragment.IndexFragment;
 import com.zykj.carfigure.fragment.MeFragment;
 import com.zykj.carfigure.fragment.NearFragment;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     private AMapLocationClient       locationClient = null;
     private AMapLocationClientOption locationOption = null;
+    public static  String cityName ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,8 +206,8 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 sb.append("兴趣点    : " + location.getPoiName() + "\n");
                 //定位完成的时间
                 sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
-                Event<AMapLocation> event=new Event<>(0,location);
-               // EventBusUtils.sendEvent(event);
+                Event<AMapLocation> event=new Event<>(EventCode.LOCATION,location);
+                EventBusUtils.sendStickyEvent(event);
             } else {
                 //定位失败
                 sb.append("定位失败" + "\n");

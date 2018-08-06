@@ -8,18 +8,27 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewConfiguration;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.adapter.IndexAdapter;
 import com.zykj.carfigure.base.BaseFragment;
 import com.zykj.carfigure.entity.IndexFragmentEntity;
-import com.zykj.carfigure.log.Log;
-import com.zykj.carfigure.utils.Constant;
+import com.zykj.carfigure.eventbus.BindEventBus;
+import com.zykj.carfigure.eventbus.Event;
+import com.zykj.carfigure.eventbus.EventCode;
 import com.zykj.carfigure.utils.MapUtil;
 import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.views.popup.MapSelectPopup;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+@BindEventBus
 public class IndexFragment extends BaseFragment implements OnItemClickListener, IndexAdapter.BannerOnItemClckListener, SwipeRefreshLayout.OnRefreshListener,
-        IndexAdapter.IndexOnItemClickListener,IndexAdapter.IndexNearNavigationListener {
+        IndexAdapter.IndexOnItemClickListener, IndexAdapter.IndexNearNavigationListener {
 
     @BindView(R.id.recycleview_index)
     RecyclerView recycleviewIndex;
@@ -36,6 +46,14 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
     SwipeRefreshLayout listSwipeRefresh;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.lin_title)
+    LinearLayout lin_title;
+    @BindView(R.id.img_location)
+    ImageView imgLocation;
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
+    @BindView(R.id.lin_location)
+    RelativeLayout linLocation;
     private List<Object> list;
     private IndexAdapter indexAdapter;
     private boolean isLoading;
@@ -49,7 +67,8 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
     @Override
     protected void initView(View rootView) {
         createData();
-        indexAdapter = new IndexAdapter(getContext(), this,this, this,true, false);
+        tvLocation.setText(MainActivity.cityName);
+        indexAdapter = new IndexAdapter(getContext(), this, this, this, true, false);
         gridLayoutManager = new GridLayoutManager(getContext(), 4);
         recycleviewIndex.setLayoutManager(gridLayoutManager);
         indexAdapter.setList(list);
@@ -226,18 +245,14 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
                         Object o = list.get(firstVisibleItemPosition);
                         if (o instanceof IndexFragmentEntity.Near) {
                             showFABAnimation(fab);
+                            lin_title.setVisibility(View.VISIBLE);
                         } else {
                             hideFABAnimation(fab);
+                            lin_title.setVisibility(View.GONE);
                         }
                     }
                 }
-                int height = Constant.Appinfo.height;
-                Log.i("屏幕高度", "--------------------------------->" + height);
-                int touchSlop = ViewConfiguration.getTouchSlop();
-                Log.i("收拾滑动", "--------------------------------->" + touchSlop);
-
             }
-
         });
     }
 
@@ -271,6 +286,7 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
 
     /**
      * item点击回调
+     *
      * @param object
      */
     @Override
@@ -291,11 +307,32 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
 
     /**
      * 附近优选导航
+     *
      * @param object
      */
     @Override
     public void onNearNavigationListener(Object object) {
-         showToastMsgShort("附近优选导航");
-        MapUtil.showNavigation(getContext(),object,recycleviewIndex,mapSelectPopup,MapUtil.TYPE_NEAR);
+        showToastMsgShort("附近优选导航");
+        MapUtil.showNavigation(getContext(), object, recycleviewIndex, mapSelectPopup, MapUtil.TYPE_NEAR);
+    }
+
+    /**
+     * 接受eventbus 适配器的click事件
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleEvent(Event<Object> event) {
+        int code = event.getCode();
+        switch (code) {
+            case EventCode.LOCATION:
+                AMapLocation location = (AMapLocation) event.getData();
+                if (tvLocation == null) return;
+                if (location == null) return;
+                tvLocation.setText(location.getCity());
+                break;
+            default:
+                break;
+        }
     }
 }

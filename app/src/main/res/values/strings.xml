@@ -2,7 +2,7 @@
     <string name="app_name">智慧泊车</string>
     <!--界面标题-->
     <string name="user_login">登录</string>
-    <string name="user_register">注册</string>
+    <string name="user_register">注册账号</string>
     <string name="index">首页</string>
     <string name="fragment_index">首页</string>
     <string name="fragment_me">我的</string>
@@ -28,4 +28,7 @@
     <string name="connect_me_string">联系我们</string>
     <string name="complaints_proposals_string">投诉建议</string>
     <string name="common_problem_string">常见问题</string>
+    <string name="title_activity_find_password">FindPasswordActivity</string>
+    <string name="findpsw_string">找回密码</string>
+    <string name="title_activity_reset">ResetActivity</string>
 </resources>

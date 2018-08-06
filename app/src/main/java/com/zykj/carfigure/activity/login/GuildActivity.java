@@ -1,21 +1,19 @@
-package com.zykj.carfigure.activity;
+package com.zykj.carfigure.activity.login;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.helper.ViewPagerIndicateHelper;
-import com.zykj.carfigure.log.Log;
 
 public class GuildActivity extends AppCompatActivity {
     private int[] guild = new int[]{R.mipmap.guid1, R.mipmap.guid2};

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.login.LoginActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_420px"
@@ -24,6 +24,12 @@
             android:layout_marginLeft="@dimen/_24px"
             android:layout_marginTop="@dimen/_56px"
             android:background="@drawable/back_login" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/_38px"
+            android:text="您好，车主"/>
     </RelativeLayout>
 
     <LinearLayout

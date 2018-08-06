@@ -1,4 +1,4 @@
-package com.zykj.carfigure.activity;
+package com.zykj.carfigure.activity.login;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
