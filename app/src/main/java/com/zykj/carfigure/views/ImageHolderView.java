@@ -6,14 +6,14 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.zykj.carfigure.R;
-import com.zykj.carfigure.entity.Banner;
+import com.zykj.carfigure.entity.IndexFragmentEntity;
 import com.zykj.carfigure.utils.GlideUtil;
 
 /**
  * Created by Sai on 15/8/4.
  * 本地图片Holder例子
  */
-public class ImageHolderView extends Holder<Banner> {
+public class ImageHolderView extends Holder<IndexFragmentEntity.IndexBanner.Banner> {
     private ImageView imageView;
     private Context context;
 
@@ -28,7 +28,7 @@ public class ImageHolderView extends Holder<Banner> {
     }
 
     @Override
-    public void updateUI(Banner data) {
+    public void updateUI(IndexFragmentEntity.IndexBanner.Banner data) {
         String url = data.getUrl();
         GlideUtil.loadNoOptions(context,url,imageView);
     }

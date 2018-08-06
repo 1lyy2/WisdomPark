@@ -1,17 +1,13 @@
 package com.zykj.carfigure.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.utils.Constant;
 import com.zykj.carfigure.utils.SPCache;

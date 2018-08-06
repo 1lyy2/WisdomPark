@@ -1,10 +1,14 @@
 package com.zykj.carfigure.app;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.zykj.carfigure.crash.CrashHandler;
+import com.zykj.carfigure.utils.Constant;
 import com.zykj.carfigure.utils.ToastManager;
+
 import java.util.ArrayList;
 
 //自定义Application
@@ -23,6 +27,7 @@ public class MyApplication extends Application {
         //手机crash
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
+        Constant.init(getMyApplication());
 
     }
     public  Context getMyApplication(){
@@ -114,5 +119,10 @@ public class MyApplication extends Application {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);*/
     }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
 
+    }
 }

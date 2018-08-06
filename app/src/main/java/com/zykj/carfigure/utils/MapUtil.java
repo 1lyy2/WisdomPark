@@ -3,10 +3,14 @@ package com.zykj.carfigure.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.Gravity;
+import android.view.View;
 
 import com.amap.api.maps.model.LatLng;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.entity.IndexFragmentEntity;
 import com.zykj.carfigure.entity.Street;
+import com.zykj.carfigure.views.popup.MapSelectPopup;
 
 import java.io.File;
 
@@ -17,6 +21,8 @@ public class MapUtil {
     public static final String PN_BAIDU_MAP = "com.baidu.BaiduMap"; // 百度地图包名
     public static final String DOWNLOAD_GAODE_MAP = "http://www.autonavi.com/"; // 高德地图下载地址
     public static final String DOWNLOAD_BAIDU_MAP = "http://map.baidu.com/zt/client/index/"; // 百度地图下载地址
+    public static final String TYPE_NEAR = "near";  //附近到导航
+    public static final String TYPE_STREET = "street";//街道的导航
 
     /**
      * 检查应用是否安装
@@ -54,11 +60,18 @@ public class MapUtil {
     }
 
 
-    public static void goNavigationByGaode(Street street, Context context) {
-        if (street == null) return;
-        LatLng latLng = street.getmLatLng();
+    public static void goNavigationByGaode(Object object, Context context,String type) {
+        LatLng mlatLng = null;
+        if (type.equals(TYPE_NEAR)) {
+            IndexFragmentEntity.Near near = (IndexFragmentEntity.Near) object;
+            mlatLng = near.getLatLng();
+        } else if (type.equals(TYPE_STREET)) {
+            Street street = (Street) object;
+            mlatLng = street.getmLatLng();
+        }
+        if (mlatLng == null) return;
         if (MapUtil.isGdMapInstalled()) {
-            MapUtil.openGaoDeNavi(context, latLng.latitude, latLng.longitude, 0, 2, 0);
+            MapUtil.openGaoDeNavi(context, mlatLng.latitude, mlatLng.longitude, 0, 2, 0);
         } else {
             ToastManager.showShortToast(context, "您还未安装高德地图！");
             Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
@@ -75,7 +88,15 @@ public class MapUtil {
      * type 路线规划类型  BLK:躲避拥堵(自驾);TIME:最短时间(自驾);DIS:最短路程(自驾);FEE:少走高速(自驾);默认DIS
      */
     //百度
-    public static void goToBaidu(LatLng mlatLng, Context context) {
+    public static void goToBaidu(Object object, Context context, String type) {
+        LatLng mlatLng = null;
+        if (type.equals(TYPE_NEAR)) {
+            IndexFragmentEntity.Near near = (IndexFragmentEntity.Near) object;
+            mlatLng = near.getLatLng();
+        } else if (type.equals(TYPE_STREET)) {
+            Street street = (Street) object;
+            mlatLng = street.getmLatLng();
+        }
         if (mlatLng == null) return;
         if (MapUtil.isBaiduMapInstalled()) {
             //高德坐标转为百度地图坐标
@@ -180,6 +201,37 @@ public class MapUtil {
         intent.setPackage(PN_BAIDU_MAP);
         intent.setData(Uri.parse(uriString));
         context.startActivity(intent);
+    }
+
+    /**
+     *
+     * @param context
+     * @param object  数据源
+     * @param view    绑定的view
+     * @param mapSelectPopup  弹出选择的框
+     * @param type    类型
+     */
+    public static void showNavigation(Context context, Object object, View view, MapSelectPopup mapSelectPopup,String type) {
+        if (object == null) return;
+        if (MapUtil.isGdMapInstalled() && MapUtil.isBaiduMapInstalled()) {
+            //双地图
+            if (mapSelectPopup == null) {
+                mapSelectPopup = new MapSelectPopup(context);
+            }
+            mapSelectPopup.setObject(object);
+            mapSelectPopup.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        } else if (MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled()) {
+            //百度地图
+            MapUtil.goToBaidu(object, context,type);
+        } else if (MapUtil.isGdMapInstalled() && !MapUtil.isBaiduMapInstalled()) {
+            //高德地图
+            MapUtil.goNavigationByGaode(object, context,type);
+        } else {
+            ToastManager.showShortToast(context, "您还未安装高德地图！");
+            Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(intent);
+        }
     }
 
 

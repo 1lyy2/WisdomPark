@@ -1,19 +1,14 @@
 package com.zykj.carfigure.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,7 +56,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -442,66 +436,23 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
             case EventCode.NAVIGATION:
                 Street street = (Street) event.getData();
                 Log.i("位置", "---------------------" + street.toString());
-                showNavigation(street);
+                MapUtil.showNavigation(getContext(),street,mapRecyclerView,mapSelectPopup,MapUtil.TYPE_STREET);
                 break;
             case EventCode.GAODEMAP:
                 //高德地图导航
                 Street mstreet = (Street) event.getData();
                 if (mstreet == null) return;
-                MapUtil.goNavigationByGaode(mstreet, getContext());
+                MapUtil.goNavigationByGaode(mstreet, getContext(),MapUtil.TYPE_STREET);
                 break;
             case EventCode.BAIDUMAP:
                 //百度地图导航
                 Street baduStreet = (Street) event.getData();
                 if (baduStreet == null) return;
-                MapUtil.goToBaidu(baduStreet.getmLatLng(), getContext());
+                MapUtil.goToBaidu(baduStreet.getmLatLng(), getContext(),MapUtil.TYPE_STREET);
                 break;
             default:
                 break;
         }
-    }
-
-    /**
-     * 显示出可选的地图导航
-     *
-     * @param street
-     */
-    private void showNavigation(Street street) {
-        if (street == null) return;
-        if (MapUtil.isGdMapInstalled() && MapUtil.isBaiduMapInstalled()) {
-            //证明两个地图都存在
-            if (mapSelectPopup == null) {
-                mapSelectPopup = new MapSelectPopup(getContext());
-            }
-            mapSelectPopup.setStreet(street);
-            mapSelectPopup.showAtLocation(mapRecyclerView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        } else if (MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled()) {
-            //百度地图
-            MapUtil.goToBaidu(street.getmLatLng(), getContext());
-        } else if (MapUtil.isGdMapInstalled() && !MapUtil.isBaiduMapInstalled()) {
-            //高德地图
-            MapUtil.goNavigationByGaode(street, getContext());
-        } else {
-            ToastManager.showShortToast(getContext(), "您还未安装高德地图！");
-            Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            getContext().startActivity(intent);
-        }
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
 }

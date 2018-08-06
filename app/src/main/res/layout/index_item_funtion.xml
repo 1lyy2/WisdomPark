@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <ImageView
+        android:id="@+id/img_index_item_funtion"
+        android:layout_width="@dimen/_100px"
+        android:layout_height="@dimen/_100px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10px"
+        android:background="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/tv_index_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/img_index_item_funtion"
+        android:layout_marginTop="@dimen/_10px"
+        android:text="我要停车"
+        android:textSize="@dimen/_28px" />
+
+
+</RelativeLayout>

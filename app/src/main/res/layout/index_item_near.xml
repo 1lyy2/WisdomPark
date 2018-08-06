@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200px"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/lin_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:id="@+id/img_near_item"
+            android:layout_width="@dimen/_150px"
+            android:layout_height="@dimen/_150px"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_20px"
+           />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/_20px"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="1.5km"
+            android:textSize="@dimen/_26px" />
+
+        <LinearLayout
+            android:id="@+id/lin_navigation"
+            android:layout_width="@dimen/_150px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30px"
+            android:background="@drawable/index_item_near_navigation_shape"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_40px"
+                android:layout_height="@dimen/_40px"
+                android:layout_margin="@dimen/_10px"
+                android:background="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_20px"
+                android:text="导航"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_26px" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@id/lin_right"
+        android:layout_toRightOf="@+id/lin_left"
+        android:layout_marginLeft="@dimen/_10px"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_near_parkanme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广西民族大学停车场"
+            android:textSize="@dimen/_30px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_near_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:singleLine="true"
+            android:text="大学东路188好广西名族大学内"
+            android:textSize="@dimen/_26px" />
+
+        <TextView
+            android:id="@+id/tv_rates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:singleLine="true"
+            android:text="首小时收费2元，后每小时3元"
+            android:textSize="@dimen/_26px" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1px"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/lin_left"
+        android:paddingLeft="@dimen/_10px"
+        android:background="@color/common_line_bottom"/>
+
+
+
+
+</RelativeLayout>

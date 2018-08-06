@@ -74,17 +74,18 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.amap.api:3dmap:latest.integration'
     //3D地图so及jar
-    implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:3dmap:latest.integration'
     //定位功能
-    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
     //搜索功能
-    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+    implementation 'com.amap.api:search:latest.integration'
     //ConvenientBanner 通用轮播图
+    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+
     implementation files('libs/open_sdk_r6008_lite.jar')
     //微信登录接入
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation files('libs/alipaySdk-20180601.jar')
-    //implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
 }

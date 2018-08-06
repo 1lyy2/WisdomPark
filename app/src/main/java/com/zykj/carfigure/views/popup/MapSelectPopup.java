@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.zykj.carfigure.R;
-import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.eventbus.Event;
 import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
@@ -19,20 +18,22 @@ import com.zykj.carfigure.eventbus.EventCode;
 public class MapSelectPopup extends PopupWindow implements View.OnClickListener {
     private Context mContext;
     private View mPopView;
-    private Street street;
+    private Object object;
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
     public MapSelectPopup(Context context) {
         super(context);
         this.mContext = context;
         initView(context);
         setPopupWindow();
-    }
 
-    public Street getStreet() {
-        return street;
-    }
-
-    public void setStreet(Street street) {
-        this.street = street;
     }
 
     private void initView(Context context) {
@@ -94,10 +95,10 @@ public class MapSelectPopup extends PopupWindow implements View.OnClickListener 
         int id = v.getId();
         switch (id) {
             case R.id.btn_map_gaode:
-                EventBusUtils.sendEvent(new Event(EventCode.GAODEMAP,street));
+                EventBusUtils.sendEvent(new Event(EventCode.GAODEMAP,object));
                 break;
             case R.id.btn_map_baidu:
-                EventBusUtils.sendEvent(new Event(EventCode.BAIDUMAP,street));
+                EventBusUtils.sendEvent(new Event(EventCode.BAIDUMAP,object));
                 break;
             case R.id.btn_map_cancel:
                 dismiss();

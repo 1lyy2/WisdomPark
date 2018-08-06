@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".fragment.IndexFragment">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/convenientBanner"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/list_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_360px"
-        app:canLoop="true" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview_index"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview_index"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/_46px"
+        android:src="@mipmap/ic_launcher_round"
+        app:backgroundTint="@color/color_transparent"
+        app:borderWidth="0.0dip"
+        app:elevation="3.0dip"
+        app:fabSize="normal"
+        android:clickable="true"
+        app:layout_anchorGravity="right|bottom"
+        app:pressedTranslationZ="10.0dip"
+        android:scaleType="center"
+        app:rippleColor="@color/title_bg_color" />
+
+
+</RelativeLayout>
