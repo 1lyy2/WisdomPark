@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.MyCarActivity">
+    <include
+        android:id="@+id/tool_top"
+        layout="@layout/common_tool_bar" />
+    <com.zykj.carfigure.views.EmptyRecyclerView
+        android:id="@+id/myCarRecyclerView"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_below="@id/tool_top"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/lin_empty_macar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50px"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_below="@id/tool_top">
+        <com.zykj.carfigure.views.RoundedImageView
+            android:layout_width="@dimen/_250px"
+            android:layout_height="@dimen/_250px"
+            android:layout_gravity="center"
+            android:background="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20px"
+            android:text="您还没有绑定车辆，快去绑定吧！"
+            android:textSize="@dimen/_28px"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_bindcar"
+            style="@style/commom_btn_style"
+            android:layout_marginTop="@dimen/_50px"
+            android:text="添加车辆"
+            android:textStyle="bold"
+           />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.SettingActivity">
+
+    <include layout="@layout/common_tool_bar" />
+
+    <RelativeLayout
+        android:id="@+id/rel_downMap"
+        style="@style/setting_item_layout"
+        android:layout_marginTop="@dimen/_10px">
+
+        <TextView
+            style="@style/setting_item_textview_style"
+            android:text="@string/setting_down_map_string" />
+
+        <ImageView style="@style/setting_item_imageview_style" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/setting_item_bottom_line" />
+
+    <RelativeLayout
+        android:id="@+id/rel_message_reminding"
+        style="@style/setting_item_layout"
+        android:layout_marginTop="@dimen/_10px">
+
+        <TextView
+            style="@style/setting_item_textview_style"
+            android:text="@string/setting_message_reminding" />
+
+        <ImageView style="@style/setting_item_imageview_style" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/setting_item_bottom_line" />
+
+    <RelativeLayout
+        android:id="@+id/rel_safe"
+        style="@style/setting_item_layout">
+
+        <TextView
+            style="@style/setting_item_textview_style"
+            android:text="@string/setting_account_safe_string" />
+
+        <ImageView style="@style/setting_item_imageview_style" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/setting_item_bottom_line" />
+
+    <RelativeLayout
+        android:id="@+id/rel_clean_cash"
+        style="@style/setting_item_layout">
+
+        <TextView
+            style="@style/setting_item_textview_style"
+            android:text="@string/setting_clean_cash" />
+
+        <ImageView style="@style/setting_item_imageview_style" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/setting_item_bottom_line" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90px"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_100px"
+        android:text="退出登录"
+        android:background="@drawable/exit_login_shape"
+        android:textColor="@color/color_fe3e3c"
+        android:textStyle="bold"
+        android:textSize="@dimen/_30px" />
+
+</LinearLayout>

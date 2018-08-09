@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200px"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/_20px">
+
+
+    <TextView
+        android:id="@+id/tv_p"
+        android:layout_width="@dimen/_150px"
+        android:layout_height="@dimen/_150px"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/common_shape_oval"
+        android:gravity="center"
+        android:text="P"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_38px" />
+
+
+    <LinearLayout
+        android:id="@+id/lin_record_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/_20px">
+
+        <TextView
+            android:id="@+id/tv_record_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥5.00"
+            android:textColor="@color/commom_text_color"
+            android:textSize="@dimen/_28px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_record_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20px"
+            android:text="3小时7分钟"
+            android:textSize="@dimen/_28px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_10px"
+        android:layout_toLeftOf="@id/lin_record_right"
+        android:layout_toRightOf="@id/tv_p"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_car_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="桂A8888"
+            android:textSize="@dimen/_30px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_park_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:text="江南万达广场"
+            android:textSize="@dimen/_28px" />
+
+        <TextView
+            android:id="@+id/tv_park_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:text="2018.08.06 18：00"
+            android:textSize="@dimen/_28px" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_toRightOf="@id/tv_p"
+        android:background="@color/common_spite_color" />
+</RelativeLayout>

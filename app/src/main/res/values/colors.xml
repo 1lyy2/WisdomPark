@@ -26,6 +26,9 @@
     <color name="common_title_text">@color/color_333333</color>
     <color name="common_title_background">@color/primary</color>
     <color name="common_background">@color/color_fcfcfc</color>
+    <color name="color_gray_transparent">#ffcccccc</color>
+    <color name="balance_color">#FD9927</color>
+    <color name="coupons_text_color">#434343</color>
 
     <!-- 全客户端使用的边框，分割线颜色 -->
     <color name="common_line_color">#E2E2E2</color>
@@ -38,6 +41,10 @@
     <!--标题栏背景-->
     <color name="title_bg_color">#0CCAC5</color>
     <color name="tab_main_color">#ffffff</color>
-    <color name="main_bg_color">#e5e5e5</color>
+    <color name="main_bg_color">#F0EFF5</color>
     <color name="bg_common_color">#007DFF</color>
+    //文字颜色
+    <color name="setting_txt_color">#333333</color>
+    <color name="commom_text_color">#007DFF</color>
+    <color name="takeout_color">#CCCCCC</color>
 </resources>

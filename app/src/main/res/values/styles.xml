@@ -12,7 +12,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseAppTheme">
-
     </style>
 
     <!-- 定义ActionBar -->
@@ -28,15 +27,11 @@
     <!--闪屏页的-->
     <style name="ThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">
         <!--这一行是主要代码,其他看情况自己加-->
-        <item name="android:windowBackground">@mipmap/bg</item>
+        <item name="android:windowBackground">@mipmap/ic_launcher</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/register_checkbox_selector</item>
-        <item name="android:gravity">center</item>
     </style>
     <style name="popupwindow_anim_style">
         <!-- 指定显示的动画xml -->
@@ -48,6 +43,17 @@
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">@dimen/_36px</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--普通按钮。圆角，蓝色底-->
+    <style name="commom_btn_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/_20px</item>
+        <item name="android:layout_marginLeft">@dimen/_20px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_28px</item>
+        <item name="android:background">@drawable/recharge_shape</item>
     </style>
 
 </resources>

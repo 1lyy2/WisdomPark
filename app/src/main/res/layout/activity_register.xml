@@ -6,7 +6,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.login.RegisterActivity">
-
     <include layout="@layout/common_tool_bar" />
 
     <EditText

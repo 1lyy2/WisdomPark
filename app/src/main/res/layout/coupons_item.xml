@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:layout_height="@dimen/_200px">
+
+    <RelativeLayout
+        android:layout_width="@dimen/_250px"
+        android:layout_height="match_parent"
+        android:background="@color/color_fe3e3c"
+        android:layout_marginLeft="@dimen/_10px"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_26px" />
+
+                <TextView
+                    android:id="@+id/tv_coupons_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_45px" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_user_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="满10元使用"
+                android:layout_marginTop="@dimen/_10px"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_28px" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_user_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:textColor="@color/coupons_text_color"
+            android:textSize="@dimen/_28px"
+            android:textStyle="bold"
+            android:text="停车专用"/>
+        <TextView
+            android:id="@+id/tv_user_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#858585"
+            android:text="2018.8.7-2018.8.9"
+            android:textSize="@dimen/_26px"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/_10px"
+        android:layout_marginLeft="@dimen/_10px"
+        android:layout_alignParentRight="true">
+        <TextView
+            android:id="@+id/tv_user_now"
+            android:layout_width="@dimen/_150px"
+            android:layout_height="@dimen/_50px"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:background="@drawable/btn_border_radius"
+            android:textSize="@dimen/_28px"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:text="立即使用"/>
+        <TextView
+            android:id="@+id/tv_used"
+            android:layout_width="@dimen/_120px"
+            android:layout_height="@dimen/_120px"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="@dimen/_28px"
+            android:background="@drawable/coupons_shape"
+            android:text="已使用"/>
+    </RelativeLayout>
+</LinearLayout>

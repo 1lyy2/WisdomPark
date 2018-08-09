@@ -4,6 +4,8 @@ package com.zykj.carfigure.eventbus;
 public class EventCode {
     //定位
     public static final int LOCATION=0x555555;
+    //刷新定位
+    public static final int REFRESH_LOCATION =0x889898;
     //车位的详情
     public static final int NEARCARPARKDETAIL=0x666666;
     //路线

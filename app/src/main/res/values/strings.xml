@@ -31,4 +31,21 @@
     <string name="title_activity_find_password">FindPasswordActivity</string>
     <string name="findpsw_string">找回密码</string>
     <string name="title_activity_reset">ResetActivity</string>
+    <string name="personal_data_string">个人资料</string>
+    <string name="setting_string">设置</string>
+    <string name="setting_message_reminding">消息提醒</string>
+    <string name="setting_down_map_string">离线地图</string>
+    <string name="setting_account_safe_string">账号安全</string>
+    <string name="setting_clean_cash">清楚缓存</string>
+    <string name="balance_setting">余额</string>
+    <string name="coupons_string">优惠劵</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_car_string">我的车辆</string>
+    <string name="add_car_string">添加车辆</string>
+    <string name="park_record_string">停车记录</string>
+    <string name="about_string">关于我们</string>
+    <string name="contact_string">联系我们</string>
+    <string name="suggest_string">投诉建议</string>
 </resources>

@@ -35,8 +35,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="?attr/actionBarSize"
-                >
+                android:layout_marginTop="?attr/actionBarSize">
 
                 <com.zykj.carfigure.views.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/round_user_avtar"
@@ -59,7 +58,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/round_user_avtar"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="@dimen/_20px"
+                    android:layout_marginBottom="@dimen/_10px"
+                    android:layout_marginTop="@dimen/_15px"
                     android:text="莫莫" />
 
                 <LinearLayout
@@ -131,8 +131,17 @@
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <View
+                        android:id="@+id/fake_status_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
 
                 <RelativeLayout
                     android:id="@+id/user_setting"
@@ -158,6 +167,7 @@
                         android:background="@drawable/loaction_shape"
                         android:visibility="gone" />
                 </RelativeLayout>
+                </LinearLayout>
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -169,8 +179,8 @@
         android:layout_height="match_parent"
         android:overScrollMode="always"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-      <include
-          layout="@layout/me_fragment_below"/>
+
+        <include layout="@layout/me_fragment_below" />
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

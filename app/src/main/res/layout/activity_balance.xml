@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.BalanceActivity">
+
+    <include layout="@layout/common_tool_bar" />
+
+    <LinearLayout
+        android:layout_width="@dimen/_150px"
+        android:layout_height="@dimen/_150px"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_100px"
+        android:background="@drawable/balance_shape">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="￥"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_48px" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50px"
+        android:gravity="center"
+        android:text="我的余额" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30px"
+        android:gravity="center"
+        android:text="￥20.8"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90px"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_80px"
+        android:background="@drawable/recharge_shape"
+        android:text="充值"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_28px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90px" 
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_50px"
+        android:background="@drawable/takeout_shape"
+        android:text="提现"
+        android:textSize="@dimen/_28px" />
+
+
+</LinearLayout>

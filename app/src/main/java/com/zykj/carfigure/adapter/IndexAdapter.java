@@ -285,7 +285,7 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
                     }
                 }, list)
                 //设置自动切换（同时设置了切换时间间隔）
-                .startTurning(5000)
+                .startTurning(8000)
                 //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})

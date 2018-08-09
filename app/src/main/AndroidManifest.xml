@@ -61,6 +61,7 @@
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -75,6 +76,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        //适配7.0的权限
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
         //高德地图
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -120,6 +131,31 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
+        <!-- 图片选择Activity -->
+        <!--
+        //去掉Activity的ActionBar。
+        //使用者可以根据自己的项目去配置，不一定要这样写，只要不Activity的ActionBar去掉就可以了。
+        -->
+        <!--
+        //横竖屏切换处理。
+        //如果要支持横竖屏切换，一定要加上这句，否则在切换横竖屏的时候会发生异常。
+        -->
+        <activity
+            android:name="com.donkingliang.imageselector.ImageSelectorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- //图片预览Activity -->
+        <activity
+            android:name="com.donkingliang.imageselector.PreviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- //图片剪切Activity -->
+        <activity
+            android:name="com.donkingliang.imageselector.ClipImageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <!-- activity -->
         <activity
             android:name=".activity.login.LoginActivity"
@@ -141,7 +177,18 @@
             android:label="@string/title_activity_find_password" />
         <activity
             android:name=".activity.login.ResetActivity"
-            android:label="@string/title_activity_reset"></activity>
+            android:label="@string/title_activity_reset" />
+        <activity android:name=".activity.me.PersonalDataActivity" />
+        <activity android:name=".activity.me.SettingActivity" />
+        <activity android:name=".activity.me.BalanceActivity" />
+        <activity android:name=".activity.me.MyCouponsActivity" />
+        <activity android:name=".activity.me.MyCarActivity" />
+        <activity android:name=".activity.me.AddCarActivity" />
+        <activity android:name=".activity.me.ParkRecordActivity" />
+        <activity android:name=".activity.me.AboutActivity" />
+        <activity android:name=".activity.me.ContactActivity" />
+        <activity android:name=".activity.me.SuggestActivity" />
+        <activity android:name=".activity.me.CommonProblemActivity"></activity>
     </application>
 
 </manifest>

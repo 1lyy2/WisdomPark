@@ -1,13 +1,18 @@
 package com.zykj.carfigure.mvp.model;
 
-import java.util.Observable;
+import com.zykj.carfigure.http.RetrofitUtils;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserLoginModel implements IUserLoginModel {
     @Override
-    public void userLogin(Observable observable) {
-          // RetrofitUtils.getApiService().getShouData()
-        //                .subscribeOn(Schedulers.io())
-        //                .observeOn(AndroidSchedulers.mainThread())
-        //                .subscribe(observer);
+    public void userLogin(Observer observer) {
+        RetrofitUtils.getApiService().getData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }

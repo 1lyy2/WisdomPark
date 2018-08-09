@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.AddCarActivity">
+
+    <include layout="@layout/common_tool_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100px"
+        android:layout_marginTop="@dimen/_20px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_20px"
+            android:gravity="center"
+            android:text="车牌类型"
+            android:textSize="@dimen/_28px" />
+
+        <ImageView
+            android:id="@+id/img_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_20px"
+            android:background="@drawable/news_see" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_20px"
+            android:layout_toLeftOf="@id/img_next"
+            android:text="蓝底白字" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginTop="@dimen/_30px"
+        android:text="车牌号码"
+        android:textSize="@dimen/_28px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_30px">
+        <EditText
+            android:layout_width="@dimen/_120px"
+            android:layout_height="@dimen/_80px"
+            android:text="桂"
+            android:gravity="center"
+            android:drawablePadding="@dimen/_10px"
+            android:paddingRight="@dimen/_10px"
+            android:background="@drawable/add_car_number_shape"
+            android:drawableRight="@drawable/news_see"/>
+        
+    </LinearLayout>
+</LinearLayout>

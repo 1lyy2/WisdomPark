@@ -1,7 +1,8 @@
 package com.zykj.carfigure.mvp.model;
 
-import java.util.Observable;
+
+import io.reactivex.Observer;
 
 public interface IUserLoginModel {
-    void userLogin(Observable observable);
+    void userLogin(Observer observer);
 }

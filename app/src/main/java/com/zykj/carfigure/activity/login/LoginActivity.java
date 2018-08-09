@@ -25,6 +25,8 @@ import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.app.AppConfig;
 import com.zykj.carfigure.base.BaseActivity;
+import com.zykj.carfigure.entity.Simple;
+import com.zykj.carfigure.http.RetrofitUtils;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.utils.SPCache;
 import com.zykj.carfigure.utils.StrUtil;
@@ -37,6 +39,10 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
     public static final String PAGE_NAME = "登录";
@@ -164,7 +170,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onCreatePresenter() {
-
+        TestHttp();
     }
 
     @Override
@@ -255,7 +261,6 @@ public class LoginActivity extends BaseActivity {
         mIUiListener = new BaseUiListener();
         mTencent.login(LoginActivity.this, "all", mIUiListener);
     }
-
     //qq登录接口回调
     class BaseUiListener implements IUiListener {
 
@@ -394,7 +399,8 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
-    private  void getPersonMessage(String access_token,String openid){
+
+    private void getPersonMessage(String access_token, String openid) {
         String url = "https://api.weixin.qq.com/sns/userinfo?access_token="
                 + access_token
                 + "&openid="
@@ -406,7 +412,7 @@ public class LoginActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String nickname = jsonObject.getString("nickname");
                     String openid = jsonObject.getString("openid");
-                    int sex = jsonObject.optInt("sex",0);//1为男性，2为女性
+                    int sex = jsonObject.optInt("sex", 0);//1为男性，2为女性
                     String headimgurl = jsonObject.getString("headimgurl");
                     //在此实现微信登录操作
                     //userLoginThirdView.WxUserInfo(openid, nickname, headimgurl, 1);//1为微信类型
@@ -421,6 +427,34 @@ public class LoginActivity extends BaseActivity {
                 //userLoginThirdView.getBaseInterface().hideLoadingView();
             }
         });
+    }
+    private void TestHttp(){
+
+        RetrofitUtils.getApiService().getData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Simple>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                         Log.i("a",d.toString());
+                    }
+
+                    @Override
+                    public void onNext(Simple simple) {
+                        Log.i("a",simple.toString());
+                        showToastMsgShort(simple.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("a",e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i("a","完成");
+                    }
+                });
     }
 
 }

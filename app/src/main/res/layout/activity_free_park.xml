@@ -5,6 +5,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.FreeParkActivity">
-
     <include layout="@layout/common_tool_bar" />
 </LinearLayout>

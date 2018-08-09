@@ -1,21 +1,43 @@
 package com.zykj.carfigure.fragment;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.activity.me.AboutActivity;
+import com.zykj.carfigure.activity.me.BalanceActivity;
+import com.zykj.carfigure.activity.me.CommonProblemActivity;
+import com.zykj.carfigure.activity.me.ContactActivity;
+import com.zykj.carfigure.activity.me.MyCarActivity;
+import com.zykj.carfigure.activity.me.MyCouponsActivity;
+import com.zykj.carfigure.activity.me.ParkRecordActivity;
+import com.zykj.carfigure.activity.me.PersonalDataActivity;
+import com.zykj.carfigure.activity.me.SettingActivity;
+import com.zykj.carfigure.activity.me.SuggestActivity;
 import com.zykj.carfigure.base.BaseFragment;
+import com.zykj.carfigure.utils.StatusBarUtil;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MeFragment extends BaseFragment {
 
+
+    @BindView(R.id.fake_status_bar)
+    View statusView;
+    Unbinder unbinder;
+
     @Override
     protected void initView(View rootView) {
+        initStatus();
+    }
 
+    private void initStatus() {
+        statusView = rootView.findViewById(R.id.fake_status_bar);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.height = StatusBarUtil.getStatusBarHeight(getActivity());
+        statusView.setLayoutParams(lp);
     }
 
     @Override
@@ -37,4 +59,53 @@ public class MeFragment extends BaseFragment {
     public void onCreatePresenter() {
 
     }
+
+    @OnClick({R.id.round_user_avtar, R.id.lin_money, R.id.user_setting, R.id.lin_mycoupon, R.id.lin_mycar,
+            R.id.lin_park_record,R.id.lin_about,R.id.lin_connect,R.id.lin_complaints,R.id.lin_problem})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.round_user_avtar:
+                //头像
+                launchActivity(PersonalDataActivity.class);
+                break;
+            case R.id.lin_money:
+                //余额
+                launchActivity(BalanceActivity.class);
+                break;
+            case R.id.user_setting:
+                //设置
+                launchActivity(SettingActivity.class);
+                break;
+            case R.id.lin_mycoupon:
+                //优惠劵
+                launchActivity(MyCouponsActivity.class);
+                break;
+            case R.id.lin_mycar:
+                //我的车辆
+                launchActivity(MyCarActivity.class);
+                break;
+            case R.id.lin_park_record:
+                //停车记录
+                launchActivity(ParkRecordActivity.class);
+                break;
+            case R.id.lin_about:
+                //关于
+                launchActivity(AboutActivity.class);
+                break;
+            case R.id.lin_connect:
+                //联系我们
+                launchActivity(ContactActivity.class);
+                break;
+            case R.id.lin_complaints:
+                //投诉建议
+                launchActivity(SuggestActivity.class);
+                break;
+            case R.id.lin_problem:
+                launchActivity(CommonProblemActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
+
 }

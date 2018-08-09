@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.ParkRecordActivity">
+
+    <include layout="@layout/common_tool_bar" />
+    <include
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        layout="@layout/view_data_empty"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/record_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zykj.carfigure.views.EmptyRecyclerView
+            android:id="@+id/record_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+        </com.zykj.carfigure.views.EmptyRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

@@ -8,16 +8,25 @@
     android:orientation="vertical"
     tools:context=".fragment.IndexFragment">
 
+    <View
+        android:id="@+id/fake_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#ffffff" />
+
     <RelativeLayout
         android:id="@+id/lin_location"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100px">
+        android:layout_height="@dimen/_90px"
+        android:layout_below="@id/fake_status_bar">
 
         <RelativeLayout
+            android:id="@+id/refresh_location"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/_20px"
-            android:orientation="horizontal">
+            android:minWidth="@dimen/_100px"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_20px">
 
             <ImageView
                 android:id="@+id/img_location"
@@ -32,19 +41,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/img_location"
                 android:layout_marginLeft="@dimen/_20px"
                 android:layout_marginStart="@dimen/_20px"
-                android:textSize="@dimen/_26px"
-                android:textColor="@color/bg_common_color" />
+                android:layout_toRightOf="@+id/img_location"
+                android:textColor="@color/bg_common_color"
+                android:textSize="@dimen/_26px" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="@string/app_name"
             android:textSize="@dimen/_30px"
-            android:textStyle="bold"
-            android:text="@string/app_name"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -75,7 +85,6 @@
         app:elevation="3.0dip"
         app:fabSize="normal"
         app:layout_anchorGravity="right|bottom"
-        app:pressedTranslationZ="10.0dip"
         app:rippleColor="@color/title_bg_color" />
 
     <LinearLayout
@@ -84,6 +93,7 @@
         android:layout_height="@dimen/_90px"
         android:background="@color/main_bg_color"
         android:orientation="horizontal"
+        android:layout_below="@id/fake_status_bar"
         android:visibility="gone">
 
         <TextView
@@ -93,8 +103,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_20px"
             android:text="附近优选"
-            android:textStyle="bold"
-            android:textSize="@dimen/_28px" />
+            android:textSize="@dimen/_28px"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

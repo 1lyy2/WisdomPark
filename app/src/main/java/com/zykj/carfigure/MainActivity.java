@@ -13,6 +13,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.zykj.carfigure.adapter.BottomTabFragmentPagerAdapter;
 import com.zykj.carfigure.base.BaseActivity;
+import com.zykj.carfigure.eventbus.BindEventBus;
 import com.zykj.carfigure.eventbus.Event;
 import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
@@ -23,14 +24,20 @@ import com.zykj.carfigure.helper.requestpermissions.PermissionsManager;
 import com.zykj.carfigure.helper.requestpermissions.PermissionsResultAction;
 import com.zykj.carfigure.location.Location;
 import com.zykj.carfigure.location.Utils;
+import com.zykj.carfigure.log.Log;
+import com.zykj.carfigure.mvp.presenter.UserLoginPresenter;
 import com.zykj.carfigure.views.BottomTabView;
 import com.zykj.carfigure.views.MyViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
+@BindEventBus
 public class MainActivity extends BaseActivity implements AMapLocationListener {
     @BindView(R.id.myviewpager)
     public  MyViewPager          viewPager;
@@ -42,9 +49,12 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private AMapLocationClient       locationClient = null;
     private AMapLocationClientOption locationOption = null;
     public static  String cityName ="";
+    private UserLoginPresenter userLoginPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setDisableStatusBar(true);
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             canExit = savedInstanceState.getBoolean("canExit");
@@ -59,7 +69,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         initLocation();
         startLocation();
     }
-
     /**
      * 初始化定位
      *
@@ -225,7 +234,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
             //定位之后的回调时间
             sb.append("回调时间: " + Utils.formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss") + "\n");
             //解析定位结果，
-           // Log.i(TAG,sb.toString());
+            Log.i(TAG,sb.toString());
         } else {
             Event<String> event=new Event<>(0,"定位失败，loc is null");
            // EventBusUtils.sendEvent(event);
@@ -279,6 +288,22 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         super.onDestroy();
         destroyLocation();
     }
-
+    /**
+     * 接受eventbus 适配器的click事件
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleEvent(Event<Object> event) {
+        int code = event.getCode();
+        switch (code) {
+            case EventCode.REFRESH_LOCATION:
+                startLocation();
+                showToastMsgShort("刷新定位");
+                break;
+            default:
+                break;
+        }
+    }
 
 }

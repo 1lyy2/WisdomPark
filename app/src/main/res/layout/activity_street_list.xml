@@ -6,7 +6,6 @@
     android:background="@color/main_bg_color"
     android:orientation="vertical"
     tools:context=".activity.StreetListActivity">
-
     <include layout="@layout/common_tool_bar" />
 
     <android.support.v7.widget.RecyclerView

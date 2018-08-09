@@ -16,7 +16,7 @@ import com.zykj.carfigure.R;
 import com.zykj.carfigure.helper.ViewPagerIndicateHelper;
 
 public class GuildActivity extends AppCompatActivity {
-    private int[] guild = new int[]{R.mipmap.guid1, R.mipmap.guid2};
+    private int[] guild = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher};
     private Adapter adapter;
 
     private ViewPager viewPager;

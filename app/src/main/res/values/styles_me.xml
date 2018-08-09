@@ -32,11 +32,43 @@
         <item name="android:layout_marginLeft">@dimen/_20px</item>
         <item name="android:layout_gravity">center</item>
     </style>
+
     <style name="common_me_item_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_1px</item>
         <item name="android:background">@color/common_spite_color</item>
         <item name="android:layout_marginLeft">@dimen/_90px</item>
+    </style>
+
+    <style name="setting_item_textview_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/setting_txt_color</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/_28px</item>
+        <item name="android:paddingLeft">@dimen/_20px</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="setting_item_imageview_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">@dimen/_30px</item>
+        <item name="android:background">@drawable/news_see</item>
+    </style>
+    <style name="setting_item_bottom_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_1px</item>
+        <item name="android:background">@color/common_spite_color</item>
+        <item name="android:layout_marginLeft">@dimen/_20px</item>
+    </style>
+
+    <style name="setting_item_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_90px</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 </resources>

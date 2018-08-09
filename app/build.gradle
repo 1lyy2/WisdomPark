@@ -11,6 +11,9 @@ android {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+            //abiFilters  "armeabi-v7a", "arm64-v8a","x86", "x86_64"
+            //编译成apk开启减少apk体积
+            //abiFilters "armeabi"
         }
         multiDexEnabled true
     }
@@ -21,6 +24,8 @@ android {
     }
     buildTypes {
         release {
+            //去除无用资源
+            //shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -65,15 +70,22 @@ dependencies {
     }
     implementation rootProject.ext.dependencies["cardview"]
     implementation rootProject.ext.dependencies["design"]
+    //retrofit
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["converter-gson"]
+    //implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation rootProject.ext.dependencies["adapter-rxjava2"]
+    //okhttp
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["logging-interceptor"]
+    //rxjava
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
 
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    //imageSelector
+    implementation rootProject.ext.dependencies["imageSelector"]
+
+    //implementation rootProject.ext.dependencies["gson"]
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
     //定位功能
@@ -82,10 +94,15 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
     //ConvenientBanner 通用轮播图
     implementation 'com.bigkoo:ConvenientBanner:2.1.4'
-
+    //QQ
     implementation files('libs/open_sdk_r6008_lite.jar')
     //微信登录接入
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //支付宝
     implementation files('libs/alipaySdk-20180601.jar')
     implementation 'com.android.support:multidex:1.0.1'
+    //smarttablayout
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //Optional: see how to use the utility.
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 }

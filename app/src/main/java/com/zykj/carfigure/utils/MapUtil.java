@@ -146,7 +146,7 @@ public class MapUtil {
         StringBuilder builder = new StringBuilder("androidamap://navi?sourceApplication=" + context.getResources().getString(R.string.app_name));
         builder.append("&lat=").append(lat)
                 .append("&lon=").append(lon)
-                //.append("&dname=").append(dname)
+                .append("&dname=").append("我的位置")
                 .append("&dev=").append(dev)
                 .append("&t=").append(t)
                 .append("&style=").append(style);
@@ -158,17 +158,6 @@ public class MapUtil {
         context.startActivity(intent);
     }
 
-    /**
-     * 打开百度地图导航功能(默认坐标点是高德地图，需要转换)
-     *
-     * @param context
-     * @param slat    起点纬度
-     * @param slon    起点经度
-     * @param sname   起点名称 可不填（0,0，null）
-     * @param dlat    终点纬度
-     * @param dlon    终点经度
-     * @param dname   终点名称 必填
-     */
     public static void openBaiDuNavi(Context context, double slat, double slon, String sname, double dlat, double dlon, String dname) {
         String uriString = null;
         //终点坐标转换

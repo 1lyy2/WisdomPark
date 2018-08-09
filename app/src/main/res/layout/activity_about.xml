@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.AboutActivity">
+
+    <include layout="@layout/common_tool_bar" />
+
+    <ImageView
+        android:layout_width="@dimen/_250px"
+        android:layout_height="@dimen/_250px"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_50px"
+        android:background="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_50px"
+        android:text="@string/app_name"
+        android:textSize="@dimen/_30px"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_30px"
+        android:text="版本号：V1.0"
+        android:textSize="@dimen/_28px" />
+
+    <TextView
+        android:id="@+id/tv_about_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_50px"
+        android:textSize="@dimen/_26px"/>
+
+</LinearLayout>

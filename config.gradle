@@ -10,9 +10,15 @@ ext {
     ]
 
     def dependVersion = [
-            support    : "27.1.1",
-            butterknife: "8.8.1",
-            glide      : "4.5.0",
+            support      : "27.1.1",
+            butterknife  : "8.8.1",
+            glide        : "4.5.0",
+            retrofit2    : "2.3.0",
+            okhttp       : "3.8.1",
+            rxjava       : "2.1.9",
+            rxandroid    : "2.0.2",
+            gson         : "2.8.2",
+            imageSelector: "1.6.5",
 
     ]
 
@@ -37,6 +43,22 @@ ext {
             "glide-compiler"         : "com.github.bumptech.glide:compiler:${dependVersion.glide}",
             "recyclerview"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
             "cardview"               : "com.android.support:cardview-v7:${dependVersion.support}",
-            "design"                 : "com.android.support:design:${dependVersion.support}"
+            "design"                 : "com.android.support:design:${dependVersion.support}",
+            //retrofit
+            "retrofit"               : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit2}",
+            "converter-gson"         : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit2}",
+            "adapter-rxjava2"        : "com.squareup.retrofit2:adapter-rxjava2:${dependVersion.retrofit2}",
+            //okhttp
+            "okhttp"                 : "com.squareup.okhttp3:okhttp:${dependVersion.okhttp}",
+            "logging-interceptor"    : "com.squareup.okhttp3:logging-interceptor:${dependVersion.okhttp}",
+            //rxjava
+            "rxjava"                 : "io.reactivex.rxjava2:rxjava:${dependVersion.rxjava}",
+            //rxandroid
+            "rxandroid"              : "io.reactivex.rxjava2:rxandroid:${dependVersion.rxandroid}",
+            //gson
+            "gson"                   : "com.google.code.gson:gson:${dependVersion.gson}",
+            //ImageSelector
+            "imageSelector"          : "com.github.donkingliang:ImageSelector:${dependVersion.imageSelector}"
+
     ]
 }

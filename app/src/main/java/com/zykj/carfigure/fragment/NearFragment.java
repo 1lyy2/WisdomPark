@@ -13,6 +13,7 @@ import android.view.animation.Interpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -31,6 +32,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.TranslateAnimation;
+import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.activity.SearchActivity;
 import com.zykj.carfigure.activity.StreetListActivity;
@@ -44,6 +46,7 @@ import com.zykj.carfigure.eventbus.EventCode;
 import com.zykj.carfigure.location.marker.MarkerOverlay;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.utils.MapUtil;
+import com.zykj.carfigure.utils.StatusBarUtil;
 import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.utils.Utils;
 import com.zykj.carfigure.views.NearMapItemDecoration;
@@ -57,7 +60,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 @BindEventBus
 public class NearFragment extends BaseFragment implements LocationSource, AMapLocationListener, AMap.OnCameraChangeListener, AMap.OnMapLoadedListener, MarkerOverlay.OnMarkerOnClickListener {
@@ -71,7 +73,8 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
     ImageView showParkingList;
     @BindView(R.id.near_search)
     LinearLayout nearSearch;
-    Unbinder unbinder;
+    @BindView(R.id.fake_status_bar)
+    View statusView;
     private AMap aMap;
     private MyLocationStyle myLocationStyle;
     private OnLocationChangedListener mListener;
@@ -135,10 +138,17 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
     @Override
     protected void initView(View rootView) {
         search_edt.setFocusable(false);//让EditText失去焦点，然后获取点击事件
+        initStatus();
         init();
         initAdapter();
     }
-
+    private void initStatus(){
+        statusView = rootView.findViewById(R.id.fake_status_bar);
+        RelativeLayout.LayoutParams lp= new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.height= StatusBarUtil.getStatusBarHeight(getActivity());
+        statusView.setLayoutParams(lp);
+        statusView.setBackgroundColor(((MainActivity)getActivity()).getStatusBarColor());
+    }
     private void init() {
         if (aMap == null) {
             aMap = mapView.getMap();
@@ -213,7 +223,7 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
         list.add(new Street(new LatLng(22.808486, 108.401813), "桂雅路", 120, 12, 530));
         list.add(new Street(new LatLng(22.808386, 108.401913), "长岗路", 550, 82, 800));
         list.add(new Street(new LatLng(22.808296, 108.401783), "朝阳路", 80, 0, 200));
-        streetList =list;
+        streetList = list;
         return list;
     }
 
@@ -257,12 +267,12 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
         mapView.onSaveInstanceState(outState);
     }
 
-    @OnClick({ R.id.near_edit_search,R.id.show_parking_list, R.id.near_search})
+    @OnClick({R.id.near_edit_search, R.id.show_parking_list, R.id.near_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.show_parking_list:
                 //展示当前地图所有街道的列表
-                EventBusUtils.sendStickyEvent(new Event(EventCode.STREETDATACHANGE,streetList));
+                EventBusUtils.sendStickyEvent(new Event(EventCode.STREETDATACHANGE, streetList));
                 launchActivity(StreetListActivity.class);
                 break;
             case R.id.near_search:
@@ -274,6 +284,7 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
                 break;
         }
     }
+
     //定位
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -436,23 +447,22 @@ public class NearFragment extends BaseFragment implements LocationSource, AMapLo
             case EventCode.NAVIGATION:
                 Street street = (Street) event.getData();
                 Log.i("位置", "---------------------" + street.toString());
-                MapUtil.showNavigation(getContext(),street,mapRecyclerView,mapSelectPopup,MapUtil.TYPE_STREET);
+                MapUtil.showNavigation(getContext(), street, mapRecyclerView, mapSelectPopup, MapUtil.TYPE_STREET);
                 break;
             case EventCode.GAODEMAP:
                 //高德地图导航
                 Street mstreet = (Street) event.getData();
                 if (mstreet == null) return;
-                MapUtil.goNavigationByGaode(mstreet, getContext(),MapUtil.TYPE_STREET);
+                MapUtil.goNavigationByGaode(mstreet, getContext(), MapUtil.TYPE_STREET);
                 break;
             case EventCode.BAIDUMAP:
                 //百度地图导航
                 Street baduStreet = (Street) event.getData();
                 if (baduStreet == null) return;
-                MapUtil.goToBaidu(baduStreet.getmLatLng(), getContext(),MapUtil.TYPE_STREET);
+                MapUtil.goToBaidu(baduStreet, getContext(), MapUtil.TYPE_STREET);
                 break;
             default:
                 break;
         }
     }
-
 }

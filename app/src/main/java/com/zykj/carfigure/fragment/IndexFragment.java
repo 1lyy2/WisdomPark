@@ -22,8 +22,10 @@ import com.zykj.carfigure.base.BaseFragment;
 import com.zykj.carfigure.entity.IndexFragmentEntity;
 import com.zykj.carfigure.eventbus.BindEventBus;
 import com.zykj.carfigure.eventbus.Event;
+import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
 import com.zykj.carfigure.utils.MapUtil;
+import com.zykj.carfigure.utils.StatusBarUtil;
 import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.views.popup.MapSelectPopup;
 
@@ -35,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 @BindEventBus
 public class IndexFragment extends BaseFragment implements OnItemClickListener, IndexAdapter.BannerOnItemClckListener, SwipeRefreshLayout.OnRefreshListener,
@@ -54,19 +57,29 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
     TextView tvLocation;
     @BindView(R.id.lin_location)
     RelativeLayout linLocation;
+    @BindView(R.id.refresh_location)
+    RelativeLayout refreshLocation;
+    @BindView(R.id.tv_index_item_title)
+    TextView tvIndexItemTitle;
+    Unbinder unbinder;
     private List<Object> list;
     private IndexAdapter indexAdapter;
     private boolean isLoading;
     private Handler handler = new Handler();
     private GridLayoutManager gridLayoutManager;
-    //滑动的标志
-    private int distance;
-    private boolean visible = true;
     private MapSelectPopup mapSelectPopup;
+    private View statusView;
 
     @Override
     protected void initView(View rootView) {
         createData();
+        //设置沉浸式
+        statusView = rootView.findViewById(R.id.fake_status_bar);
+        RelativeLayout.LayoutParams lp= new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.height= StatusBarUtil.getStatusBarHeight(getActivity());
+        statusView.setLayoutParams(lp);
+        statusView.setBackgroundColor(((MainActivity)getActivity()).getStatusBarColor());
+
         tvLocation.setText(MainActivity.cityName);
         indexAdapter = new IndexAdapter(getContext(), this, this, this, true, false);
         gridLayoutManager = new GridLayoutManager(getContext(), 4);
@@ -77,7 +90,6 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
         loadMore();
         hideFABAnimation(fab);
     }
-
     @Override
     protected int getContentViewId() {
         return R.layout.fragment_index;
@@ -279,10 +291,6 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
         ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY, pvhZ).setDuration(400).start();
     }
 
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-        recycleviewIndex.smoothScrollToPosition(0);
-    }
 
     /**
      * item点击回调
@@ -312,7 +320,6 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
      */
     @Override
     public void onNearNavigationListener(Object object) {
-        showToastMsgShort("附近优选导航");
         MapUtil.showNavigation(getContext(), object, recycleviewIndex, mapSelectPopup, MapUtil.TYPE_NEAR);
     }
 
@@ -334,5 +341,20 @@ public class IndexFragment extends BaseFragment implements OnItemClickListener, 
             default:
                 break;
         }
+    }
+
+    @OnClick({R.id.refresh_location, R.id.fab})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.refresh_location:
+                EventBusUtils.sendStickyEvent(new Event(EventCode.REFRESH_LOCATION,"刷新定位"));
+                break;
+            case R.id.fab:
+                recycleviewIndex.smoothScrollToPosition(0);
+                break;
+        }
+    }
+    private void setRefreshLocationAnimation(View view){
+        //使用TranslateAnimation,填写一个需要移动的目标点
     }
 }

@@ -30,6 +30,7 @@ public class GlideUtil {
                             String url,
                             ImageView imageView,
                             RequestOptions options) {
+        if (imageView == null) return;
         options.placeholder(placeholder)
                 .error(error);
         Glide.with(context)
@@ -39,9 +40,10 @@ public class GlideUtil {
     }
 
     public static void loadNoOptions(Context context,
-                            String url,
-                            ImageView imageView) {
-        RequestOptions options =new RequestOptions();
+                                     String url,
+                                     ImageView imageView) {
+        if (imageView == null) return;
+        RequestOptions options = new RequestOptions();
         options.placeholder(placeholder)
                 .error(error);
         Glide.with(context)

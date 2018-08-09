@@ -4,21 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     tools:context=".fragment.NearFragment">
+    <View
+        android:id="@+id/fake_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
     <LinearLayout
         android:id="@+id/near_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_65px"
+        android:layout_below="@id/fake_status_bar"
         android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/_20px"
         android:layout_marginRight="@dimen/_20px"
         android:layout_marginTop="@dimen/_10px"
-        android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/_10px"
         android:paddingLeft="@dimen/_10px"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+       >
 
         <EditText
             android:id="@+id/near_edit_search"

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    tools:context=".activity.me.ContactActivity">
+    <include layout="@layout/common_tool_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/rel_service"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100px"
+        android:layout_marginTop="@dimen/_20px"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/_20px"
+        android:paddingRight="@dimen/_20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="客服热线"
+            android:textSize="@dimen/_28px" />
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="400123"
+            android:textColor="@color/commom_text_color"
+            android:textSize="@dimen/_28px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_spite_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rel_door"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100px"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/_20px"
+        android:paddingRight="@dimen/_20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="门户网站"
+            android:textSize="@dimen/_28px" />
+
+        <TextView
+            android:id="@+id/tv_door"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="http://www.chetu.com"
+            android:textColor="@color/commom_text_color"
+            android:textSize="@dimen/_28px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_spite_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rel_accounts"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100px"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/_20px"
+        android:paddingRight="@dimen/_20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="微信公众号"
+            android:textSize="@dimen/_28px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="车图无忧"
+            android:textColor="@color/commom_text_color"
+            android:textSize="@dimen/_28px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_spite_color" />
+    </RelativeLayout>
+</LinearLayout>
