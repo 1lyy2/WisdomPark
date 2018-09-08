@@ -1,7 +1,7 @@
 package com.zykj.carfigure.mvp.presenter;
 
-import com.zykj.carfigure.entity.Simple;
-import com.zykj.carfigure.log.Log;
+import com.zykj.carfigure.entity.CommonBack;
+import com.zykj.carfigure.entity.User;
 import com.zykj.carfigure.mvp.BaseIPresenter;
 import com.zykj.carfigure.mvp.model.UserLoginModel;
 import com.zykj.carfigure.mvp.view.IUserLoginView;
@@ -32,28 +32,56 @@ public class UserLoginPresenter implements BaseIPresenter<IUserLoginView> {
         softReference.clear();
     }
 
-    public void getData() {
-        mUserLoginModel.userLogin(new Observer<Simple>() {
+    //用户登录
+    public void login(String username, String password) {
+        mUserLoginModel.userLogin(new Observer<User>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.i("测试",d.toString());
+
             }
 
             @Override
-            public void onNext(Simple simple) {
-              softReference.get().loginSuccess(simple);
+            public void onNext(User user) {
+                softReference.get().loginSuccess(user);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.i("测试",e.toString());
+                softReference.get().loginFailed();
             }
 
             @Override
             public void onComplete() {
-                Log.i("结束","结束");
+
+            }
+        }, username, password);
+    }
+
+    //用户退出登录
+    public void logout() {
+        mUserLoginModel.userLogout(new Observer<CommonBack>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(CommonBack commonBack) {
+                softReference.get().logoutSuccess(commonBack);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                softReference.get().logoutFailed();
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }
+
+
 }
 

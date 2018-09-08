@@ -3,22 +3,29 @@ package com.zykj.carfigure.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.multidex.MultiDex;
 
+import com.zykj.carfigure.activity.login.LoginActivity;
 import com.zykj.carfigure.crash.CrashHandler;
+import com.zykj.carfigure.entity.User;
+import com.zykj.carfigure.fragment.MeFragment;
 import com.zykj.carfigure.utils.Constant;
+import com.zykj.carfigure.utils.SPCache;
 import com.zykj.carfigure.utils.ToastManager;
 
 import java.util.ArrayList;
 
 //自定义Application
 public class MyApplication extends Application {
-    private static final String                   TAG            = MyApplication.class.getSimpleName();
+    private static final String TAG = MyApplication.class.getSimpleName();
     /**
      * 客户端唯一标识，在首次启动时，从服务器获取
      **/
-    public               String                   deviceid       = "";
-    private              ArrayList<Activity>      acArrayList    = null;
+    public String deviceid = "";
+    private ArrayList<Activity> acArrayList = null;
+    public static final String SESSION = "session";
+    private User mLoginUser;
 
     public void onCreate() {
         super.onCreate();
@@ -30,7 +37,8 @@ public class MyApplication extends Application {
         Constant.init(getMyApplication());
 
     }
-    public  Context getMyApplication(){
+
+    public Context getMyApplication() {
         return getApplicationContext();
     }
 
@@ -115,14 +123,38 @@ public class MyApplication extends Application {
      * 启动并跳转到LoginActivity登录页
      */
     public void gotoLogin() {
-       /* Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);*/
+        startActivity(intent);
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
 
+    }
+
+    /**
+     * 是否登录
+     *
+     * @return true:已登录，false:其他
+     */
+    public boolean isLogined() {
+        //return getLoginUser() != null && !StrUtil.isEmpty(getLoginUser().getData().getSESSION_ID());
+        return getLoginUser() != null;
+    }
+
+    public User getLoginUser() {
+        return mLoginUser;
+    }
+
+    public void setLoginUser(User user) {
+        this.mLoginUser = user;
+    /*    if (this.mLoginUser != null) {//没有登录用户是null值
+            currentUserName = this.mLoginUser.getHUANXIN_ID() + "";//登陆赋值环信userid
+        }*/
+        SPCache.saveObject(getApplicationContext(), SESSION, this.mLoginUser);//存user
+        MeFragment.isAutoRefreshUserInfo = true;//开启自动刷新
     }
 }

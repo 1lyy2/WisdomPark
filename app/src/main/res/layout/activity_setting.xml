@@ -64,14 +64,25 @@
             style="@style/setting_item_textview_style"
             android:text="@string/setting_clean_cash" />
 
-        <ImageView style="@style/setting_item_imageview_style" />
-
+        <ImageView
+            android:id="@+id/img_next_setting"
+            style="@style/setting_item_imageview_style" />
+        <TextView
+            android:id="@+id/tv_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_15px"
+            android:layout_toLeftOf="@id/img_next_setting"
+            android:textSize="@dimen/_28px"
+            />
 
     </RelativeLayout>
 
     <View style="@style/setting_item_bottom_line" />
 
     <Button
+        android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_90px"
         android:layout_marginLeft="@dimen/_20px"

@@ -6,18 +6,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.zykj.carfigure.views.MyViewPager
+    <com.zykj.carfigure.widget.MyViewPager
         android:id="@+id/myviewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1px"
         android:background="#c7c7c7" />
 
-    <com.zykj.carfigure.views.BottomTabView
+    <com.zykj.carfigure.widget.BottomTabView
         android:id="@+id/bottomTabView"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -36,7 +36,7 @@
         <attr name="divideLineWidth" format="dimension" />
         <attr name="divideLineColor" format="color" />
         <attr name="rectAngle" format="dimension" />
-        <attr name="focusedColor" format="color"/>
+        <attr name="focusedColor" format="color" />
         <attr name="psdType" format="enum">
             <enum name="weChat" value="0" />
             <enum name="bottomLine" value="1" />
@@ -55,8 +55,8 @@
 
         <attr name="isDrawCenterProgressText" format="boolean" />
 
-        <attr name="centerProgressTextColor" format="color"/>
-        <attr name="centerProgressTextSize" format="dimension"/>
+        <attr name="centerProgressTextColor" format="color" />
+        <attr name="centerProgressTextSize" format="dimension" />
 
     </declare-styleable>
 
@@ -85,5 +85,27 @@
         </attr>
 
     </declare-styleable>
-
+    <!--   自定义view-->
+    <declare-styleable name="WaterRippleView">
+        <attr name="customSpacing" format="dimension|reference" />
+        <attr name="customCount" format="integer|reference" />
+        <attr name="customColor" format="color|reference" />
+        <attr name="customCenterIcon" format="reference" />
+        <attr name="customAutoRunning" format="boolean" />
+    </declare-styleable>
+    <!-- 自定义验证码-->
+    <declare-styleable name="VerificationCodeView">
+        <!--输入框的数量-->
+        <attr name="vcv_code_number" format="integer" />
+        <!--单个验证码的宽度-->
+        <attr name="vcv_code_width" format="dimension|reference" />
+        <!--输入框文字颜色-->
+        <attr name="vcv_code_color" format="color|reference" />
+        <!--输入框文字大小-->
+        <attr name="vcv_code_size" format="dimension|reference" />
+        <!--输入框获取焦点时边框-->
+        <attr name="vcv_code_bg_focus" format="reference" />
+        <!--输入框没有焦点时边框-->
+        <attr name="vcv_code_bg_normal" format="reference" />
+    </declare-styleable>
 </resources>

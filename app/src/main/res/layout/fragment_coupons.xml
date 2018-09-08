@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.zykj.carfigure.views.EmptyRecyclerView
+        <com.zykj.carfigure.widget.EmptyRecyclerView
             android:id="@+id/recycleview_coupons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,9 +21,9 @@
             android:id="@+id/view_data_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_emty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="没有优惠劵"/>

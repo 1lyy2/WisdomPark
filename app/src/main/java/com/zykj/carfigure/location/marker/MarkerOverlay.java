@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.zykj.carfigure.R;
@@ -20,9 +22,7 @@ import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.log.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by my on 2016/12/19.
@@ -36,19 +36,20 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     private Handler mMarkerhandler;
     private OnMarkerOnClickListener mOnMarkerOnClickListener;
     private Marker lastClickMarker;
-    private long lastClickTime = 0;
-    private Street curUseRegcode;
-    private Map<Integer, Integer> mBackDrawAbles = new HashMap<Integer, Integer>();
+    private Street.StreetDetail curUseRegcode;
     private BitmapDescriptor bitmapDescriptor;
     private BitmapDescriptor bigBitmapDescriptor;
+    private LatLng centerPoint;
+    private List<Street.StreetDetail> points;
 
-    public MarkerOverlay(AMap amap, List<Street> points, Context context) {
+    public MarkerOverlay(AMap amap, List<Street.StreetDetail> points, Context context) {
         this.aMap = amap;
         this.mContext = context;
         initThreadHandler();
         aMap.setOnMarkerClickListener(this);
         getBigBitmapDescriptor();
         getDefaultBitmapDescriptor();
+        this.points = points;
         initPointList(points);
 
 
@@ -60,7 +61,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     }
 
     //初始化list
-    private void initPointList(List<Street> points) {
+    public void initPointList(List<Street.StreetDetail> points) {
         Message message = Message.obtain();
         message.what = MarkerHandler.ADD_MARKER;
         message.obj = points;
@@ -77,18 +78,37 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     /**
      * 添加Marker到地图中。
      */
-    public void addToMap(List<Street> pointList) {
+    public void addToMap(List<Street.StreetDetail> pointList) {
         try {
             for (int i = 0; i < pointList.size(); i++) {
-                Street street = pointList.get(i);
-                Marker marker = aMap.addMarker(new MarkerOptions()
-                        .position(street.getmLatLng())
-                        .icon(bitmapDescriptor));
-           /*     Marker marker = aMap.addMarker(new MarkerOptions()
-                        .position(pointList.get(i))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.qq_red)));*/
-                street.setId(i);
-                marker.setObject(street);
+                Street.StreetDetail streetDetail = pointList.get(i);
+                Marker marker = null;
+                //纬度
+                double latitude = streetDetail.getLatitude();
+                //经度
+                double longitude = streetDetail.getLongitude();
+                //构造一个经纬度
+                LatLng latLng = new LatLng(latitude, longitude);
+                if (streetDetail.getType() == 0) {
+                    marker = aMap.addMarker(new MarkerOptions()
+                            //设置覆盖物比例
+                            .anchor(0.5f, 0.5f)
+                            .position(latLng)
+                            .icon(bitmapDescriptor));
+                } else if (streetDetail.getType() == 1) {
+                    marker = aMap.addMarker(new MarkerOptions()
+                            .anchor(0.5f, 0.5f)
+                            .position(latLng)
+                            .icon(bitmapDescriptor));
+                } else {
+                    marker = aMap.addMarker(new MarkerOptions()
+                            .anchor(0.5f, 0.5f)
+                            .position(latLng)
+                            .icon(bitmapDescriptor));
+                }
+                streetDetail.setList_id(i);
+
+                marker.setObject(streetDetail);
                 mMarkers.add(marker);
             }
         } catch (Throwable e) {
@@ -116,6 +136,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
         try {
             View view = LayoutInflater.from(mContext).inflate(R.layout.custom_marker, null);
             Marker marker = aMap.addMarker(new MarkerOptions()
+                    .anchor(0.5f, 0.5f)
                     .position(latLng)
                     .icon(BitmapDescriptorFactory.fromView(view)));
             mMarkers.add(marker);
@@ -146,9 +167,9 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     public boolean onMarkerClick(Marker marker) {
         try {
             Object obj = marker.getObject();
-            Street useRegCode;
+            Street.StreetDetail useRegCode;
             if (obj != null) {
-                useRegCode = (Street) obj;
+                useRegCode = (Street.StreetDetail) obj;
                 //更换图标
                 Marker markerNew = changeMarkerImg(marker, true);
                 curUseRegcode = useRegCode;
@@ -220,7 +241,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
                 case UPDATE_SINGLE_CLUSTER:
                     break;
                 case ADD_MARKER:
-                    List<Street> points = (List<Street>) message.obj;
+                    List<Street.StreetDetail> points = (List<Street.StreetDetail>) message.obj;
                     addToMap(points);
                     break;
             }
@@ -244,19 +265,21 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
     }
 
     private Marker changeMarkerImg(Marker marker, boolean showLarge) {
-        marker.getIcons().remove(marker.getOptions().getIcon());
         //获取原设置参数
         MarkerOptions options = marker.getOptions();
+
         //回收原图片
-        //options.getIcon().recycle();
+        options.getIcon().recycle();
+        options.getIcons().clear();
+        int layoutId = showLarge ? R.layout.custom_marker_select : R.layout.custom_marker;
+        View view = LayoutInflater.from(mContext).inflate(layoutId, null);
         if (showLarge) {
-            // options.icon(bigBitmapDescriptor);
-            marker.setIcon(bigBitmapDescriptor);
+            ((ImageView) view.findViewById(R.id.iv_marker)).setBackgroundResource(R.drawable.street_car_big);
         } else {
-            //options.icon(bitmapDescriptor);
-            marker.setIcon(bitmapDescriptor);
+            ((ImageView) view.findViewById(R.id.iv_marker)).setBackgroundResource(R.drawable.street_park);
         }
-        //marker.setMarkerOptions(options);
+        options.icon(BitmapDescriptorFactory.fromView(view));
+        marker.setMarkerOptions(options);
         return marker;
     }
 
@@ -265,9 +288,9 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
      */
     private void resetMarker() {
         try {
-            Street lastUseRegcode = null;
+            Street.StreetDetail lastUseRegcode = null;
             if (lastClickMarker != null) {
-                lastUseRegcode = (Street) lastClickMarker.getObject();
+                lastUseRegcode = (Street.StreetDetail) lastClickMarker.getObject();
             }
             if (lastClickMarker != null && !curUseRegcode.equals(lastUseRegcode))
                 changeMarkerImg(lastClickMarker, false);
@@ -284,7 +307,7 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
 
     private BitmapDescriptor getDefaultBitmapDescriptor() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_marker, null);
-        ((ImageView) view.findViewById(R.id.marker_icon)).setImageResource(R.drawable.qq_red);
+        ((ImageView) view.findViewById(R.id.iv_marker)).setImageResource(R.drawable.street_park);
         bitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         return bitmapDescriptor;
     }
@@ -297,12 +320,121 @@ public class MarkerOverlay implements AMap.OnMarkerClickListener {
 
     private BitmapDescriptor getBigBitmapDescriptor() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_marker_select, null);
-        ((ImageView) view.findViewById(R.id.marker_icon_select)).setImageResource(R.mipmap.ic_launcher_round);
+        ((ImageView) view.findViewById(R.id.iv_marker)).setImageResource(R.mipmap.ic_launcher_round);
         bigBitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         return bigBitmapDescriptor;
     }
 
-    private void scollRecyclerViewChange(int index) {
+    /**
+     * 得到点击放大的
+     *
+     * @return
+     */
 
+    private BitmapDescriptor getBigBitmapDescriptor1() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.custom_marker_select, null);
+        ((ImageView) view.findViewById(R.id.iv_marker)).setImageResource(R.drawable.weibo);
+        bigBitmapDescriptor = BitmapDescriptorFactory.fromView(view);
+        return bigBitmapDescriptor;
+    }
+
+    /**
+     * 缩放移动地图，保证所有自定义marker在可视范围中，且地图中心点不变。
+     */
+
+    public void zoomToSpanWithCenter(List<Street.StreetDetail> pointList) {
+
+        if (pointList != null && pointList.size() > 0) {
+
+            if (aMap == null)
+
+                return;
+            LatLngBounds bounds = getLatLngBounds(getCenterPoint(), pointList);
+
+            aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+
+        }
+
+    }
+
+
+    //根据中心点和自定义内容获取缩放bounds
+
+    private LatLngBounds getLatLngBounds(LatLng centerpoint, List<Street.StreetDetail> pointList) {
+
+        LatLngBounds.Builder b = LatLngBounds.builder();
+
+        if (centerpoint != null) {
+
+            for (int i = 0; i < pointList.size(); i++) {
+                Street.StreetDetail streetDetail = pointList.get(i);
+                double latitude = streetDetail.getLatitude();
+                double longitude = streetDetail.getLongitude();
+                LatLng latLng = new LatLng(latitude, longitude);
+                LatLng p1 = new LatLng((centerpoint.latitude * 2) - latLng.latitude, (centerpoint.longitude * 2) - latLng.longitude);
+                b.include(latLng);
+                b.include(p1);
+            }
+
+        }
+
+        return b.build();
+
+    }
+
+
+    /**
+     * 缩放移动地图，保证所有自定义marker在可视范围中。
+     */
+
+    public void zoomToSpan(List<Street.StreetDetail> pointList) {
+
+        if (pointList != null && pointList.size() > 0) {
+
+            if (aMap == null)
+
+                return;
+            LatLngBounds bounds = getLatLngBounds(pointList);
+
+            aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+
+        }
+
+    }
+
+    /**
+     * 根据自定义内容获取缩放bounds
+     */
+
+    private LatLngBounds getLatLngBounds(List<Street.StreetDetail> pointList) {
+
+        LatLngBounds.Builder b = LatLngBounds.builder();
+
+        for (int i = 0; i < pointList.size(); i++) {
+            Street.StreetDetail streetDetail = pointList.get(i);
+            double latitude = streetDetail.getLatitude();
+            double longitude = streetDetail.getLongitude();
+            LatLng latLng = new LatLng(latitude, longitude);
+            b.include(latLng);
+        }
+
+        return b.build();
+
+    }
+
+    public LatLng getCenterPoint() {
+        return centerPoint;
+    }
+
+    public void setCenterPoint(LatLng centerPoint) {
+        this.centerPoint = centerPoint;
+    }
+
+    public List<Street.StreetDetail> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Street.StreetDetail> points) {
+        this.points = points;
     }
 }

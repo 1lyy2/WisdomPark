@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">智慧泊车</string>
+    <string name="app_name">车图</string>
+    <string name="doing">该功能正在开发</string>
     <!--界面标题-->
     <string name="user_login">登录</string>
     <string name="user_register">注册账号</string>
@@ -36,9 +37,10 @@
     <string name="setting_message_reminding">消息提醒</string>
     <string name="setting_down_map_string">离线地图</string>
     <string name="setting_account_safe_string">账号安全</string>
-    <string name="setting_clean_cash">清楚缓存</string>
+    <string name="setting_clean_cash">清除缓存</string>
     <string name="balance_setting">余额</string>
     <string name="coupons_string">优惠劵</string>
+    <string name="my_reservation_string">我的预约</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -48,4 +50,28 @@
     <string name="about_string">关于我们</string>
     <string name="contact_string">联系我们</string>
     <string name="suggest_string">投诉建议</string>
+    <string name="reverse_car_string">反向寻车</string>
+    <string name="direct_parking_string">我要停车</string>
+    <string name="reserve_pariking_sting">预定车位</string>
+    <string name="quick_rechage_string">快速充值</string>
+    <string name="pay_fare_string">待缴车费</string>
+    <string name="my_bills_string">我的账单</string>
+    <string name="parking_info_string">停车资讯</string>
+    <string name="reserve_record_string">预约记录</string>
+    <string name="my_account_bill_string">我的账单</string>
+    <string name="my_reserve_string">我的预约</string>
+    <string name="str_please_login">请先登录</string>
+    <!--自定义日期选择器-->
+    <string name="cancle">取消</string>
+    <string name="title">请选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="find_car_string">反向寻车</string>
+    <string name="delet_car_failed">删除车辆失败</string>
+    <string name="delete_car_success">删除车辆成功</string>
+    <string name="reset_password_string">重置密码</string>
 </resources>

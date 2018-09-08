@@ -51,3 +51,8 @@
 
 #搜索
 -keep   class com.amap.api.services.**{*;}
+
+#glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+
+-keep public class *extends java.lang.annotation.Annotation

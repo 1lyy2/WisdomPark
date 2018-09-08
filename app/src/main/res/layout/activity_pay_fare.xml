@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.WaitPayFareActivity">
+    <include layout="@layout/common_tool_bar" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/waitypay_swrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      <com.zykj.carfigure.widget.EmptyRecyclerView
+          android:id="@+id/waiypay_recycle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingRight="@dimen/_20px"
+          android:paddingLeft="@dimen/_20px"
+          android:background="@color/white"
+          />
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <include
+        android:id="@+id/empty_view_waitpay"
+        android:visibility="gone"
+        layout="@layout/view_data_empty"/>
+</LinearLayout>

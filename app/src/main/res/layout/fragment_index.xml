@@ -34,7 +34,7 @@
                 android:layout_height="@dimen/_50px"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/ic_launcher_round" />
+                android:background="@drawable/location" />
 
             <TextView
                 android:id="@+id/tv_location"

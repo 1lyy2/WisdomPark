@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * desc   : 街道列表适配器
  * version: 1.0
  */
-public class StreetListAdapter extends BaseRecylerAdapter<Street> {
+public class StreetListAdapter extends BaseRecylerAdapter {
 
     public StreetListAdapter(Context context) {
         super(context);
@@ -34,9 +34,9 @@ public class StreetListAdapter extends BaseRecylerAdapter<Street> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        Street street = mList.get(position);
+        Street.StreetDetail street = (Street.StreetDetail) mList.get(position);
         StreetHolder streetHolder = (StreetHolder) holder;
-        int freePark = street.getFreePark();
+        int freePark = street.getEmptyPark();
         streetHolder.tvFreeItemPark.setText(freePark + "");
         if (freePark > 0) {
             streetHolder.tvFreeItemPark.setTextColor(mContext.getResources().getColor(R.color.tab_sel_color));

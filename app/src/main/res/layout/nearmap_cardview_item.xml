@@ -75,7 +75,7 @@
                     android:layout_width="@dimen/_80px"
                     android:layout_height="@dimen/_80px"
                     android:layout_centerInParent="true"
-                    android:background="@mipmap/ic_launcher_round"
+                    android:background="@drawable/load"
                     android:paddingRight="@dimen/_20px" />
             </LinearLayout>
         </RelativeLayout>
@@ -99,7 +99,7 @@
                     android:layout_width="@dimen/_80px"
                     android:layout_height="@dimen/_80px"
                     android:layout_centerInParent="true"
-                    android:background="@mipmap/ic_launcher" />
+                    android:background="@drawable/yuyue" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_10px"
                     android:layout_toRightOf="@+id/image_route"
-                    android:text="路线" />
+                    android:text="预约" />
 
             </RelativeLayout>
 
@@ -127,7 +127,7 @@
                     android:layout_width="@dimen/_80px"
                     android:layout_height="@dimen/_80px"
                     android:layout_centerInParent="true"
-                    android:background="@mipmap/ic_launcher" />
+                    android:background="@drawable/nav" />
 
                 <TextView
                     android:layout_width="wrap_content"

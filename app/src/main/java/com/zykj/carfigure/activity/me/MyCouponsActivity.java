@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.adapter.MyCouponsPageAdapter;
-import com.zykj.carfigure.base.BaseActivity;
 import com.zykj.carfigure.base.BaseFragment;
+import com.zykj.carfigure.base.UserBaseActivity;
 import com.zykj.carfigure.fragment.CouponsFragment;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 //优惠劵
-public class MyCouponsActivity extends BaseActivity {
+public class MyCouponsActivity extends UserBaseActivity {
 
     @BindView(R.id.common_right_text)
     TextView commonRightText;

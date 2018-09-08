@@ -16,9 +16,11 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.adapter.base.BaseRecylerAdapter;
+import com.zykj.carfigure.entity.Banner;
+import com.zykj.carfigure.entity.Function;
 import com.zykj.carfigure.entity.IndexFragmentEntity;
 import com.zykj.carfigure.utils.GlideUtil;
-import com.zykj.carfigure.views.ImageHolderView;
+import com.zykj.carfigure.widget.ImageHolderView;
 
 import java.util.List;
 
@@ -103,7 +105,7 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
             Object obj = mList.get(position);
             if (obj instanceof IndexFragmentEntity.IndexBanner) {
                 return TYPE_BANNER;
-            } else if (obj instanceof IndexFragmentEntity.Content) {
+            } else if (obj instanceof Function.DataBean) {
                 return TYPE_FUNTION;
             } else if (obj instanceof String) {
                 return TYPE_TITLE;
@@ -163,7 +165,7 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
                     break;
                 case TYPE_FUNTION:
                     //宫格列表
-                    setFuntion((FuntionHolder) holder, (IndexFragmentEntity.Content) obj);
+                    setFuntion((FuntionHolder) holder, (Function.DataBean) obj);
                     break;
                 case TYPE_TITLE:
                     //item 头部
@@ -263,14 +265,16 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
 
     private void setBanner(BannerHolder bannerHolder, IndexFragmentEntity.IndexBanner object) {
         ConvenientBanner indexBanner = bannerHolder.indexBanner;
-        List<IndexFragmentEntity.IndexBanner.Banner> list = object.getList();
+        if(object==null) return;
+        List<Banner.DataBean> list = object.getList();
+        if (list==null) return;
         initBanner(indexBanner, list);
     }
 
     /**
      * 初始化轮播图
      */
-    private void initBanner(ConvenientBanner convenientBanner, List<IndexFragmentEntity.IndexBanner.Banner> list) {
+    private void initBanner(ConvenientBanner convenientBanner, List<Banner.DataBean> list) {
         //自定义你的Holder，实现更多复杂的界面，不一定是图片翻页，其他任何控件翻页亦可。
         convenientBanner.setPages(
                 new CBViewHolderCreator() {
@@ -339,9 +343,11 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
     }
 
     //设置宫格列表
-    private void setFuntion(FuntionHolder holder, final IndexFragmentEntity.Content object) {
+    private void setFuntion(FuntionHolder holder, final Function.DataBean object) {
         if (object == null) return;
-        holder.tvIndexItemName.setText(object.getmTitle());
+        int imageResources = object.getImageResources();
+        holder.tvIndexItemName.setText(object.getNv_title_name());
+        holder.imgIndexItemFuntion.setBackgroundResource(imageResources);
         if(onItemClickListener !=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

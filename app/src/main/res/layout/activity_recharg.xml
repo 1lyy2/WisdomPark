@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activity.RechargActivity">
+    <LinearLayout
+        android:id="@+id/lin_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <include layout="@layout/common_tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50px"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="余额"
+            android:textSize="@dimen/_28px" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50px"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="28.88元"
+            android:textColor="@color/color_fe3e3c"
+            android:textSize="@dimen/_40px" />
+
+        <EditText
+            android:id="@+id/edt_recharge_money"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_90px"
+            android:layout_margin="@dimen/_20px"
+            android:background="@drawable/rechage_shape"
+            android:gravity="center"
+            android:hint="请您输入任意金额"
+            android:textSize="@dimen/_28px" />
+
+        <RadioGroup
+            android:id="@+id/rg_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80px"
+            android:layout_margin="@dimen/_20px"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_ershi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rechage_money_selector"
+                android:textColor="@drawable/recharge_money_text_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="20元"
+                android:textSize="@dimen/_28px" />
+
+            <RadioButton
+                android:id="@+id/rb_wushi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_20px"
+                android:button="@null"
+                android:background="@drawable/rechage_money_selector"
+                android:textColor="@drawable/recharge_money_text_selector"
+                android:text="50元"
+                android:textSize="@dimen/_28px" />
+
+            <RadioButton
+                android:id="@+id/rb_yibai"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:layout_marginLeft="@dimen/_20px"
+                android:gravity="center"
+                android:background="@drawable/rechage_money_selector"
+                android:textColor="@drawable/recharge_money_text_selector"
+                android:text="100元"
+                android:textSize="@dimen/_28px" />
+
+            <RadioButton
+                android:id="@+id/rb_erbai"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:layout_marginLeft="@dimen/_20px"
+                android:background="@drawable/rechage_money_selector"
+                android:textColor="@drawable/recharge_money_text_selector"
+                android:gravity="center"
+                android:text="200元"
+                android:textSize="@dimen/_28px" />
+
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90px"
+        android:gravity="center"
+        android:text="支付方式"
+        android:textSize="@dimen/_28px" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recharge_type_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20px"
+        android:layout_marginRight="@dimen/_20px"
+        android:layout_marginTop="@dimen/_40px"
+        android:layout_marginBottom="@dimen/_20px"
+        android:background="@drawable/recharge_shape"
+        android:text="立即充值"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_28px" />
+</LinearLayout>

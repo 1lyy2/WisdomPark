@@ -14,66 +14,110 @@ import java.util.List;
 public class IndexFragmentEntity {
 
     public static class IndexBanner {
-        private List<Banner> list;
+        private List<Banner.DataBean> list;
 
-        public IndexBanner(List<Banner> list) {
+        public IndexBanner(List<Banner.DataBean> list) {
             this.list = list;
         }
 
         public IndexBanner() {
         }
 
-        public List<Banner> getList() {
+        public List<Banner.DataBean> getList() {
             return list;
         }
 
-        public void setList(List<Banner> list) {
+        public void setList(List<Banner.DataBean> list) {
             this.list = list;
         }
 
-        public static class Banner {
-            //图片url
-            private String url;
-            //图片的标题
-            private String title;
-
-            public Banner(String url, String title) {
-                this.url = url;
-                this.title = title;
-            }
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-        }
     }
 
 
     //宫格列表
     public static class Content {
-        public String getmTitle() {
-            return mTitle;
+        /**
+         * id : 2
+         * nv_image_url : 39.107.66.96/zy/image/test_img01.png
+         * nv_title_name : 我要停车
+         * nv_title_status : 0
+         * nv_title_type : 1
+         * create_times : 2018-08-23T03:12:19.000+0000
+         * update_times : 2018-08-23T03:12:19.000+0000
+         * emarks : null
+         */
+
+        private int id;
+        private String nv_image_url;
+        private String nv_title_name;
+        private int nv_title_status;
+        private int nv_title_type;
+        private String create_times;
+        private String update_times;
+        private Object emarks;
+
+        public int getId() {
+            return id;
         }
 
-        public void setmTitle(String mTitle) {
-            this.mTitle = mTitle;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        private String mTitle;
+        public String getNv_image_url() {
+            return nv_image_url;
+        }
 
-        public Content(String mTitle) {
-            this.mTitle = mTitle;
+        public void setNv_image_url(String nv_image_url) {
+            this.nv_image_url = nv_image_url;
+        }
+
+        public String getNv_title_name() {
+            return nv_title_name;
+        }
+
+        public void setNv_title_name(String nv_title_name) {
+            this.nv_title_name = nv_title_name;
+        }
+
+        public int getNv_title_status() {
+            return nv_title_status;
+        }
+
+        public void setNv_title_status(int nv_title_status) {
+            this.nv_title_status = nv_title_status;
+        }
+
+        public int getNv_title_type() {
+            return nv_title_type;
+        }
+
+        public void setNv_title_type(int nv_title_type) {
+            this.nv_title_type = nv_title_type;
+        }
+
+        public String getCreate_times() {
+            return create_times;
+        }
+
+        public void setCreate_times(String create_times) {
+            this.create_times = create_times;
+        }
+
+        public String getUpdate_times() {
+            return update_times;
+        }
+
+        public void setUpdate_times(String update_times) {
+            this.update_times = update_times;
+        }
+
+        public Object getEmarks() {
+            return emarks;
+        }
+
+        public void setEmarks(Object emarks) {
+            this.emarks = emarks;
         }
     }
 

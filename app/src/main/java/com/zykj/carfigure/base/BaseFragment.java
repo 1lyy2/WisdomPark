@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ViewUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.mvp.BaseIPresenter;
 import com.zykj.carfigure.utils.ToastManager;
-import com.zykj.carfigure.views.ProgressDialog;
+import com.zykj.carfigure.widget.ProgressDialog;
 
 import org.json.JSONObject;
 

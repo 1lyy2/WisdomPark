@@ -24,10 +24,14 @@ import com.tencent.tauth.UiError;
 import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.app.AppConfig;
+import com.zykj.carfigure.app.Constants;
 import com.zykj.carfigure.base.BaseActivity;
-import com.zykj.carfigure.entity.Simple;
-import com.zykj.carfigure.http.RetrofitUtils;
+import com.zykj.carfigure.entity.CommonBack;
+import com.zykj.carfigure.entity.User;
+import com.zykj.carfigure.helper.requestpermissions.PermissionsManager;
 import com.zykj.carfigure.log.Log;
+import com.zykj.carfigure.mvp.presenter.UserLoginPresenter;
+import com.zykj.carfigure.mvp.view.IUserLoginView;
 import com.zykj.carfigure.utils.SPCache;
 import com.zykj.carfigure.utils.StrUtil;
 import com.zykj.carfigure.utils.ToastManager;
@@ -39,12 +43,8 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements IUserLoginView {
     public static final String PAGE_NAME = "登录";
     @BindView(R.id.edit_login_username)
     public EditText mEditText_account;
@@ -71,8 +71,12 @@ public class LoginActivity extends BaseActivity {
     private IWXAPI api;
     private ReceiveBroadCast receiveBroadCast;//获取授权回调信息@WxEntityActivity
 
+    private UserLoginPresenter userLoginPresenter;
+    String loginUserName = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setDisableStatusBar(true);
         super.onCreate(savedInstanceState);
         String s = SPCache.getObject(getContext(), PAGE_NAME, String.class);
         if (s != null) {
@@ -164,19 +168,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.unregisterReceiver(receiveBroadCast);
+    }
+
+    @Override
     public int getContentViewResId() {
         return R.layout.activity_login;
     }
 
     @Override
     public void onCreatePresenter() {
-        TestHttp();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        this.unregisterReceiver(receiveBroadCast);
+        userLoginPresenter = new UserLoginPresenter(this);
     }
 
     @Override
@@ -185,6 +189,15 @@ public class LoginActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("authlogin");
         this.registerReceiver(receiveBroadCast, filter);
+        Intent intent = getIntent();
+        if (intent != null) {
+            loginUserName = intent.getStringExtra("loginUserName");
+            mEditText_account.setText(loginUserName);
+        }else{
+            loginUserName = SPCache.getObject(this, "userName", String.class);
+            mEditText_account.setText(loginUserName);
+        }
+
     }
 
     @Override
@@ -199,8 +212,8 @@ public class LoginActivity extends BaseActivity {
 
     //点击登录
     public void onLogin() {
-        String account = mEditText_account.getText().toString();
-        String password = mEditText_password.getText().toString();
+        String account = mEditText_account.getText().toString().trim();
+        String password = mEditText_password.getText().toString().trim();
         String notice = "请输入";
         if (account.trim().length() == 0) {
             notice += "用户名";
@@ -214,17 +227,40 @@ public class LoginActivity extends BaseActivity {
             return;
         } else {
             //通过验证
+            showLoadingView(null,null);
+            userLoginPresenter.login(account, password);
+            SPCache.saveObject(this,"userName",account);
         }
     }
 
 
     @OnClick(R.id.register_text)
     public void onRegister(View view) {
-        launchActivity(RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivityForResult(intent, 1);
     }
 
+    /**
+     * 为了得到传回的数据，必须在前面的Activity中（指MainActivity类）重写onActivityResult方法
+     * <p>
+     * requestCode 请求码，即调用startActivityForResult()传递过去的值
+     * resultCode 结果码，结果码用于标识返回数据来自哪个新Activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) return;
+        if (requestCode == 1) {
+            String username = data.getExtras().getString("username");//得到新Activity 关闭后返回的数据
+            if (username == null || username.equals("")) {
+                mEditText_account.setText("");
+            } else {
+                mEditText_account.setText(username);
+            }
 
-    @OnClick({R.id.lin_weixin, R.id.lin_QQ, R.id.btn_return, R.id.login_submit})
+        }
+    }
+
+    @OnClick({R.id.lin_weixin, R.id.lin_QQ, R.id.btn_return, R.id.login_submit, R.id.getPassword_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_weixin:
@@ -241,7 +277,10 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.login_submit:
                 //登录
-                launchActivity(MainActivity.class);
+                onLogin();
+                break;
+            case R.id.getPassword_text:
+                launchActivity(FindPasswordActivity.class);
                 break;
             default:
                 break;
@@ -261,6 +300,38 @@ public class LoginActivity extends BaseActivity {
         mIUiListener = new BaseUiListener();
         mTencent.login(LoginActivity.this, "all", mIUiListener);
     }
+
+    @Override
+    public void loginSuccess(User user) {
+        hideLoadingView();
+        if (user == null) return;
+        if (user.getStatus() == 200) {
+            Constants.user = user;
+            Constants.user_id = user.getData().getId();
+            launchActivity(MainActivity.class);
+            app.setLoginUser(user);
+        } else {
+            showToastMsgShort("登录失败：" + user.getMessage());
+        }
+
+    }
+
+    @Override
+    public void loginFailed() {
+        hideLoadingView();
+        showToastMsgShort("登录失败");
+    }
+
+    @Override
+    public void logoutSuccess(CommonBack commonBack) {
+
+    }
+
+    @Override
+    public void logoutFailed() {
+
+    }
+
     //qq登录接口回调
     class BaseUiListener implements IUiListener {
 
@@ -428,33 +499,11 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
-    private void TestHttp(){
 
-        RetrofitUtils.getApiService().getData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Simple>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                         Log.i("a",d.toString());
-                    }
-
-                    @Override
-                    public void onNext(Simple simple) {
-                        Log.i("a",simple.toString());
-                        showToastMsgShort(simple.toString());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("a",e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i("a","完成");
-                    }
-                });
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
     }
 
 }

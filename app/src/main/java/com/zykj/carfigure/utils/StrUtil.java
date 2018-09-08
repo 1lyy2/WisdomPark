@@ -189,4 +189,5 @@ public class StrUtil {
 	private static double rad(double d) {
 		return d * Math.PI / 180.0;
 	}
+
 }

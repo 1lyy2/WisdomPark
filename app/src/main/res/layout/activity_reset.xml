@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.login.ResetActivity">
+    tools:context=".activity.login.ResetPassWordActivity">
     <include layout="@layout/common_tool_bar" />
 
     <EditText
@@ -24,7 +24,7 @@
         android:id="@+id/btn_findpsw"
         style="@style/btn_common_style"
         android:layout_marginTop="@dimen/_80px"
-        android:text="立即找回并登录"
+        android:text="重置密码"
         android:textColor="@color/white"
         android:textSize="@dimen/_28px" />
 

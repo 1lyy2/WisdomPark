@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_text_parking"
+    android:layout_width="@dimen/_150px"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_tab_selector"
+    android:gravity="center"
+    android:paddingLeft="@dimen/_20px"
+    android:paddingRight="@dimen/_20px"
+    android:textColor="@drawable/smart_tab_parking_selector"
+    android:textSize="@dimen/_26px" />

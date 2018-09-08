@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_20px"
-        android:background="@color/main_bg_color"/>
+        android:background="@color/main_bg_color" />
     <!--我的车辆-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_mycar">
+    <LinearLayout
+        android:id="@+id/lin_mycar"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/car" />
 
         <TextView
             style="@style/common_me_item_textview"
@@ -38,17 +40,45 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_20px"
         android:background="@color/main_bg_color" />
-    <!--停车记录-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_park_record">
+    <!--我的账单-->
+    <LinearLayout
+        android:id="@+id/lin_bills"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/billlist" />
 
         <TextView
             style="@style/common_me_item_textview"
-            android:text="@string/part_record_string" />
+            android:text="@string/my_account_bill_string" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text="1" />
+
+        <ImageView style="@style/common_me_item_next" />
+
+    </LinearLayout>
+
+    <View style="@style/common_me_item_line" />
+    <!--停车记录-->
+    <LinearLayout
+        android:id="@+id/lin_park_record"
+        style="@style/common_me_item">
+
+        <ImageView
+            style="@style/common_me_item_imageview"
+            android:background="@drawable/parkingrecord" />
+
+        <TextView
+            style="@style/common_me_item_textview"
+            android:text= "@string/park_record_string"/>
 
         <View
             android:layout_width="0dp"
@@ -64,31 +94,6 @@
 
     </LinearLayout>
 
-    <View style="@style/common_me_item_line" />
-    <!--优惠劵-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_coupon">
-
-        <ImageView
-            style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
-
-        <TextView
-            style="@style/common_me_item_textview"
-            android:text="@string/mycoupon_string" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <TextView
-            style="@style/common_me_item_textview"
-            android:text="1" />
-
-        <ImageView style="@style/common_me_item_next" />
-
-    </LinearLayout>
 
     <View style="@style/common_me_item_line" />
 
@@ -97,12 +102,13 @@
         android:layout_height="@dimen/_20px"
         android:background="@color/main_bg_color" />
     <!--关于我们-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_about">
+    <LinearLayout
+        android:id="@+id/lin_about"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/about" />
 
         <TextView
             style="@style/common_me_item_textview"
@@ -119,12 +125,13 @@
 
     <View style="@style/common_me_item_line" />
     <!-- 联系我们-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_connect">
+    <LinearLayout
+        android:id="@+id/lin_connect"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/lianxi" />
 
         <TextView
             style="@style/common_me_item_textview"
@@ -141,12 +148,13 @@
 
     <View style="@style/common_me_item_line" />
     <!--投诉建议-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_complaints">
+    <LinearLayout
+        android:id="@+id/lin_complaints"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/jianyi" />
 
         <TextView
             style="@style/common_me_item_textview"
@@ -163,12 +171,13 @@
 
     <View style="@style/common_me_item_line" />
     <!--常见问题-->
-    <LinearLayout style="@style/common_me_item"
-        android:id="@+id/lin_problem">
+    <LinearLayout
+        android:id="@+id/lin_problem"
+        style="@style/common_me_item">
 
         <ImageView
             style="@style/common_me_item_imageview"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/me_pro" />
 
         <TextView
             style="@style/common_me_item_textview"

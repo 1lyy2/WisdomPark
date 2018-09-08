@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/marker_icon_select"
-    android:layout_width="@dimen/_250px"
-    android:layout_height="@dimen/_250px"
+    android:id="@+id/iv_marker"
+    android:layout_width="@dimen/_50px"
+    android:layout_height="@dimen/_50px"
     android:layout_centerInParent="true" />

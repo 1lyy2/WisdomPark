@@ -6,14 +6,14 @@ import android.content.Intent;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.zykj.carfigure.R;
-import com.zykj.carfigure.base.BaseActivity;
+import com.zykj.carfigure.base.UserBaseActivity;
 
 import java.util.ArrayList;
 
 import butterknife.OnClick;
 
 //个人资料
-public class PersonalDataActivity extends BaseActivity {
+public class PersonalDataActivity extends UserBaseActivity {
    private int REQUEST_CODE = 1001;
     @Override
     public void onCreatePresenter() {

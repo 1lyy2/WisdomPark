@@ -1,24 +1,40 @@
 package com.zykj.carfigure.activity.login;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.base.BaseActivity;
 import com.zykj.carfigure.utils.Constant;
 import com.zykj.carfigure.utils.SPCache;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private MyCountDownTimer mc;
     private TextView         tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestPermissions(false);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    public void onCreatePresenter() {
+
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initView() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tv = (TextView) findViewById(R.id.tv_splshtime);
         mc = new MyCountDownTimer(3000, 1000);
@@ -31,6 +47,17 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
+
+    @Override
+    protected String getActivityName() {
+        return "";
+    }
+
+    @Override
+    protected Context getContext() {
+        return this;
+    }
+
     private Handler handler=new Handler();
     /**
      * 继承 CountDownTimer 防范
@@ -73,14 +100,10 @@ public class SplashActivity extends AppCompatActivity {
             launchActivity(GuildActivity.class);
             SPCache.saveObject(this, Constant.Appinfo.APP_VERSION, true);
         }else{
-            //launchActivity(MainActivity.class);
-            launchActivity(GuildActivity.class);
+            launchActivity(MainActivity.class);
+            //launchActivity(GuildActivity.class);
         }
         SplashActivity.this.finish();
-    }
-
-    public void launchActivity(Class<? extends Activity> cls) {
-        startActivity(new Intent(this, cls));
     }
 
 }

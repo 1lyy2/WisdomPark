@@ -1,7 +1,6 @@
 package com.zykj.carfigure.mvp.view;
 
 import com.zykj.carfigure.entity.User;
-import com.zykj.carfigure.mvp.BaseView;
 
 /**
  * author : lyy
@@ -10,7 +9,7 @@ import com.zykj.carfigure.mvp.BaseView;
  * desc   : 第三方登录
  * version: 1.0
  */
-public interface IUserLoginThirdView extends BaseView {
+public interface IUserLoginThirdView  {
     void thirdLoginSuccess(User user);
 
     void thirdLoginFailed();

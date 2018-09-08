@@ -5,12 +5,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.me.PersonalDataActivity">
-    <include layout="@layout/common_status"/>
+
     <include layout="@layout/common_tool_bar" />
+
+    <ImageView
+        android:id="@+id/img_user_header"
+        android:layout_width="@dimen/_250px"
+        android:layout_height="@dimen/_250px"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_30px"
+        android:background="@mipmap/ic_launcher_round" />
+
+    <Button
+        style="@style/commom_btn_style"
+        android:text="上传头像"
+        android:layout_marginTop="@dimen/_50px"/>
+
     <Button
         android:id="@+id/btn_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="打开相册"/>
+        android:text="打开相册" />
+
 
 </LinearLayout>

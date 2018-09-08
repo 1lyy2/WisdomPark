@@ -1,6 +1,5 @@
 package com.zykj.carfigure.crash;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +10,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.zykj.carfigure.app.AppConfig;
+import com.zykj.carfigure.app.Constants;
 import com.zykj.carfigure.app.MyApplication;
 import com.zykj.carfigure.utils.ToastManager;
 
@@ -218,7 +218,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			// String time = getNowDate();
 
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-				String path = Environment.getExternalStorageDirectory().getPath() + "/CarfigureCrashFile/";
+				String path = Environment.getExternalStorageDirectory().getPath() + Constants.APP_Packages+"/CarfigureCrashFile/";
 				File dir = new File(path);
 				if (!dir.exists()) {
 					dir.mkdirs();

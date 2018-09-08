@@ -46,11 +46,11 @@
             android:textColorHint="#999999" />
         <ImageView
             android:id="@+id/show_parking_list"
-            android:layout_width="@dimen/_65px"
-            android:layout_height="@dimen/_65px"
+            android:layout_width="@dimen/_50px"
+            android:layout_height="@dimen/_50px"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/_20px"
-            android:background="@mipmap/ic_launcher"/>
+            android:background="@drawable/street_list"/>
 
     </LinearLayout>
     <com.amap.api.maps.MapView

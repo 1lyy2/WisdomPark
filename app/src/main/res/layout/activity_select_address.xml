@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SelectAddressActivity">
+    <include
+        android:id="@+id/top"
+        layout="@layout/common_tool_bar"/>
+    <include layout="@layout/activity_search_actionbar"
+        android:id="@+id/search_address"/>
+    <com.amap.api.maps.MapView
+        android:id="@+id/selectMapView"
+        android:layout_below="@id/search_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>s
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview_map_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20px"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

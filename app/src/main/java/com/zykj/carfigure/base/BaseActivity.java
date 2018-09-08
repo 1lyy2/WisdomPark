@@ -1,5 +1,6 @@
 package com.zykj.carfigure.base;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,11 +21,13 @@ import com.zykj.carfigure.R;
 import com.zykj.carfigure.app.MyApplication;
 import com.zykj.carfigure.eventbus.BindEventBus;
 import com.zykj.carfigure.eventbus.EventBusUtils;
+import com.zykj.carfigure.helper.requestpermissions.PermissionsManager;
+import com.zykj.carfigure.helper.requestpermissions.PermissionsResultAction;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.mvp.BaseIPresenter;
 import com.zykj.carfigure.utils.StatusBarUtil;
 import com.zykj.carfigure.utils.ToastManager;
-import com.zykj.carfigure.views.ProgressDialog;
+import com.zykj.carfigure.widget.ProgressDialog;
 
 import org.json.JSONObject;
 
@@ -59,6 +62,8 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
     //控制是否消除顶部状态栏区域
     private boolean disableStatusBar = false;
 
+    private boolean isRequestPermissions =true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,10 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
             EventBusUtils.register(this);
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //设置权限
+        if(isRequestPermissions){
+            requestPermissions();
+        }
         app = (MyApplication) getApplication();
         TAG = getClass().getSimpleName();
         bind = ButterKnife.bind(this);
@@ -315,6 +324,14 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
 
     }
 
+    public boolean isRequestPermissions() {
+        return isRequestPermissions;
+    }
+
+    public void setRequestPermissions(boolean requestPermissions) {
+        isRequestPermissions = requestPermissions;
+    }
+
     /**
      * 启用toolbar为actionbar
      * 使用方法：
@@ -346,4 +363,25 @@ public abstract class BaseActivity<P extends BaseIPresenter> extends AppCompatAc
             e.printStackTrace();
         }
     }
+    @TargetApi(23)
+    private void requestPermissions() {
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+//				Toast.makeText(MainActivity.this, "All permissions have been granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDenied(String permission) {
+                //Toast.makeText(MainActivity.this, "Permission " + permission + " has been denied", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
+    }
+
 }

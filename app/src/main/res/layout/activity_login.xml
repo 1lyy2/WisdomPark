@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_420px"
-        android:background="@mipmap/ic_launcher">
+        android:fitsSystemWindows="true"
+        android:background="@drawable/my_bg">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
                     android:layout_marginRight="5dp"
                     android:visibility="gone" />
 
-                <com.zykj.carfigure.views.ClearEditText
+                <com.zykj.carfigure.widget.ClearEditText
                     android:id="@+id/edit_login_username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -93,7 +94,7 @@
 
                     android:visibility="gone" />
 
-                <com.zykj.carfigure.views.ClearEditText
+                <com.zykj.carfigure.widget.ClearEditText
                     android:id="@+id/edit_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -110,7 +111,7 @@
                     android:textColorHint="#cfcfcc"
                     android:textSize="@dimen/_30px" />
 
-                <com.zykj.carfigure.views.ClearEditText
+                <com.zykj.carfigure.widget.ClearEditText
                     android:id="@+id/edit_login_password_light"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

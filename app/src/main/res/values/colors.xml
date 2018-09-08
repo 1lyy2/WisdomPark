@@ -35,7 +35,7 @@
     <color name="common_line_bottom">#f2f2f2</color>
     <color name="common_spite_color">#e5e5e5</color>
     <!--主界面Tab字体颜色-->
-    <color name="tab_sel_color">#0CCAC5</color>
+    <color name="tab_sel_color">#1FB6EF</color>
     <color name="tab_unsel_color">#7A7E83</color>
     <!--确定弹出框的几种颜色颜色-->
     <!--标题栏背景-->
@@ -47,4 +47,14 @@
     <color name="setting_txt_color">#333333</color>
     <color name="commom_text_color">#007DFF</color>
     <color name="takeout_color">#CCCCCC</color>
+
+    //自定义时间日期选择器
+    <color name="background">#FFFFFF</color>
+    <color name="split_line">#11112233</color>
+    <color name="text1">#59B29C</color>
+    <color name="text2">#333333</color>
+    //自定义验证码和停车位编号输入框
+    <color name="text_border_focused">#FDB890</color>
+    <color name="text_border_normal">#E5E5E5</color>
+    <color name="me_bg_top">#1FB6EF</color>
 </resources>

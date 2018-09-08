@@ -7,7 +7,7 @@ import android.view.View;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.adapter.CouponsAdapter;
 import com.zykj.carfigure.base.BaseFragment;
-import com.zykj.carfigure.views.EmptyRecyclerView;
+import com.zykj.carfigure.widget.EmptyRecyclerView;
 
 import butterknife.BindView;
 

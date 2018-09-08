@@ -11,7 +11,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentScrim="@color/colorPrimary"
+        app:contentScrim="@color/me_bg_top"
         app:layout_anchor="@+id/appBarLayout"
         app:layout_anchorGravity="left|top">
 
@@ -19,16 +19,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:collapsedTitleGravity="right"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/me_bg_top"
+            android:fitsSystemWindows="true"
+            app:titleEnabled="true"
             app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed|enterAlwaysCollapsed"
-            app:title="莫莫">
+            >
 
             <ImageView
                 android:id="@+id/imageview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="@color/me_bg_top"
+                android:fitsSystemWindows="true"
                 android:scaleType="fitXY" />
 
             <RelativeLayout
@@ -37,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="?attr/actionBarSize">
 
-                <com.zykj.carfigure.views.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.zykj.carfigure.widget.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/round_user_avtar"
                     android:layout_width="@dimen/_160px"
                     android:layout_height="@dimen/_160px"
@@ -45,7 +48,7 @@
                     android:layout_marginTop="@dimen/_10px"
                     android:clickable="true"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/touxiang"
                     app:riv_border_color="@android:color/transparent"
                     app:riv_border_width="@dimen/_1px"
                     app:riv_corner_radius="@dimen/_200px"
@@ -132,6 +135,7 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:title="测试"
                 app:layout_collapseMode="pin">
 
                 <LinearLayout
@@ -155,7 +159,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
                         android:layout_marginRight="@dimen/_30px"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@drawable/setting" />
 
                     <ImageView
                         android:id="@+id/imageview_new"

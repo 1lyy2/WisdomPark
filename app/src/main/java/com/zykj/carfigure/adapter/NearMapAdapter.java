@@ -13,13 +13,11 @@ import com.zykj.carfigure.entity.Street;
 import com.zykj.carfigure.eventbus.Event;
 import com.zykj.carfigure.eventbus.EventBusUtils;
 import com.zykj.carfigure.eventbus.EventCode;
-import com.zykj.carfigure.utils.ToastManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class NearMapAdapter extends BaseRecylerAdapter<Street> {
+public class NearMapAdapter extends BaseRecylerAdapter {
 
     public NearMapAdapter(Context context) {
         super(context);
@@ -34,12 +32,12 @@ public class NearMapAdapter extends BaseRecylerAdapter<Street> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         NearMapHolder nearMapHolder = (NearMapHolder) holder;
-        final Street street = mList.get(position);
+        final Street.StreetDetail street =(Street.StreetDetail) mList.get(position);
         if (street == null) return;
         nearMapHolder.tvStreetName.setText(street.getStreetName());
-        nearMapHolder.tvStreetLength.setText(String.valueOf(street.getStreetLength()));
-        nearMapHolder.tvFreePark.setText("空车位:" + street.getFreePark());
-        nearMapHolder.tvTotalPark.setText("总车位:" + street.getTotalPark());
+        nearMapHolder.tvStreetLength.setText(String.valueOf(street.getStreetLength()+" KM"));
+        nearMapHolder.tvFreePark.setText("空车位:" + street.getEmptyPark());
+        nearMapHolder.tvTotalPark.setText("总车位:" + street.getTotalParkNumber());
         nearMapHolder.relGoDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

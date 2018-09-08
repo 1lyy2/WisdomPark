@@ -10,10 +10,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+            //abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
             //abiFilters  "armeabi-v7a", "arm64-v8a","x86", "x86_64"
             //编译成apk开启减少apk体积
-            //abiFilters "armeabi"
+            abiFilters "armeabi"
         }
         multiDexEnabled true
     }
@@ -33,14 +33,15 @@ android {
 }
 
 dependencies {
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["constraint-layout"]
+
     //test
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+
     //support
     implementation(rootProject.ext.dependencies["support-v4"]) {
         exclude module: 'support-annotations'
@@ -49,10 +50,13 @@ dependencies {
         exclude module: 'support-v4'
     }
     implementation rootProject.ext.dependencies["annotations"]
+
     //recyclerview
     implementation rootProject.ext.dependencies["recyclerview"]
+
     //eventbus
     implementation rootProject.ext.dependencies["eventbus"]
+
     //butterknife
     implementation(rootProject.ext.dependencies["butterknife"]) {
         exclude module: 'support-annotations'
@@ -61,6 +65,7 @@ dependencies {
         exclude module: 'butterknife'
     }
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
     //glide
     implementation(rootProject.ext.dependencies["glide"]) {
         exclude module: 'support-fragment'
@@ -70,14 +75,18 @@ dependencies {
     }
     implementation rootProject.ext.dependencies["cardview"]
     implementation rootProject.ext.dependencies["design"]
+
     //retrofit
     implementation rootProject.ext.dependencies["retrofit"]
     implementation rootProject.ext.dependencies["converter-gson"]
+
     //implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     implementation rootProject.ext.dependencies["adapter-rxjava2"]
+
     //okhttp
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["logging-interceptor"]
+
     //rxjava
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
@@ -86,23 +95,36 @@ dependencies {
     implementation rootProject.ext.dependencies["imageSelector"]
 
     //implementation rootProject.ext.dependencies["gson"]
+
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
+
     //定位功能
     implementation 'com.amap.api:location:latest.integration'
+
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
+
     //ConvenientBanner 通用轮播图
     implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+
     //QQ
     implementation files('libs/open_sdk_r6008_lite.jar')
+
     //微信登录接入
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.4'
+
     //支付宝
     implementation files('libs/alipaySdk-20180601.jar')
     implementation 'com.android.support:multidex:1.0.1'
+
     //smarttablayout
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+
     //Optional: see how to use the utility.
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+
+    //flowlayout
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+    implementation project(':keyboard')
 }

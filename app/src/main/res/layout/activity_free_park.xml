@@ -4,6 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/main_bg_color"
     tools:context=".activity.FreeParkActivity">
     <include layout="@layout/common_tool_bar" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/freepark_swfresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/freepark_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_20px"
+            android:paddingRight="@dimen/_20px"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

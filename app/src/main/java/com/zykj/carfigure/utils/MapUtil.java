@@ -3,16 +3,19 @@ package com.zykj.carfigure.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.view.Gravity;
-import android.view.View;
 
 import com.amap.api.maps.model.LatLng;
 import com.zykj.carfigure.R;
+import com.zykj.carfigure.entity.CarPark;
+import com.zykj.carfigure.entity.FindMyCar;
 import com.zykj.carfigure.entity.IndexFragmentEntity;
 import com.zykj.carfigure.entity.Street;
-import com.zykj.carfigure.views.popup.MapSelectPopup;
+import com.zykj.carfigure.eventbus.Event;
+import com.zykj.carfigure.eventbus.EventBusUtils;
+import com.zykj.carfigure.widget.ActionSheetDialog;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 public class MapUtil {
     public static String[] paks = new String[]{"com.baidu.BaiduMap",        //百度
@@ -23,6 +26,8 @@ public class MapUtil {
     public static final String DOWNLOAD_BAIDU_MAP = "http://map.baidu.com/zt/client/index/"; // 百度地图下载地址
     public static final String TYPE_NEAR = "near";  //附近到导航
     public static final String TYPE_STREET = "street";//街道的导航
+    public static final String TYPE_CARPARKING="carparking";//车位导航
+    public static final String TYPE_FINDCAR = "findcar";//寻找车辆
 
     /**
      * 检查应用是否安装
@@ -59,19 +64,46 @@ public class MapUtil {
         return new LatLng(gg_lat, gg_lng);
     }
 
-
-    public static void goNavigationByGaode(Object object, Context context,String type) {
+    /**
+     * 驾车
+     *
+     * @param object
+     * @param context
+     * @param type
+     */
+    public static void goNavigationByGaode(Object object, Context context, String type) {
         LatLng mlatLng = null;
+        String name = "目标位置";
         if (type.equals(TYPE_NEAR)) {
             IndexFragmentEntity.Near near = (IndexFragmentEntity.Near) object;
             mlatLng = near.getLatLng();
+            name = near.getParkName();
         } else if (type.equals(TYPE_STREET)) {
-            Street street = (Street) object;
-            mlatLng = street.getmLatLng();
+
+            Street.StreetDetail street = (Street.StreetDetail) object;
+            double latitude = street.getLatitude();
+            double longitude = street.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
+            name = street.getStreetName();
+        }else if(type.equals(TYPE_CARPARKING)){
+            CarPark.CarParkDetail carport = (CarPark.CarParkDetail) object;
+            double latitude = carport.getLatitude();
+            double longitude = carport.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
+            name = carport.getStreetName();
+        }else if(type.equals(TYPE_FINDCAR)){
+            //反向寻车
+            FindMyCar findMyCar = (FindMyCar) object;
+            double latitude = findMyCar.getLatitude();
+            double longitude = findMyCar.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
+        }
+        if (name == null || name.equals("")) {
+            name = "目标位置";
         }
         if (mlatLng == null) return;
         if (MapUtil.isGdMapInstalled()) {
-            MapUtil.openGaoDeNavi(context, mlatLng.latitude, mlatLng.longitude, 0, 2, 0);
+            MapUtil.openGaoDeNavi(context, mlatLng.latitude, mlatLng.longitude, 0, 2, 0, name);
         } else {
             ToastManager.showShortToast(context, "您还未安装高德地图！");
             Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
@@ -94,18 +126,35 @@ public class MapUtil {
             IndexFragmentEntity.Near near = (IndexFragmentEntity.Near) object;
             mlatLng = near.getLatLng();
         } else if (type.equals(TYPE_STREET)) {
-            Street street = (Street) object;
-            mlatLng = street.getmLatLng();
+            Street.StreetDetail street = (Street.StreetDetail) object;
+            double latitude = street.getLatitude();
+            double longitude = street.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
+        }else if(type.equals(TYPE_CARPARKING)){
+            CarPark.CarParkDetail carport = (CarPark.CarParkDetail) object;
+            double latitude = carport.getLatitude();
+            double longitude = carport.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
+           // name = carport.getStreetName();
+        }else if(type.equals(TYPE_FINDCAR)){
+            //反向寻车
+            FindMyCar findMyCar = (FindMyCar) object;
+            double latitude = findMyCar.getLatitude();
+            double longitude = findMyCar.getLongitude();
+            mlatLng = new LatLng(latitude,longitude);
         }
         if (mlatLng == null) return;
         if (MapUtil.isBaiduMapInstalled()) {
             //高德坐标转为百度地图坐标
             LatLng latLng = MapUtil.GCJ02ToBD09(mlatLng);
-            StringBuffer stringBuffer = new StringBuffer("baidumap://map/navi?location=")
-                    .append(latLng.latitude).append(",").append(latLng.longitude).append("&type=TIME");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringBuffer.toString()));
-            intent.setPackage("com.baidu.BaiduMap");
-            context.startActivity(intent);
+            Intent intent = null;
+            try {
+                //intent = Intent.getIntent("intent://map/direction?origin=latlng:"+latLng.latitude+","+latLng.longitude+"|name:万家丽国际Mall&destination=latlng:"+LATITUDE_ZHONGDIAN+","+LONGTITUDE_ZHONGDIAN+"|name:东郡华城广场|A座&mode=driving&src=yourCompanyName|yourAppName#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+                intent = Intent.getIntent("intent://map/direction?origin=我的位置&destination=latlng:" + latLng.latitude + "," + latLng.longitude + "|name:目标位置&mode=driving&src=" + context.getResources().getString(R.string.app_name) + "#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+                context.startActivity(intent);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         } else {
             ToastManager.showShortToast(context, "您尚未安装百度地图！");
             Uri uri = Uri.parse("market://details?id=com.baidu.BaiduMap");
@@ -141,80 +190,52 @@ public class MapUtil {
      * @param style   导航方式(0 速度快; 1 费用少; 2 路程短; 3 不走高速；4 躲避拥堵；5 不走高速且避免收费；6 不走高速且躲避拥堵；7 躲避收费和拥堵；8 不走高速躲避收费和拥堵)
      * @param t：t     = 0（驾车）= 1（公交）= 2（步行）= 3（骑行）= 4（火车）= 5（长途客车）
      */
-    public static void openGaoDeNavi(Context context, double lat, double lon, int dev, int style, int t) {
-        String uriString = null;
-        StringBuilder builder = new StringBuilder("androidamap://navi?sourceApplication=" + context.getResources().getString(R.string.app_name));
-        builder.append("&lat=").append(lat)
-                .append("&lon=").append(lon)
-                .append("&dname=").append("我的位置")
-                .append("&dev=").append(dev)
-                .append("&t=").append(t)
-                .append("&style=").append(style);
-
-        uriString = builder.toString();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setPackage(MapUtil.PN_GAODE_MAP);
-        intent.setData(Uri.parse(uriString));
-        context.startActivity(intent);
-    }
-
-    public static void openBaiDuNavi(Context context, double slat, double slon, String sname, double dlat, double dlon, String dname) {
-        String uriString = null;
-        //终点坐标转换
-        LatLng destination = new LatLng(dlat, dlon);
-        LatLng destinationLatLng = GCJ02ToBD09(destination);
-        dlat = destinationLatLng.latitude;
-        dlon = destinationLatLng.longitude;
-        StringBuilder builder = new StringBuilder("baidumap://map/direction?mode=driving&");
-        if (slat != 0) {
-            //起点坐标转换
-            LatLng origin = new LatLng(slat, slon);
-            LatLng originLatLng = GCJ02ToBD09(origin);
-            slat = originLatLng.latitude;
-            slon = originLatLng.longitude;
-            builder.append("origin=latlng:")
-                    .append(slat)
-                    .append(",")
-                    .append(slon)
-                    .append("|name:")
-                    .append(sname);
+    public static void openGaoDeNavi(Context context, double lat, double lon, int dev, int style, int t, String dname) {
+        try {
+            Intent intent = Intent.getIntent("androidamap://route?sourceApplication=" + context.getResources().getString(R.string.app_name) + "&sname=我的位置&dlat=" + lat + "&dlon=" + lon + "&dname=" + dname + "&dev=0&m=0&t=0");
+            context.startActivity(intent);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
-        builder.append("&destination=latlng:")
-                .append(dlat)
-                .append(",")
-                .append(dlon)
-                .append("|name:")
-                .append(dname);
-        uriString = builder.toString();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setPackage(PN_BAIDU_MAP);
-        intent.setData(Uri.parse(uriString));
-        context.startActivity(intent);
     }
 
     /**
-     *
      * @param context
-     * @param object  数据源
-     * @param view    绑定的view
-     * @param mapSelectPopup  弹出选择的框
-     * @param type    类型
+     * @param object            数据源
+     * @param actionSheetDialog 弹出选择的框
+     * @param type              类型
      */
-    public static void showNavigation(Context context, Object object, View view, MapSelectPopup mapSelectPopup,String type) {
+    public static void showNavigation(Context context, final Object object, ActionSheetDialog actionSheetDialog, String type, final int gaoduCode, final int baiduCode) {
         if (object == null) return;
         if (MapUtil.isGdMapInstalled() && MapUtil.isBaiduMapInstalled()) {
             //双地图
-            if (mapSelectPopup == null) {
-                mapSelectPopup = new MapSelectPopup(context);
+            if (actionSheetDialog == null) {
+                actionSheetDialog = new ActionSheetDialog(context);
             }
-            mapSelectPopup.setObject(object);
-            mapSelectPopup.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            actionSheetDialog.builder()
+                    .setCancelable(false)
+                    .setCanceledOnTouchOutside(true)
+                    .addSheetItem("高德地图", ActionSheetDialog.SheetItemColor.Blue,
+                            new ActionSheetDialog.OnSheetItemClickListener() {
+                                @Override
+                                public void onClick(int which) {
+                                    EventBusUtils.sendEvent(new Event(gaoduCode, object));
+                                }
+                            })
+                    .addSheetItem("百度地图", ActionSheetDialog.SheetItemColor.Blue,
+                            new ActionSheetDialog.OnSheetItemClickListener() {
+                                @Override
+                                public void onClick(int which) {
+                                    EventBusUtils.sendEvent(new Event(baiduCode, object));
+                                }
+                            })
+                    .show();
         } else if (MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled()) {
             //百度地图
-            MapUtil.goToBaidu(object, context,type);
+            MapUtil.goToBaidu(object, context, type);
         } else if (MapUtil.isGdMapInstalled() && !MapUtil.isBaiduMapInstalled()) {
             //高德地图
-            MapUtil.goNavigationByGaode(object, context,type);
+            MapUtil.goNavigationByGaode(object, context, type);
         } else {
             ToastManager.showShortToast(context, "您还未安装高德地图！");
             Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");

@@ -4,12 +4,12 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.zykj.carfigure.R;
-import com.zykj.carfigure.base.BaseActivity;
+import com.zykj.carfigure.base.UserBaseActivity;
 
 import butterknife.BindView;
 
 //余额
-public class BalanceActivity extends BaseActivity {
+public class BalanceActivity extends UserBaseActivity {
 
     @BindView(R.id.common_right_text)
     TextView commonRightText;

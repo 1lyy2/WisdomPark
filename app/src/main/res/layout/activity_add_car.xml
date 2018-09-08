@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100px"
-        android:layout_marginTop="@dimen/_20px"
-        android:background="@color/white">
+        android:layout_height="@dimen/_100px">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,39 +32,49 @@
             android:layout_marginRight="@dimen/_20px"
             android:background="@drawable/news_see" />
 
-        <TextView
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_20px"
             android:layout_toLeftOf="@id/img_next"
-            android:text="蓝底白字" />
+            android:text="新能源" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_spite_color" />
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_100px"
         android:layout_marginLeft="@dimen/_20px"
-        android:layout_marginTop="@dimen/_30px"
+        android:gravity="center_vertical"
         android:text="车牌号码"
         android:textSize="@dimen/_28px" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="@dimen/_20px"
-        android:layout_marginRight="@dimen/_20px"
-        android:layout_marginTop="@dimen/_30px">
-        <EditText
-            android:layout_width="@dimen/_120px"
-            android:layout_height="@dimen/_80px"
-            android:text="桂"
-            android:gravity="center"
-            android:drawablePadding="@dimen/_10px"
-            android:paddingRight="@dimen/_10px"
-            android:background="@drawable/add_car_number_shape"
-            android:drawableRight="@drawable/news_see"/>
-        
+        android:background="@color/white">
+
+        <com.parkingwang.keyboard.view.InputView
+            android:id="@+id/input_view"
+            style="@style/PWKInputViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10px"
+            app:pwkInputTextSize="@dimen/_28px" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_addcar"
+        style="@style/commom_btn_style"
+        android:layout_marginTop="@dimen/_50px"
+        android:text="添加"
+        android:textStyle="bold" />
+
 </LinearLayout>

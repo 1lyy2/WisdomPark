@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg_color"
+    tools:context=".fragment.AutoParkingFragment">
+
+
+    <TextView
+        android:id="@+id/tv_auto_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:text="请保持定位和蓝牙打开"
+        android:layout_marginTop="@dimen/_28px"
+        android:textColor="@color/commom_text_color"
+        android:textSize="@dimen/_28px"
+        android:textStyle="bold" />
+
+    <com.zykj.carfigure.widget.WaterRippleView
+        android:id="@+id/wrv_water"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_20px"
+        android:layout_above="@+id/tv_auto_tips"
+        android:layout_centerInParent="true"
+        app:customAutoRunning="false"
+        app:customCenterIcon="@mipmap/ic_launcher_round"
+        app:customColor="#fd9200"
+        app:customCount="8"
+        app:customSpacing="@dimen/_10px" />
+    <RelativeLayout
+        android:id="@+id/rel_select"
+        android:layout_below="@+id/tv_auto_tips"
+        android:layout_marginTop="@dimen/_10px"
+        style="@style/common_reserve_style">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:background="@color/common_spite_color"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:id="@+id/tv_chepai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/_28px"
+            android:textColor="@color/commom_text_color"
+            android:text="车牌号:"/>
+        <LinearLayout
+            android:id="@+id/lin_select_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10px"
+            android:layout_toRightOf="@+id/tv_chepai"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/tv_input_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:textSize="@dimen/_28px"
+                android:gravity="center"
+                android:hint="请选择车牌号"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_input_number"
+                android:layout_marginLeft="@dimen/_20px"
+                android:background="@drawable/news_see"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1px"
+            android:background="@color/common_spite_color"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_select"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="@dimen/_20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收费标准:"
+            android:textColor="@color/commom_text_color"
+            android:textSize="@dimen/_30px" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10px"
+            android:text="前面两小时内免费，后面每小时5元，不足一小时也按照一小时费用收取"
+            android:textColor="@color/actionsheet_red"
+            android:textSize="@dimen/_28px" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -17,11 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.zykj.carfigure.views.EmptyRecyclerView
+        <com.zykj.carfigure.widget.EmptyRecyclerView
             android:id="@+id/record_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
-        </com.zykj.carfigure.views.EmptyRecyclerView>
+        </com.zykj.carfigure.widget.EmptyRecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

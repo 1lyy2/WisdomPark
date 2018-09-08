@@ -1,25 +1,15 @@
 package com.zykj.carfigure.http;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Environment;
-import android.widget.Toast;
 
-import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.log.Log;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.CookieJar;
-import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,9 +45,9 @@ public class OkHttp3Utils {
                     int cacheSize = 10 * 1024 * 1024;
                     okHttpClient = new OkHttpClient.Builder()
                             .cookieJar(CookieJar.NO_COOKIES)
-                            .connectTimeout(15, TimeUnit.SECONDS)
-                            .writeTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(20, TimeUnit.SECONDS)
+                            .connectTimeout(5000, TimeUnit.SECONDS)
+                            .writeTimeout(2000, TimeUnit.SECONDS)
+                            .readTimeout(2000, TimeUnit.SECONDS)
                             .cache(new Cache(sdcache.getAbsoluteFile(), cacheSize))
                             .addInterceptor(new Interceptor() {
                                 @Override
