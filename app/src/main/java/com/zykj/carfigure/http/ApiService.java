@@ -1,6 +1,7 @@
 package com.zykj.carfigure.http;
 
 import com.zykj.carfigure.entity.Banner;
+import com.zykj.carfigure.entity.Bills;
 import com.zykj.carfigure.entity.CarMessage;
 import com.zykj.carfigure.entity.CarPark;
 import com.zykj.carfigure.entity.CommonBack;
@@ -72,7 +73,10 @@ public interface ApiService {
     @POST("user/logOut")
     Observable<CommonBack> logOut();
 
-    //用户
+    //用户账单
+    @FormUrlEncoded
+    @POST("userbill/getRecord")
+    Observable<Bills> getUserBills(@Field("state") int state);
 
     //获取首页banner
     @POST("homeAdm/findByAllAd")

@@ -189,14 +189,8 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         IntentFilter filter = new IntentFilter();
         filter.addAction("authlogin");
         this.registerReceiver(receiveBroadCast, filter);
-        Intent intent = getIntent();
-        if (intent != null) {
-            loginUserName = intent.getStringExtra("loginUserName");
-            mEditText_account.setText(loginUserName);
-        }else{
-            loginUserName = SPCache.getObject(this, "userName", String.class);
-            mEditText_account.setText(loginUserName);
-        }
+        loginUserName = SPCache.getObject(this, "userName", String.class);
+        mEditText_account.setText(loginUserName);
 
     }
 

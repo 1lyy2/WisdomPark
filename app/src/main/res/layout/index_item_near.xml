@@ -47,7 +47,7 @@
                 android:layout_width="@dimen/_40px"
                 android:layout_height="@dimen/_40px"
                 android:layout_margin="@dimen/_10px"
-                android:background="@mipmap/ic_launcher_round" />
+                android:background="@drawable/nav" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/_20px"
                 android:text="导航"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/me_bg_top"
                 android:textSize="@dimen/_26px" />
         </LinearLayout>
     </LinearLayout>

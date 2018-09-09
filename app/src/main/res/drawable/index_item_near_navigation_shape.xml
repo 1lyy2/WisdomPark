@@ -6,5 +6,5 @@
     <corners android:radius="5dp" />
     <stroke
         android:width="@dimen/_1px"
-        android:color="@color/colorPrimary"/>
+        android:color="@color/me_bg_top"/>
 </shape>

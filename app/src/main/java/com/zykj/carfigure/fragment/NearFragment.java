@@ -39,6 +39,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.zykj.carfigure.MainActivity;
 import com.zykj.carfigure.R;
 import com.zykj.carfigure.activity.AddressSearchActivity;
+import com.zykj.carfigure.activity.FreeParkActivity;
 import com.zykj.carfigure.activity.StreetListActivity;
 import com.zykj.carfigure.adapter.NearMapAdapter;
 import com.zykj.carfigure.app.Constants;
@@ -55,7 +56,6 @@ import com.zykj.carfigure.mvp.presenter.StreetPresenter;
 import com.zykj.carfigure.mvp.view.IStreetView;
 import com.zykj.carfigure.utils.MapUtil;
 import com.zykj.carfigure.utils.StatusBarUtil;
-import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.utils.Utils;
 import com.zykj.carfigure.widget.ActionSheetDialog;
 import com.zykj.carfigure.widget.NearMapItemDecoration;
@@ -280,9 +280,9 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
                 Intent intent_list = new Intent();
                 double latitude = latLng.latitude;
                 double longitude = latLng.longitude;
-                intent_list.putExtra("street_latitude",latitude);
-                intent_list.putExtra("street_longitude",longitude);
-                intent_list.setClass(getActivity(),StreetListActivity.class);
+                intent_list.putExtra("street_latitude", latitude);
+                intent_list.putExtra("street_longitude", longitude);
+                intent_list.setClass(getActivity(), StreetListActivity.class);
                 getActivity().startActivity(intent_list);
                 break;
             case R.id.near_search:
@@ -312,10 +312,10 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
                 != null) {
             AddressBean addressBean = (AddressBean) data.getSerializableExtra(Constants.EXTRA_TIP);
             LatLng markerPosition = new LatLng(addressBean.getLatitude(), addressBean.getLongitude());
-            addSearchMarker(markerPosition);
-            if(streetPresenter!=null){
-                showLoadingView(null,null);
-                streetPresenter.getStreetList(addressBean.getLatitude(),addressBean.getLongitude(),Constants.range);
+            aMap.animateCamera(CameraUpdateFactory.newLatLng(markerPosition));
+            if (streetPresenter != null) {
+                showLoadingView(null, null);
+                streetPresenter.getStreetList(addressBean.getLatitude(), addressBean.getLongitude(), Constants.range);
             }
         }
     }
@@ -323,11 +323,11 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
     @Override
     public void onMyLocationChange(Location location) {
         if (location == null) return;
-        addMarkerInScreenCenter(latLng);
         if (followMove) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             LatLng latLng = new LatLng(latitude, longitude);
+           // addMarkerInScreenCenter(latLng);
             aMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
@@ -338,23 +338,6 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
             //用户拖动地图后，不再跟随移动，直到用户点击定位按钮
             followMove = false;
         }
-    }
-
-    private void addMarkerInScreenCenter() {
-        LatLng latLng = aMap.getCameraPosition().target;
-        if (latLng == null) return;
-        Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
-        if (locationMarker == null) {
-            locationMarker = aMap.addMarker(new MarkerOptions()
-                    .anchor(0.5f, 0.5f)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_mark)));
-            //设置Marker覆盖物的z轴值。
-            locationMarker.setZIndex(1);
-            locationMarker.setClickable(false);
-        }
-        //设置Marker在屏幕上,不跟随地图移动
-        locationMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
-
     }
 
     private void addMarkerInScreenCenter(LatLng latLng) {
@@ -373,11 +356,15 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
 
     }
 
-    private void addSearchMarker(LatLng latLng) {
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, Constants.getZoomB));
-        addMarkerInScreenCenter();
+    private void addMarkerInScreenCenter() {
+        LatLng latLng = aMap.getCameraPosition().target;
+        Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
+        locationMarker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f).icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_mark)));
+        //设置Marker在屏幕上,不跟随地图移动 locationMarker.setPositionByPixels(screenPosition.x, screenPosition.y); locationMarker.showInfoWindow(); }
+//设置Marker在屏幕上,不跟随地图移动
+        locationMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
+        locationMarker.showInfoWindow();
     }
-
 
     /**
      * 屏幕中心marker 跳动
@@ -417,14 +404,13 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        Log.i("nearFragmnet", "onCameraChange");
     }
 
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
         // aMap.clear();
         //添加MarkerOnerlay
-        if(isPrepared){
+        if (isPrepared) {
             double latitude = cameraPosition.target.latitude;
             double longitude = cameraPosition.target.longitude;
             LatLng mlatLng = new LatLng(latitude, longitude);
@@ -459,7 +445,6 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
     public void onMarkerCnClick(Marker marker) {
         Street.StreetDetail streetDetail = (Street.StreetDetail) marker.getObject();
         int number = streetDetail.getList_id();
-        ToastManager.showShortToast(getActivity(), "marker序列号为：" + number);
         smoothMoveToPosition(mapRecyclerView, number);
 
     }
@@ -490,12 +475,17 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
                 break;
             case EventCode.ROUTE:
                 //预约
-                Street data = (Street) event.getData();
+                Street.StreetDetail streetDetail = (Street.StreetDetail) event.getData();
+                if(streetDetail==null) return;
+                int id = streetDetail.getId();
+                Intent intent = new Intent(getContext(),FreeParkActivity.class);
+                intent.putExtra("streetId",id);
+                startActivity(intent);
                 break;
             case EventCode.NAVIGATION:
                 Street.StreetDetail street = (Street.StreetDetail) event.getData();
                 Log.i("位置", "---------------------" + street.toString());
-                MapUtil.showNavigation(getContext(), street, actionSheetDialog, MapUtil.TYPE_STREET,EventCode.GAODEMAP,EventCode.BAIDUMAP);
+                MapUtil.showNavigation(getContext(), street, actionSheetDialog, MapUtil.TYPE_STREET, EventCode.GAODEMAP, EventCode.BAIDUMAP);
                 break;
             case EventCode.GAODEMAP:
                 //高德地图导航
@@ -572,6 +562,7 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
                     if (poiItems != null && poiItems.size() > 0) {
                         aMap.clear();// 清理之前的图标
                         // addMarker();
+                        addMarkerInScreenCenter();
                         PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
                         poiOverlay.removeFromMap();
                         poiOverlay.addToMap();

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * version: 1.0
  */
 public class MyBillsAdapter extends BaseRecylerAdapter {
-
+    private int type;
     public MyBillsAdapter(Context context) {
         super(context);
     }
@@ -41,8 +41,7 @@ public class MyBillsAdapter extends BaseRecylerAdapter {
         myBillsHolder.tvBillCarnumber.setText(bills.getCarNumber());
         myBillsHolder.tvBillAddress.setText(bills.getAddress());
         myBillsHolder.tvBillTime.setText(bills.getConsumeTime());
-        int type = bills.getType();
-        if(type==2){
+        if(getType()==1){
             //充值
             myBillsHolder.tvBillAddress.setVisibility(View.INVISIBLE);
             myBillsHolder.tvBillConsume.setText("+"+bills.getConsumeMoney()+"");
@@ -72,4 +71,11 @@ public class MyBillsAdapter extends BaseRecylerAdapter {
         }
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

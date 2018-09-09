@@ -1,18 +1,16 @@
 package com.zykj.carfigure.activity;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.RelativeLayout;
+import android.support.v4.view.ViewPager;
 
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.zykj.carfigure.R;
-import com.zykj.carfigure.adapter.MyBillsAdapter;
+import com.zykj.carfigure.adapter.MyCouponsPageAdapter;
+import com.zykj.carfigure.base.BaseFragment;
 import com.zykj.carfigure.base.UserBaseActivity;
-import com.zykj.carfigure.entity.Bills;
-import com.zykj.carfigure.widget.CommonItemDecoration;
-import com.zykj.carfigure.widget.EmptyRecyclerView;
+import com.zykj.carfigure.fragment.BillsFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -21,12 +19,12 @@ import butterknife.BindView;
  */
 public class MyBillsActivity extends UserBaseActivity {
 
-    @BindView(R.id.rel_bills_empty)
-    RelativeLayout relBillsEmpty;
-    @BindView(R.id.recycler_bills)
-    EmptyRecyclerView recyclerBills;
-    private MyBillsAdapter  myBillsAdapter;
-
+    @BindView(R.id.tab_bills)
+    SmartTabLayout tabBills;
+    @BindView(R.id.vp_bills)
+    ViewPager vpBills;
+    ArrayList<String> titleDatas = new ArrayList<>();
+    ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
     @Override
     public void onCreatePresenter() {
 
@@ -40,7 +38,7 @@ public class MyBillsActivity extends UserBaseActivity {
     @Override
     protected void initView() {
         enableSupportActionBar();
-        init();
+        init_view();
     }
 
     @Override
@@ -53,22 +51,23 @@ public class MyBillsActivity extends UserBaseActivity {
         return this;
     }
 
-    private  void init(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerBills.setLayoutManager(linearLayoutManager);
-        CommonItemDecoration commonItemDecoration = new CommonItemDecoration(this,1,getResources().getColor(R.color.common_spite_color));
-        recyclerBills.addItemDecoration(commonItemDecoration);
-        myBillsAdapter = new MyBillsAdapter(this);
-        recyclerBills.setAdapter(myBillsAdapter);
-        myBillsAdapter.setList(initData());
-        recyclerBills.setEmptyView(relBillsEmpty);
-    }
-    private  List<Bills> initData(){
-        List<Bills> list = new ArrayList<>();
-        list.add(new Bills("桂A88888","青秀万达","2018.9.16 15:35",6,30,1));
-        list.add(new Bills("充值","","2018.9.16 15:35",6,36,2));
-        return list;
-    }
+    private void init_view() {
+        //0表示已经缴费，-1表示代缴费，1表示充值记录
+        titleDatas.add("待缴费");
+        titleDatas.add("已缴费");
+        titleDatas.add("充值");
+        BillsFragment waitPay = new BillsFragment();
+        waitPay.setType(-1);
+        BillsFragment payed = new BillsFragment();
+        payed.setType(0);
+        BillsFragment charge = new BillsFragment();
+        charge.setType(1);
+        fragmentList.add(waitPay);
+        fragmentList.add(payed);
+        fragmentList.add(charge);
 
+        MyCouponsPageAdapter myViewPageAdapter = new MyCouponsPageAdapter(getSupportFragmentManager(), titleDatas, fragmentList);
+        vpBills.setAdapter(myViewPageAdapter);
+        tabBills.setViewPager(vpBills);
+    }
 }
