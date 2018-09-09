@@ -1,13 +1,13 @@
 ext {
     android = [
-            compileSdkVersion: 27,
-            buildToolsVersion: 27,
-            applicationId    : "com.zykj.carfigure",
-            minSdkVersion    : 15,
-            targetSdkVersion : 27,
-            versionCode      : 1,
-            versionName      : "1.0.0",
-            sourceCompatibility :JavaVersion.VERSION_1_8
+            compileSdkVersion  : 27,
+            buildToolsVersion  : 27,
+            applicationId      : "com.zykj.carfigure",
+            minSdkVersion      : 15,
+            targetSdkVersion   : 27,
+            versionCode        : 1,
+            versionName        : "1.0.0",
+            sourceCompatibility: JavaVersion.VERSION_1_8
     ]
 
     def dependVersion = [
@@ -20,6 +20,7 @@ ext {
             rxandroid    : "2.0.2",
             gson         : "2.8.2",
             imageSelector: "1.6.5",
+            greendao     : "3.2.2",
 
 
     ]
@@ -60,7 +61,11 @@ ext {
             //gson
             "gson"                   : "com.google.code.gson:gson:${dependVersion.gson}",
             //ImageSelector
-            "imageSelector"          : "com.github.donkingliang:ImageSelector:${dependVersion.imageSelector}"
+            "imageSelector"          : "com.github.donkingliang:ImageSelector:${dependVersion.imageSelector}",
+            //greendao
+            "greendao"               : "org.greenrobot:greendao:${dependVersion.greendao}",
+            //greendao-generator
+            "greendao-generator"     : "org.greenrobot:greendao-generator:${dependVersion.greendao}"
 
     ]
 }

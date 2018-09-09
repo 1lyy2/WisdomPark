@@ -40,7 +40,6 @@ import com.zykj.carfigure.location.marker.MarkerOverlay;
 import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.mvp.presenter.StreetPresenter;
 import com.zykj.carfigure.mvp.view.IStreetView;
-import com.zykj.carfigure.utils.ToastManager;
 import com.zykj.carfigure.utils.Utils;
 import com.zykj.carfigure.widget.ClearEditText;
 
@@ -220,7 +219,6 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
 
     @Override
     public void onMapLoaded() {
-
         addMarkerInScreenCenter();
     }
 
@@ -228,7 +226,6 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
     public void onMarkerCnClick(Marker marker) {
         Street.StreetDetail streetDetail = (Street.StreetDetail) marker.getObject();
         int number = streetDetail.getList_id();
-        ToastManager.showShortToast(this, "marker序列号为：" + number);
         smoothMoveToPosition(recyclerView, number);
 
     }
@@ -244,7 +241,7 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
     }
 
 
-    private void addMarkerInScreenCenter(LatLng latLng) {
+   /* private void addMarkerInScreenCenter(LatLng latLng) {
         if (latLng == null) return;
         Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
         if (locationMarker == null) {
@@ -257,7 +254,7 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
         }
         //设置Marker在屏幕上,不跟随地图移动
         locationMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
-    }
+    }*/
     private void addMarkerInScreenCenter() {
         LatLng latLng = aMap.getCameraPosition().target;
         if (latLng == null) return;
@@ -279,7 +276,7 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
         if (markerOverlay != null) {
             markerOverlay.removeFromMap();
         }
-        startJumpAnimation();
+        //startJumpAnimation();
 
         /********************************************请求获取当前当前位置***************************************************************************************************/
        /* if(markerOverlay==null){
@@ -350,8 +347,8 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
     }
 
     private void addSearchMarker(LatLng latLng) {
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
         addMarkerInScreenCenter();
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
     }
 
     /**
@@ -389,10 +386,13 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
             List<Street.StreetDetail> data = street.getData();
             selectAddressAdapter.setList(data);
             addMarker(data);
-            if (markerOverlay != null) {
+            /**
+             * 实现动态调整marker全部显示在屏幕内
+             */
+          /*  if (markerOverlay != null) {
                 //markerOverlay.zoomToSpan(data);
                 markerOverlay.zoomToSpanWithCenter(data);
-            }
+            }*/
 
         }
     }
@@ -418,7 +418,7 @@ public class SelectAddressActivity extends BaseActivity implements AMap.OnMyLoca
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             LatLng latLng = new LatLng(latitude, longitude);
-            addMarkerInScreenCenter(latLng);
+            addMarkerInScreenCenter();
             aMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }

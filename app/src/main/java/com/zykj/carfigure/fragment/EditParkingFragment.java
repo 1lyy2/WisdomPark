@@ -17,7 +17,7 @@ import com.zykj.carfigure.mvp.presenter.StopCarPresenter;
 import com.zykj.carfigure.mvp.presenter.ZyCloudPresenter;
 import com.zykj.carfigure.mvp.view.IStopCarView;
 import com.zykj.carfigure.mvp.view.IZyCloudVIew;
-import com.zykj.carfigure.widget.VerificationCodeView;
+import com.zykj.carfigure.widget.SecurityCodeView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
 public class EditParkingFragment extends BaseFragment implements IStopCarView, IZyCloudVIew {
 
     @BindView(R.id.view_verification)
-    VerificationCodeView viewVerification;
+    SecurityCodeView viewVerification;
     @BindView(R.id.btn_park)
     Button btnPark;
     @BindView(R.id.tv_input_number)
@@ -78,7 +78,7 @@ public class EditParkingFragment extends BaseFragment implements IStopCarView, I
     }    //停车
 
     private void parking() {
-        String content = viewVerification.getContent();
+        String content = viewVerification.getEditContent();
         if (content == null || content.length() < 6) {
             showToastMsgShort("请输入正确的泊位编号");
             return;

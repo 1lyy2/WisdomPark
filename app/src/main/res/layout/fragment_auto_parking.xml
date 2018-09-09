@@ -29,7 +29,7 @@
         android:layout_above="@+id/tv_auto_tips"
         android:layout_centerInParent="true"
         app:customAutoRunning="false"
-        app:customCenterIcon="@mipmap/ic_launcher_round"
+        app:customCenterIcon="@drawable/touxiang"
         app:customColor="#fd9200"
         app:customCount="8"
         app:customSpacing="@dimen/_10px" />

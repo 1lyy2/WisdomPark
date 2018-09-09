@@ -43,9 +43,9 @@ public class MyReserveAdapter extends BaseRecylerAdapter {
         if(orderParking==null) return;
         MyReserveHolder reserveHolder = (MyReserveHolder) holder;
         if (type == 1) {
-            reserveHolder.btnReserveCancel.setVisibility(View.VISIBLE);
+            reserveHolder.linRightBtn.setVisibility(View.VISIBLE);
         } else {
-            reserveHolder.btnReserveCancel.setVisibility(View.GONE);
+            reserveHolder.linRightBtn.setVisibility(View.GONE);
         }
         //车牌号
         String license_number = orderParking.getLicense_number();
@@ -95,6 +95,8 @@ public class MyReserveAdapter extends BaseRecylerAdapter {
         RelativeLayout relLeft;
         @BindView(R.id.btn_reserve_cancel)
         Button btnReserveCancel;
+        @BindView(R.id.lin_right_btn)
+        LinearLayout linRightBtn;
 
         public MyReserveHolder(View itemView) {
             super(itemView);

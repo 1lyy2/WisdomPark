@@ -32,4 +32,6 @@ public class Constants {
     public static String car_license_plate="";//车牌号，作用于预约
     //设备号
     public static String devId="356566078065125";
+    //数据库名称
+    public static String DB_NAME="carfigure_db";
 }

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 
 import com.zykj.carfigure.activity.login.LoginActivity;
 import com.zykj.carfigure.crash.CrashHandler;
 import com.zykj.carfigure.entity.User;
 import com.zykj.carfigure.fragment.MeFragment;
+import com.zykj.carfigure.greendao.DaoMaster;
+import com.zykj.carfigure.greendao.DaoSession;
 import com.zykj.carfigure.utils.Constant;
 import com.zykj.carfigure.utils.SPCache;
 import com.zykj.carfigure.utils.ToastManager;
@@ -26,15 +29,23 @@ public class MyApplication extends Application {
     private ArrayList<Activity> acArrayList = null;
     public static final String SESSION = "session";
     private User mLoginUser;
+    private DaoMaster.DevOpenHelper mHelper;
+    private SQLiteDatabase db;
+    private DaoMaster mDaoMaster;
+    private DaoSession mDaoSession;
+    //静态单例
+    public static volatile MyApplication instances;
 
     public void onCreate() {
         super.onCreate();
+        instances = this;
         //统计Activity
         acArrayList = new ArrayList<Activity>();
         //手机crash
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
         Constant.init(getMyApplication());
+        setDatabase();
 
     }
 
@@ -156,5 +167,48 @@ public class MyApplication extends Application {
         }*/
         SPCache.saveObject(getApplicationContext(), SESSION, this.mLoginUser);//存user
         MeFragment.isAutoRefreshUserInfo = true;//开启自动刷新
+    }
+
+    public static MyApplication getInstances() {
+        return instances;
+    }
+
+
+    /**
+     * 设置greenDao
+     */
+
+    private void setDatabase() {
+
+        // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。
+
+        // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
+
+        // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
+
+        // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
+
+        mHelper = new DaoMaster.DevOpenHelper(this, Constants.DB_NAME, null);
+
+        db = mHelper.getWritableDatabase();
+
+        // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
+
+        mDaoMaster = new DaoMaster(db);
+
+        mDaoSession = mDaoMaster.newSession();
+
+    }
+
+    public DaoSession getDaoSession() {
+
+        return mDaoSession;
+
+    }
+
+    public SQLiteDatabase getDb() {
+
+        return db;
+
     }
 }

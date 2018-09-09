@@ -2,8 +2,6 @@ package com.zykj.carfigure.base;
 
 import android.os.Bundle;
 
-import com.zykj.carfigure.R;
-
 /**
  * author : lyy
  * e-mail : luyuyi@foxmail.com
@@ -17,7 +15,7 @@ public abstract  class UserBaseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         if (!app.isLogined()) {
             app.gotoLogin();
-            showToastMsgShort(getString(R.string.str_please_login));
+           // showToastMsgShort(getString(R.string.str_please_login));
             finish();
         }
     }

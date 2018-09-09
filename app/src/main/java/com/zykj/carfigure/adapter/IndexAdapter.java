@@ -19,6 +19,7 @@ import com.zykj.carfigure.adapter.base.BaseRecylerAdapter;
 import com.zykj.carfigure.entity.Banner;
 import com.zykj.carfigure.entity.Function;
 import com.zykj.carfigure.entity.IndexFragmentEntity;
+import com.zykj.carfigure.log.Log;
 import com.zykj.carfigure.utils.GlideUtil;
 import com.zykj.carfigure.widget.ImageHolderView;
 
@@ -54,15 +55,14 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
     private IndexNearNavigationListener nearNavigationListener;
 
 
-
-    public IndexAdapter(Context context, BannerOnItemClckListener onItemClckListener,IndexOnItemClickListener onItemClickListener,IndexNearNavigationListener nearNavigationListener, boolean isShowFooter, boolean isNoData) {
+    public IndexAdapter(Context context, BannerOnItemClckListener onItemClckListener, IndexOnItemClickListener onItemClickListener, IndexNearNavigationListener nearNavigationListener, boolean isShowFooter, boolean isNoData) {
         super(context);
         this.mContext = context;
         this.isShowFooter = isShowFooter;
         this.isNoData = isNoData;
         this.bannerOnItemClckListener = onItemClckListener;
         this.onItemClickListener = onItemClickListener;
-        this.nearNavigationListener =nearNavigationListener;
+        this.nearNavigationListener = nearNavigationListener;
     }
 
     @Override
@@ -202,7 +202,7 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
 
     //宫格列表
     class FuntionHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.img_index_item_funtion)
+        @BindView(R.id.index_img_funs)
         ImageView imgIndexItemFuntion;
         @BindView(R.id.tv_index_item_name)
         TextView tvIndexItemName;
@@ -265,9 +265,9 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
 
     private void setBanner(BannerHolder bannerHolder, IndexFragmentEntity.IndexBanner object) {
         ConvenientBanner indexBanner = bannerHolder.indexBanner;
-        if(object==null) return;
+        if (object == null) return;
         List<Banner.DataBean> list = object.getList();
-        if (list==null) return;
+        if (list == null) return;
         initBanner(indexBanner, list);
     }
 
@@ -326,7 +326,7 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
         holder.tvNearDescription.setText(object.getDescription());
         holder.tvDistance.setText(object.getDistance() + "KM");
         holder.tvRates.setText(object.getCharge());
-        if(onItemClickListener !=null){
+        if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -347,8 +347,13 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
         if (object == null) return;
         int imageResources = object.getImageResources();
         holder.tvIndexItemName.setText(object.getNv_title_name());
-        holder.imgIndexItemFuntion.setBackgroundResource(imageResources);
-        if(onItemClickListener !=null){
+        try {
+            holder.imgIndexItemFuntion.setBackgroundResource(imageResources);
+        } catch (Exception e) {
+            Log.i("indexAdapter", e.toString());
+        }
+
+        if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -378,15 +383,15 @@ public class IndexAdapter extends BaseRecylerAdapter<Object> {
     /**
      * 点击事件
      */
-    public interface  IndexOnItemClickListener{
+    public interface IndexOnItemClickListener {
         void onRVItemClickListener(Object object);
     }
 
     /**
      * 导航事件
      */
-    public interface  IndexNearNavigationListener{
-       void onNearNavigationListener(Object object);
+    public interface IndexNearNavigationListener {
+        void onNearNavigationListener(Object object);
     }
 
 }

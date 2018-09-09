@@ -73,6 +73,8 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
 
     private UserLoginPresenter userLoginPresenter;
     String loginUserName = "";
+    String password="";
+    private boolean isAutoLogin =true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,8 +192,14 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         filter.addAction("authlogin");
         this.registerReceiver(receiveBroadCast, filter);
         loginUserName = SPCache.getObject(this, "userName", String.class);
+        password =SPCache.getObject(this,"password",String.class);
         mEditText_account.setText(loginUserName);
-
+        mEditText_password.setText(password);
+        if(loginUserName==null) return;
+        if(password==null) return;
+        if(isAutoLogin&&!loginUserName.isEmpty()&&!password.isEmpty()){
+            userLoginPresenter.login(loginUserName,password);
+        }
     }
 
     @Override
@@ -207,7 +215,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
     //点击登录
     public void onLogin() {
         String account = mEditText_account.getText().toString().trim();
-        String password = mEditText_password.getText().toString().trim();
+        password = mEditText_password.getText().toString().trim();
         String notice = "请输入";
         if (account.trim().length() == 0) {
             notice += "用户名";
@@ -302,6 +310,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         if (user.getStatus() == 200) {
             Constants.user = user;
             Constants.user_id = user.getData().getId();
+            SPCache.saveObject(this,"password",password);
             launchActivity(MainActivity.class);
             app.setLoginUser(user);
         } else {

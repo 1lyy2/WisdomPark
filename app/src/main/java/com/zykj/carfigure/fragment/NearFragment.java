@@ -604,15 +604,7 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
         if (markerOverlay != null) {
             markerOverlay.removeFromMap();
         }
-        startJumpAnimation();
-
-        /********************************************请求获取当前当前位置***************************************************************************************************/
-       /* if(markerOverlay==null){
-            markerOverlay = new MarkerOverlay(aMap, list, getContext());
-        }else{
-            markerOverlay.setPoints(list);
-            markerOverlay.initPointList(list);
-        }*/
+        //startJumpAnimation();
         markerOverlay = new MarkerOverlay(aMap, list, getContext());
         markerOverlay.setCenterPoint(latLng);
         markerOverlay.setOnMarkerOnClickListener(this);
@@ -626,11 +618,14 @@ public class NearFragment extends BaseFragment implements AMap.OnMyLocationChang
             List<Street.StreetDetail> data = street.getData();
             nearMapAdapter.setList(data);
             addMarker(data);
-            if (markerOverlay != null) {
+            /**
+             * 动态调整地图放缩大小，实现marker点都在屏幕上
+             */
+           /* if (markerOverlay != null) {
                 //markerOverlay.zoomToSpan(data);
-                markerOverlay.zoomToSpanWithCenter(data);
+                //markerOverlay.zoomToSpanWithCenter(data);
             }
-
+*/
         }
     }
 

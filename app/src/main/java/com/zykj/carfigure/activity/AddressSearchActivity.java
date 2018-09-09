@@ -22,9 +22,12 @@ import com.zykj.carfigure.R;
 import com.zykj.carfigure.adapter.AddressSearchAdapter;
 import com.zykj.carfigure.adapter.base.BaseRecylerAdapter;
 import com.zykj.carfigure.app.Constants;
+import com.zykj.carfigure.app.MyApplication;
 import com.zykj.carfigure.base.BaseActivity;
 import com.zykj.carfigure.entity.AddressBean;
 import com.zykj.carfigure.fragment.NearFragment;
+import com.zykj.carfigure.greendao.AddressBeanDao;
+import com.zykj.carfigure.greendao.DaoSession;
 import com.zykj.carfigure.widget.ClearEditText;
 import com.zykj.carfigure.widget.CommonItemDecoration;
 import com.zykj.carfigure.widget.EmptyRecyclerView;
@@ -36,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //地址检索
-public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener{
+public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener {
 
     @BindView(R.id.img_return)
     ImageView returnImg;
@@ -45,7 +48,7 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
     @BindView(R.id.address_recyclerView)
     EmptyRecyclerView addressRecyclerView;
     private PoiSearch.Query query;
-    private int page=1;
+    private int page = 1;
     private boolean isLoading;
     private PoiSearch poiSearch;
     private List<AddressBean> list = new ArrayList<>();
@@ -57,6 +60,8 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
     TagFlowLayout flowLayout;
     @BindView(R.id.lin_history)
     LinearLayout historyLayout;
+    private List<AddressBean> searchDB;
+
     @Override
     public void onCreatePresenter() {
 
@@ -83,7 +88,8 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
     protected Context getContext() {
         return this;
     }
-    private  void init(){
+
+    private void init() {
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -97,15 +103,15 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str=editSearch.getText().toString();
-                if (str.length()>0){
+                String str = editSearch.getText().toString();
+                if (str.length() > 0) {
                     historyLayout.setVisibility(View.GONE);
                     addressRecyclerView.setVisibility(View.VISIBLE);
                     list.clear();
-                    page=0;
-                    address=str;
+                    page = 0;
+                    address = str;
                     seach(str);
-                }else if(str.length()==0||s==null){
+                } else if (str.length() == 0 || s == null) {
                     historyLayout.setVisibility(View.VISIBLE);
                     addressRecyclerView.setVisibility(View.GONE);
                 }
@@ -113,7 +119,7 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        CommonItemDecoration commonItemDecoration = new CommonItemDecoration(this,1,getResources().getColor(R.color.split_line));
+        CommonItemDecoration commonItemDecoration = new CommonItemDecoration(this, 1, getResources().getColor(R.color.split_line));
         addressRecyclerView.addItemDecoration(commonItemDecoration);
         addressRecyclerView.setLayoutManager(linearLayoutManager);
         addressSearchAdapter = new AddressSearchAdapter(this);
@@ -124,6 +130,9 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
             public void onItemClick(View view, Object item, int position) {
                 if (item == null) return;
                 AddressBean tip = (AddressBean) item;
+                DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+                AddressBeanDao addressBeanDao = daoSession.getAddressBeanDao();
+                addressBeanDao.insert(tip);
                 Intent intent = new Intent();
                 intent.putExtra(Constants.EXTRA_TIP, tip);
                 setResult(NearFragment.RESULT_CODE_INPUTTIPS, intent);
@@ -131,38 +140,44 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
             }
         });
     }
-    private void initFlow(){
-        final String [] mVals ={"加油","德玛西亚","的打算大所大","大饼"};
+
+    private void initFlow() {
+        searchDB = getSearchDB();
+
         //历史搜索
         final LayoutInflater mInflater = LayoutInflater.from(AddressSearchActivity.this);
-
-        flowLayout.setAdapter(new TagAdapter<String>(mVals)
-        {
+        flowLayout.setAdapter(new TagAdapter<AddressBean>(searchDB) {
             @Override
-            public View getView(FlowLayout parent, int position, String s)
-            {
+            public View getView(FlowLayout parent, int position, AddressBean addressBean) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.search_history_item,
                         flowLayout, false);
-                tv.setText(s);
+                String title = addressBean.getTitle();
+                tv.setText(title);
                 return tv;
             }
         });
         flowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                showToastMsgShort(mVals[position]+"");
+                if (searchDB != null && searchDB.size() > 0) {
+                    AddressBean addressBean = searchDB.get(position);
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.EXTRA_TIP, addressBean);
+                    setResult(NearFragment.RESULT_CODE_INPUTTIPS, intent);
+                    finish();
+                }
                 return false;
             }
         });
     }
 
     //滑动加载更多
-    private void seach(String address){
+    private void seach(String address) {
         page++;
         //keyWord表示搜索字符串，
         //第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
         //cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
-        query=new PoiSearch.Query(address,"", Constants.DEFAULT_CITY);
+        query = new PoiSearch.Query(address, "", Constants.DEFAULT_CITY);
         query.setPageSize(100);// 设置每页最多返回多少条poiitem
         query.setPageNum(page);//设置查询页码
 
@@ -179,7 +194,7 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
         //解析result获取POI信息
-        if(i == 1000 && poiResult != null) {
+        if (i == 1000 && poiResult != null) {
             ArrayList<PoiItem> items = poiResult.getPois();
             for (PoiItem item : items) {
                 //获取经纬度对象
@@ -191,14 +206,14 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
                 String title = item.getTitle();
                 //获取内容
                 String text = item.getSnippet();
-                String name=item.getAdName();
-                String cityName=item.getCityName();
-                String area=item.getBusinessArea();
-                String  provinceName=item.getProvinceName();
+                String name = item.getAdName();
+                String cityName = item.getCityName();
+                String area = item.getBusinessArea();
+                String provinceName = item.getProvinceName();
 
-                String addressInfo=provinceName+cityName+name+text;
+                String addressInfo = provinceName + cityName + name + text;
 
-                list.add(new AddressBean(lon, lat, title, text,addressInfo));
+                list.add(new AddressBean(lon, lat, title, text, addressInfo));
             }
             addressSearchAdapter.notifyDataSetChanged();
         }
@@ -207,13 +222,35 @@ public class AddressSearchActivity extends BaseActivity implements PoiSearch.OnP
     @Override
     public void onPoiItemSearched(PoiItem poiResult, int i) {
     }
-    @OnClick({R.id.img_return})
+
+    @OnClick({R.id.img_return, R.id.img_cleanhistory})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_return:
                 finish();
                 break;
+            case R.id.img_cleanhistory:
+                cleanhistory();
+                break;
+            default:
+                break;
         }
+    }
+
+    private List<AddressBean> getSearchDB() {
+        AddressBeanDao addressBeanDao = MyApplication.getInstances().getDaoSession().getAddressBeanDao();
+        List<AddressBean> list = addressBeanDao.queryBuilder()
+                .orderDesc(AddressBeanDao.Properties.Id)
+                .list();
+        return list;
+    }
+
+    private void cleanhistory() {
+        if (searchDB == null || searchDB.size() == 0) return;
+        AddressBeanDao addressBeanDao = MyApplication.getInstances().getDaoSession().getAddressBeanDao();
+        addressBeanDao.deleteAll();
+        searchDB.clear();
+        flowLayout.onChanged();
     }
 }
 
